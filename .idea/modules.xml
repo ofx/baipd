@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AspicInference/AspicInference.iml" filepath="$PROJECT_DIR$/AspicInference/AspicInference.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BaiddExp/BaiddExp.iml" filepath="$PROJECT_DIR$/BaiddExp/BaiddExp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BaiddModel/BaiddModel.iml" filepath="$PROJECT_DIR$/BaiddModel/BaiddModel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BaiddPlatform/BaiddPlatform.iml" filepath="$PROJECT_DIR$/BaiddPlatform/BaiddPlatform.iml" />
+    </modules>
+  </component>
+</project>
