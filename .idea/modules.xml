@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/BaiddExp/BaiddExp.iml" filepath="$PROJECT_DIR$/BaiddExp/BaiddExp.iml" />
       <module fileurl="file://$PROJECT_DIR$/BaiddModel/BaiddModel.iml" filepath="$PROJECT_DIR$/BaiddModel/BaiddModel.iml" />
       <module fileurl="file://$PROJECT_DIR$/BaiddPlatform/BaiddPlatform.iml" filepath="$PROJECT_DIR$/BaiddPlatform/BaiddPlatform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BaidpModel/BaidpModel.iml" filepath="$PROJECT_DIR$/BaidpModel/BaidpModel.iml" />
     </modules>
   </component>
 </project>
