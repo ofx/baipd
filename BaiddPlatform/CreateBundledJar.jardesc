@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="/home/eric/Dev/baidd/baidd-bundled-PlayInform.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/BaiddPlatform/CreateBundledJar.jardesc" exportErrors="false" exportWarnings="false" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=BaiddExp/src&lt;nl.uu.cs.arg.exp{Experiment.java[Experiment" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="false" exportJavaFiles="false" exportOutputFolder="true">
+        <folder path="/BaiddPlatform/lib"/>
+        <javaElement handleIdentifier="=BaiddPlatform/src"/>
+        <javaElement handleIdentifier="=BaiddModel"/>
+        <file path="/BaiddPlatform/.project"/>
+        <file path="/BaiddPlatform/.classpath"/>
+        <javaElement handleIdentifier="=AspicInference"/>
+        <javaElement handleIdentifier="=BaiddExp"/>
+    </selectedElements>
+</jardesc>
