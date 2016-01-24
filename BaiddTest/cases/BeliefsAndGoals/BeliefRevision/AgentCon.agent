@@ -15,7 +15,6 @@
 	</public-goals>
 	<properties>
 		<property name="AdoptBeliefs" type="boolean">FALSE</property>
-		<property name="AdoptOnlyDefensibleBeliefs" type="boolean">FALSE</property>
 		<property name="OnlyWhyProposeIfCounterArgument" type="boolean">FALSE</property>
 		<property name="OnlyWhyIfCounterArgument" type="boolean">TRUE</property>
 	</properties>

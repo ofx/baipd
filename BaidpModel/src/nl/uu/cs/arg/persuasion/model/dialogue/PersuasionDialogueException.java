@@ -1,4 +1,4 @@
-package dialogue;
+package nl.uu.cs.arg.persuasion.model.dialogue;
 
 public class PersuasionDialogueException extends Exception {
 

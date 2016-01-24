@@ -22,7 +22,5 @@
 	</public-goals>
 	<properties>
 		<property name="AdoptBeliefs" type="boolean">FALSE</property>
-		<property name="AdoptOnlyDefensibleBeliefs" type="boolean">FALSE</property>
-		<property name="OnlyProposeIfArgument" type="boolean">FALSE</property>
 	</properties>
 </baidd-agent>

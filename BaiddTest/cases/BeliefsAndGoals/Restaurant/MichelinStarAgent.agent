@@ -33,6 +33,5 @@
 		<property name="OnlyRejectIfCounterArgument" type="boolean">TRUE</property>
 		<property name="OnlyWhyRejectIfArgument" type="boolean">FALSE</property>
 		<property name="OnlyWhyIfCounterArgument" type="boolean">TRUE</property>
-		<property name="MinimumUtilityForBuild" type="integer">0</property>
 	</properties>
 </baidd-agent>

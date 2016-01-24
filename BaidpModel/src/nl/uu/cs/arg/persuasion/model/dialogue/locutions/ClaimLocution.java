@@ -1,10 +1,13 @@
-package dialogue.locutions;
+package nl.uu.cs.arg.persuasion.model.dialogue.locutions;
 
 import nl.uu.cs.arg.shared.dialogue.locutions.AttackingLocution;
 import org.aspic.inference.Constant;
 
 import java.util.Set;
 
+/**
+ * Claim locution.
+ */
 public class ClaimLocution extends AttackingLocution {
 
     private static final String LOCUTION_NAME = "claim";
