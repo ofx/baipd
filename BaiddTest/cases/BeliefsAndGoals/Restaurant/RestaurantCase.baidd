@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="yes" ?>
 <baidd-mas>
-	<topic goal="haveFun">goToRestaurant(T)</topic>
+	<topic>safe</topic>
 	<protocol>
 		<deliberation-rules>
 			<rule>AttackOnOwnMove</rule>
@@ -12,9 +12,7 @@
 		</termination-rules>
 	</protocol>
 	<agents>
-		<agent name="MacAgent" type="BDIAgent" file="MacAgent.agent" />
-		<agent name="BistroAgent 1" type="BDIAgent" file="BistroAgent.agent" />
-		<agent name="BistroAgent 2" type="BDIAgent" file="BistroAgent.agent" />
-		<agent name="MichelinStarAgent" type="BDIAgent" file="MichelinStarAgent.agent" />
+		<agent name="Olga" type="BDIAgent" file="Olga.agent" />
+		<agent name="Paul" type="BDIAgent" file="Paul.agent" />
 	</agents>
 </baidd-mas>

@@ -20,6 +20,11 @@ import java.util.List;
 public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Locution>> {
 
     /**
+     * The dialogue topic, for the dialogue to begin, the first move must be a claim topic.
+     */
+    private Constant topic;
+
+    /**
      * The current state of the persuasion dialogue.
      */
     private PersuasionDialogueState state;
@@ -27,10 +32,13 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
     /**
      * Instantiates a new PersuasionDialogue instance, sets the dialogue state to PersuasionDialogueState.Unopened.
      */
-    public PersuasionDialogue()
+    public PersuasionDialogue(Constant topic)
     {
         // Start a dialogue in unopened state.
         this.state = PersuasionDialogueState.Unopened;
+
+        // Set the topic
+        this.topic = topic;
     }
 
     /**
@@ -108,7 +116,7 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
      * @throws PersuasionDialogueException
      */
     public void update(List<PersuasionMove<? extends Locution>> newPersuasionMoves) throws DialogueException, PersuasionDialogueException {
-        if (this.state == PersuasionDialogueState.Unopened)
+        if (this.state == PersuasionDialogueState.Opening)
         {
             // The first PersuasionMove is supposed to be unique.
             int l = 0;
@@ -118,10 +126,16 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
             }
 
             // Asserting that the PersuasionMove is validated, and the unique PersuasionMove is safely castable to a PersuasionMove<ClaimLocution>.
-            PersuasionMove<ClaimLocution> PersuasionMove = (PersuasionMove<ClaimLocution>) newPersuasionMoves.get(0);
+            PersuasionMove<ClaimLocution> move = (PersuasionMove<ClaimLocution>) newPersuasionMoves.get(0);
+
+            // TODO: Want to specify this as a persuasion rule
+            if (move.getLocution().getProposition() != this.topic)
+            {
+                throw new PersuasionDialogueException("first move must be a claim move for topic");
+            }
 
             // Add the PersuasionMove as the root element.
-            this.setRootElement(new IndexedNode<PersuasionMove<? extends Locution>>(this, PersuasionMove));
+            this.setRootElement(new IndexedNode<PersuasionMove<? extends Locution>>(this, move));
 
             // Switch the dialogue state to active.
             this.state = PersuasionDialogueState.Active;

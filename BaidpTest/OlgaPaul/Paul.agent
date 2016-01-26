@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="yes" ?>
+<baidd-agent>
+	<beliefbase>
+		<![CDATA[
+		safe <- airbag.
+
+		airbag.
+		]]>
+	</beliefbase>
+</baidd-agent>
