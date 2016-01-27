@@ -9,6 +9,8 @@ import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 
 public interface PersuasionAgent {
 
+    public boolean outOfMoves();
+
     public String getName();
 
     public void initialize(PersuasionParticipant participant);

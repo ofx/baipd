@@ -115,7 +115,7 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
      * @throws DialogueException
      * @throws PersuasionDialogueException
      */
-    public void update(List<PersuasionMove<? extends Locution>> newPersuasionMoves) throws DialogueException, PersuasionDialogueException {
+    public void update(List<PersuasionMove<? extends Locution>> newPersuasionMoves) throws PersuasionDialogueException {
         if (this.state == PersuasionDialogueState.Opening)
         {
             // The first PersuasionMove is supposed to be unique.
