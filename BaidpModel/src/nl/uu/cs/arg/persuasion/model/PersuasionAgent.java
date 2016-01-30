@@ -2,6 +2,7 @@ package nl.uu.cs.arg.persuasion.model;
 
 import java.util.List;
 
+import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogue;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueMessage;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
@@ -16,6 +17,8 @@ public interface PersuasionAgent {
     public void initialize(PersuasionParticipant participant);
 
     public List<PersuasionMove<? extends Locution>> makeMoves();
+
+    public void join(PersuasionDialogue dialogue);
 
     public void onNewMovesReceived(List<PersuasionMove<? extends Locution>> moves);
 

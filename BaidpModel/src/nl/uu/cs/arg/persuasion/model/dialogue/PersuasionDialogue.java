@@ -185,8 +185,7 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
      * @return The topic of the dialogue
      */
     public Constant getTopic() {
-        PersuasionMove<ClaimLocution> firstPersuasionMove = (PersuasionMove<ClaimLocution>) this.getRootElement().getData();
-        return firstPersuasionMove.getLocution().getProposition();
+        return this.topic;
     }
 
     /**

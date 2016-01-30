@@ -19,16 +19,18 @@ public class SimplePersuasionAgent extends PersuadingAgent {
 
     @Override
     protected void storeNewBeliefs(List<PersuasionMove<? extends Locution>> moves) throws ParseException, ReasonerException {
-
+        System.out.println("storeNewBeliefs");
     }
 
     @Override
     protected List<PersuasionMove<? extends Locution>> generateMoves() throws PersuasionDialogueException, ParseException, ReasonerException {
+        System.out.println("generateMoves");
         return null;
     }
 
     @Override
     public boolean outOfMoves() {
+        System.out.println("outOfMoves");
         return false;
     }
 }

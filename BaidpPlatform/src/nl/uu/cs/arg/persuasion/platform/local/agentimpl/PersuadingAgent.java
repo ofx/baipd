@@ -2,10 +2,7 @@ package nl.uu.cs.arg.persuasion.platform.local.agentimpl;
 
 import nl.uu.cs.arg.persuasion.model.PersuasionAgent;
 import nl.uu.cs.arg.persuasion.model.PersuasionParticipant;
-import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogue;
-import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
-import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueMessage;
-import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
+import nl.uu.cs.arg.persuasion.model.dialogue.*;
 import nl.uu.cs.arg.persuasion.platform.local.AgentXmlData;
 
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
@@ -58,6 +55,13 @@ public abstract class PersuadingAgent implements PersuasionAgent, StrategyExpose
     }
 
     @Override
+    public void join(PersuasionDialogue dialogue) {
+        // Store the dialogue (with topic and goal)
+        this.dialogue = new PersuasionDialogue(dialogue.getTopic());
+        this.dialogue.setState(dialogue.getState());
+    }
+
+    @Override
     public List<PersuasionMove<? extends Locution>> makeMoves() {
 
         /*try {
@@ -88,6 +92,11 @@ public abstract class PersuadingAgent implements PersuasionAgent, StrategyExpose
             return null;
         }*/
 
+        // TODO: Generate options
+        // TODO: Evaluate options
+        // TODO: Analyze options
+        // TODO: Generate moves
+
         return null;
     }
 
@@ -97,33 +106,30 @@ public abstract class PersuadingAgent implements PersuasionAgent, StrategyExpose
 
     @Override
     public void onNewMovesReceived(List<PersuasionMove<? extends Locution>> moves) {
-        /*// Update our knowledge of the agents that are playing
-        for (Move<? extends Locution> move : moves) {
-            if (move.getLocution() instanceof JoinDialogueLocution) {
-                participants.add(move.getPlayer());
+        // Check if we already know the participant, if not: add
+        for (PersuasionMove move : moves) {
+            if (!this.participants.contains(move.getPlayer())) {
+                this.participants.add(move.getPlayer());
             }
         }
-
-        // Update the skip count
-        skipCount = 0;
 
         // Update our internal dialogue model
         try {
             if (this.dialogue != null) {
                 this.dialogue.update(moves);
             }
-        } catch (DialogueException e) {
+        } catch (PersuasionDialogueException e) {
             // Invalid moves were played by some agent: ignore this
         }
 
         // Evaluate whether new move beliefs should be adopted in our knowledge base
         try {
-            storeNewBeliefs(moves);
+            this.storeNewBeliefs(moves);
         } catch (ParseException e) {
             e.printStackTrace();
         } catch (ReasonerException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @Override
@@ -133,15 +139,12 @@ public abstract class PersuadingAgent implements PersuasionAgent, StrategyExpose
 
     @Override
     public void onDialogueMessagesReceived(List<? extends PersuasionDialogueMessage> messages) {
-        /*for (DialogueMessage message : messages) {
-            if (dialogue != null && message instanceof DialogueStateChangeMessage) {
+        for (PersuasionDialogueMessage message : messages) {
+            if (this.dialogue != null && message instanceof PersuasionDialogueStateChangeMessage) {
                 // Update the state of our dialogue
-                dialogue.setState(((DialogueStateChangeMessage)message).getNewState());
-            } else if (dialogue != null && message instanceof SkipMoveMessage) {
-                // Update the skip count
-                skipCount++;
+                this.dialogue.setState(((PersuasionDialogueStateChangeMessage)message).getNewState());
             }
-        }*/
+        }
     }
 
     public String toString() {

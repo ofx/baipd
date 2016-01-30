@@ -11,6 +11,7 @@ import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionRule;
 import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionTerminationMessage;
 import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionTerminationRule;
 
+import nl.uu.cs.arg.platform.ParticipatingAgent;
 import nl.uu.cs.arg.shared.dialogue.Move;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import org.aspic.inference.Constant;
@@ -146,6 +147,8 @@ public class PersuasionPlatform implements Runnable {
                 this.setDialogueState(PersuasionDialogueState.Opening);
                 break;
             case Opening:
+                this.joinAllAgents();
+                break;
             case Active:
                 // Deliberating; play a normal game round
                 this.playPersuasionRound();
@@ -158,6 +161,14 @@ public class PersuasionPlatform implements Runnable {
                 // Terminated; the dialogue will be stopped now
                 break;
         }
+    }
+
+    private void joinAllAgents() {
+        for (PersuasionParticipatingAgent agent : this.agents) {
+            agent.getAgent().join(this.dialogue);
+        }
+
+        this.dialogue.setState(PersuasionDialogueState.Active);
     }
 
     private void setDialogueState(PersuasionDialogueState newState) {
