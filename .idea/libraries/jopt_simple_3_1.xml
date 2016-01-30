@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jopt-simple-3.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/BaidpPlatform/lib/jopt-simple-3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

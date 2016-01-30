@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="BaidpModel" />
     <orderEntry type="module" module-name="BaiddPlatform" />
+    <orderEntry type="library" name="jopt-simple-3.1" level="project" />
   </component>
 </module>

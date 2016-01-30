@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="yes" ?>
+<baidp-mas>
+	<topic>safe</topic>
+	<protocol>
+		<persuasion-rules>
+			<rule>AttackOnOwnMove</rule>
+			<rule>NoRepeatInBranch</rule>
+		</persuasion-rules>
+		<termination-rules>
+			<rule>NoParticipants</rule>
+			<rule>InactiveRound</rule>
+		</termination-rules>
+	</protocol>
+	<agents>
+		<agent name="Olga" type="SimplePersuasionAgent" file="Olga.agent" />
+		<agent name="Paul" type="SimplePersuasionAgent" file="Paul.agent" />
+	</agents>
+</baidp-mas>
