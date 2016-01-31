@@ -2,7 +2,7 @@ package nl.uu.cs.arg.persuasion.model.dialogue;
 
 public enum PersuasionDialogueState {
     Unopened,
-    Opening,
+    Joining,
     Active,
     Terminating,
     Terminated

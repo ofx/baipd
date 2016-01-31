@@ -8,25 +8,17 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import nl.uu.cs.arg.persuasion.model.PersuasionAgent;
 import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionOutcomeSelectionRule;
 import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionRule;
 
 import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionTerminationRule;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.LocalAgent;
 import org.aspic.inference.Constant;
-import org.aspic.inference.Term;
-import org.aspic.inference.Variable;
 import org.aspic.inference.parser.ParseException;
 import org.aspic.inference.parser.PrologSyntax;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

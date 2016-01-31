@@ -7,6 +7,8 @@ import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueMessage;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
+import org.aspic.inference.ReasonerException;
+import org.aspic.inference.parser.ParseException;
 
 public interface PersuasionAgent {
 
@@ -25,5 +27,7 @@ public interface PersuasionAgent {
     public void onDialogueMessagesReceived(List<? extends PersuasionDialogueMessage> messages);
 
     public void onDialogueException(PersuasionDialogueException e);
+
+    public boolean isProponent(PersuasionDialogue dialogue) throws ParseException, ReasonerException;
 
 }

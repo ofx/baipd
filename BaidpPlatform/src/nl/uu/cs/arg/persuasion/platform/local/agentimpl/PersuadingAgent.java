@@ -5,10 +5,9 @@ import nl.uu.cs.arg.persuasion.model.PersuasionParticipant;
 import nl.uu.cs.arg.persuasion.model.dialogue.*;
 import nl.uu.cs.arg.persuasion.platform.local.AgentXmlData;
 
+import nl.uu.cs.arg.persuasion.platform.local.ValuedOption;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
-import org.aspic.inference.Constant;
-import org.aspic.inference.KnowledgeBase;
-import org.aspic.inference.ReasonerException;
+import org.aspic.inference.*;
 import org.aspic.inference.parser.ParseException;
 
 import java.util.*;
@@ -55,49 +54,79 @@ public abstract class PersuadingAgent implements PersuasionAgent, StrategyExpose
     }
 
     @Override
+    public boolean isProponent(PersuasionDialogue dialogue) throws ParseException, ReasonerException {
+        // Check if we can make a proof for the topic
+        Constant topic = this.dialogue.getTopic();
+        List<RuleArgument> proofs = helper.findProof(new ConstantList(topic), 0.0, this.beliefs, null);
+        return proofs.size() != 0;
+    }
+
+    @Override
     public void join(PersuasionDialogue dialogue) {
         // Store the dialogue (with topic and goal)
         this.dialogue = new PersuasionDialogue(dialogue.getTopic());
         this.dialogue.setState(dialogue.getState());
     }
 
+    protected List<Constant> generateOptions() throws ParseException, ReasonerException {
+        Constant topic = this.dialogue.getTopic();
+        List<RuleArgument> proofs = helper.findProof(new ConstantList(topic), 0.0, this.beliefs, null);
+        List<Constant> found = new ArrayList<Constant>();
+
+        // If there are arguments found, use one to create a new proposal
+        for (RuleArgument proof : proofs) {
+
+            // Look into the sub-arguments to get the original concrete instantiation of the topic
+            // (This sub-arguments iterator is handles the recursion)
+            Iterator<RuleArgument> iter = proof.subArgumentIterator();
+            while (iter.hasNext()) {
+                RuleArgument arg = iter.next();
+
+                // If we have found the bottom-level rule, add this as the concrete proposal (but no duplicates)
+                if (arg.isAtomic() && arg.getClaim() instanceof Term && arg.getClaim().isUnifiable(topic) && !found.contains(arg.getClaim())) {
+                    found.add((Term) arg.getClaim());
+                    break;
+                }
+            }
+
+        }
+
+        return found;
+    }
+
+    protected abstract List<ValuedOption> evaluateAllOptions(List<Constant> options) throws ParseException, ReasonerException;
+
+    protected abstract void analyseOptions(List<ValuedOption> valuedOptions);
+
+    protected abstract List<PersuasionMove<? extends Locution>> generateMoves(List<ValuedOption> valuedOptions) throws PersuasionDialogueException, ParseException, ReasonerException;
+
     @Override
     public List<PersuasionMove<? extends Locution>> makeMoves() {
-
-        /*try {
-
+        try {
             // 1: Move evaluation
             // See onNewMovesReceived
 
             // 2: Option generation
-            List<Constant> options = generateOptions();
+            List<Constant> options = this.generateOptions();
 
             // 3: Option evaluation
-            List<ValuedOption> valuedOptions = evaluateAllOptions(options);
+            List<ValuedOption> valuedOptions = this.evaluateAllOptions(options);
 
             // 4: Option analysis
-            analyseOptions(valuedOptions);
+            this.analyseOptions(valuedOptions);
 
             // 5: Move generation
-            return generateMoves(valuedOptions);
-
+            return this.generateMoves(valuedOptions);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
         } catch (ReasonerException e) {
             e.printStackTrace();
             return null;
-        } catch (DialogueException e) {
+        } catch (PersuasionDialogueException e) {
             e.printStackTrace();
             return null;
-        }*/
-
-        // TODO: Generate options
-        // TODO: Evaluate options
-        // TODO: Analyze options
-        // TODO: Generate moves
-
-        return null;
+        }
     }
 
     protected abstract void storeNewBeliefs(List<PersuasionMove<? extends Locution>> moves) throws ParseException, ReasonerException;

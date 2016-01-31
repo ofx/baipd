@@ -15,6 +15,8 @@ import nl.uu.cs.arg.platform.ParticipatingAgent;
 import nl.uu.cs.arg.shared.dialogue.Move;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import org.aspic.inference.Constant;
+import org.aspic.inference.ReasonerException;
+import org.aspic.inference.parser.ParseException;
 
 public class PersuasionPlatform implements Runnable {
 
@@ -34,7 +36,15 @@ public class PersuasionPlatform implements Runnable {
 
     private List<PersuasionParticipatingAgent> agents;
 
-    private PersuasionParticipatingAgent lastToMove;
+    private List<PersuasionParticipatingAgent> opponents;
+
+    private List<PersuasionParticipatingAgent> proponents;
+
+    private Iterator<PersuasionParticipatingAgent> opponentIterator;
+
+    private Iterator<PersuasionParticipatingAgent> proponentIterator;
+
+    private PersuasionParticipatingAgent currentToMove;
 
     private boolean startPaused = true;
 
@@ -47,6 +57,10 @@ public class PersuasionPlatform implements Runnable {
 
         // Create list of agents
         this.agents = new ArrayList<PersuasionParticipatingAgent>();
+
+        // Create lists of proponents and opponents
+        this.opponents = new ArrayList<PersuasionParticipatingAgent>();
+        this.proponents = new ArrayList<PersuasionParticipatingAgent>();
     }
 
     public void init(Constant topic, List<PersuasionAgent> agents) {
@@ -56,6 +70,9 @@ public class PersuasionPlatform implements Runnable {
         // Create list for every move
         this.allMoves = new ArrayList<PersuasionMove<? extends Locution>>();
 
+        // Nobody has its turn
+        this.currentToMove = null;
+
         // Reset the move counter
         PersuasionMove.resetMoveCounter();
 
@@ -63,7 +80,6 @@ public class PersuasionPlatform implements Runnable {
         int participantCount = 0;
         this.agents = new ArrayList<PersuasionParticipatingAgent>();
         for (PersuasionAgent agent : agents) {
-
             // Create coupling
             PersuasionParticipatingAgent pa = PersuasionParticipatingAgent.createParticipant(agent, participantCount++);
             this.agents.add(pa);
@@ -71,9 +87,6 @@ public class PersuasionPlatform implements Runnable {
             // Initialize agent
             agent.initialize(pa.getParticipant());
         }
-
-        // No agent was last to move
-        this.lastToMove = null;
 
         // Indicate that the dialogue has been started
         this.broadcastMessage(new PersuasionDialogueStartedMessage(topic));
@@ -144,9 +157,9 @@ public class PersuasionPlatform implements Runnable {
         switch (this.dialogue.getState()) {
             case Unopened:
                 // Unopened; only switch to the opening state
-                this.setDialogueState(PersuasionDialogueState.Opening);
+                this.setDialogueState(PersuasionDialogueState.Joining);
                 break;
-            case Opening:
+            case Joining:
                 this.joinAllAgents();
                 break;
             case Active:
@@ -166,7 +179,24 @@ public class PersuasionPlatform implements Runnable {
     private void joinAllAgents() {
         for (PersuasionParticipatingAgent agent : this.agents) {
             agent.getAgent().join(this.dialogue);
+
+            // Check if the agent is a proponent or opponent of the dialogue topic
+            try {
+                if (agent.getAgent().isProponent(dialogue)) {
+                    this.proponents.add(agent);
+                } else {
+                    this.opponents.add(agent);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } catch (ReasonerException e) {
+                e.printStackTrace();
+            }
         }
+
+        // Set the iterators
+        this.proponentIterator = this.proponents.iterator();
+        this.opponentIterator = this.opponents.iterator();
 
         this.dialogue.setState(PersuasionDialogueState.Active);
     }
@@ -176,27 +206,50 @@ public class PersuasionPlatform implements Runnable {
         this.dialogue.setState(newState);
     }
 
+    private PersuasionParticipatingAgent advanceProponentIterator() {
+        PersuasionParticipatingAgent proponent = this.proponentIterator.next();
+        if (!this.proponentIterator.hasNext()) {
+            this.proponentIterator = this.proponents.iterator();
+        }
+        return proponent;
+    }
+
+    private PersuasionParticipatingAgent advanceOpponentIterator() {
+        PersuasionParticipatingAgent opponent = this.opponentIterator.next();
+        if (!this.opponentIterator.hasNext()) {
+            this.opponentIterator = this.opponents.iterator();
+        }
+        return opponent;
+    }
+
     private PersuasionParticipatingAgent getNextToMove() {
         if (this.agents.size() == 0) {
             return null;
         }
-        if (lastToMove == null) {
-            // Nobody moved yet: return the first participant
-            return this.agents.get(0);
+
+        PersuasionParticipatingAgent agent = null;
+
+        // Nobody moved, return this first proponent
+        if (this.currentToMove == null) {
+            return this.advanceProponentIterator();
         }
-        for (int i = 0; i < this.agents.size(); i++) {
-            if (this.agents.get(i).equals(lastToMove)) {
-                if ((i + 1) < this.agents.size()) {
-                    // Return the next player in the row
-                    return this.agents.get(i + 1);
-                } else {
-                    // The 'last' player moved last time; return to the first again
-                    return this.agents.get(0);
-                }
+        try {
+            if (this.currentToMove.getAgent().isProponent(this.dialogue)) {
+                // Check for the next opponent to move
+                agent =  this.advanceOpponentIterator();
+            } else {
+                // Check for the next proponent to move
+                agent = this.advanceProponentIterator();
             }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (ReasonerException e) {
+            e.printStackTrace();
         }
-        // Last player to move not found...
-        return null;
+
+        this.currentToMove = agent;
+
+        return this.currentToMove;
     }
 
     private void playPersuasionRound() {
@@ -204,9 +257,9 @@ public class PersuasionPlatform implements Runnable {
         PersuasionParticipatingAgent toMove = getNextToMove();
         List<PersuasionMove<? extends Locution>> moves = toMove.getAgent().makeMoves();
 
-        // Check validity of the moves
         if (moves != null) {
-            for (Iterator<PersuasionMove<? extends Locution>> iter = moves.iterator(); iter.hasNext();) {
+            // Check validity of the moves
+            for (Iterator<PersuasionMove<? extends Locution>> iter = moves.iterator(); iter.hasNext(); ) {
                 PersuasionMove<? extends Locution> check = iter.next();
 
                 List<PersuasionProtocolException> reasons = this.checkMoveValidity(check);
@@ -222,18 +275,18 @@ public class PersuasionPlatform implements Runnable {
                     iter.remove();
                 }
             }
-        }
 
-        // Update the dialogue with the forwarded moves
-        this.allMoves.addAll(moves);
-        try {
-            this.dialogue.update(moves);
-        } catch (PersuasionDialogueException e) {
-            broadcastException(new PersuasionPlatformException(e.getMessage(), false));
-        }
+            // Update the dialogue with the forwarded moves
+            this.allMoves.addAll(moves);
+            try {
+                this.dialogue.update(moves);
+            } catch (PersuasionDialogueException e) {
+                broadcastException(new PersuasionPlatformException(e.getMessage(), false));
+            }
 
-        // Broadcast the moves made
-        this.broadcastDialogeMoves(moves);
+            // Broadcast the moves made
+            this.broadcastDialogeMoves(moves);
+        }
 
         // Determine if the dialogue should end; if so, broadcast message and advance the dialogue to the terminating state
         PersuasionTerminationMessage terminationCause = this.shouldTerminate();
@@ -241,9 +294,12 @@ public class PersuasionPlatform implements Runnable {
             // Broadcast entering of termination state of the dialogue
             this.broadcastMessage(terminationCause);
             this.setDialogueState(PersuasionDialogueState.Terminating);
+        } else if (terminationCause == null && moves == null) {
+            // TODO: FIX
+            // This should not happen, but might happen
         } else {
             // Advance to the next participant
-            this.lastToMove = toMove;
+            this.currentToMove = toMove;
         }
     }
 

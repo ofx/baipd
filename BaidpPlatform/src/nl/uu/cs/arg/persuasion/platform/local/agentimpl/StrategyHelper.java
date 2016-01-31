@@ -51,18 +51,17 @@ public class StrategyHelper {
      * some proposal.
      * @param query The term to find proof for in our belief base, e.g. a personal or mutual goal
      * @param kb A reference to knowledge base to query against
-     * @param addKnowledge A set of rules to add to the knowledge base first (which won't be added to the kb permanently)
      * @param needed The minimum required degree of belief (support)
      * @return A list of proofs found for the query; these may or may not be defeated
      */
-    public List<RuleArgument> findProof(ConstantList query, Double needed, KnowledgeBase kb, List<Rule> addKnowledge, Constant requiredPremise) throws ParseException, ReasonerException {
+    public List<RuleArgument> findProof(ConstantList query, Double needed, KnowledgeBase kb, Constant requiredPremise) throws ParseException, ReasonerException {
 
         //KnowledgeBase useKb = (KnowledgeBase) kb.clone(); // KnowledgeBase.clone() leaks memory!
         KnowledgeBase useKb = kb;
         // Add new knowledge
-        if (addKnowledge != null) {
+        /*if (addKnowledge != null) {
             useKb.addRules(addKnowledge);
-        }
+        }*/
 
         // Start the reasoning engine on our query
         Engine engine = new Engine(useKb);
@@ -86,8 +85,8 @@ public class StrategyHelper {
         }
 
         // Remove added knowledge
-        if (addKnowledge != null)
-            for (Rule r : addKnowledge) { kb.removeRule(r); }
+        /*if (addKnowledge != null)
+            for (Rule r : addKnowledge) { kb.removeRule(r); }*/
 
         return proofs;
 
@@ -116,7 +115,7 @@ public class StrategyHelper {
      * @return A single argument that undermines or undercuts the given argue move
      */
     public RuleArgument generateUnderminerOrUndercutter(KnowledgeBase kb, RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, List<Rule> addKnowledge) throws ParseException, ReasonerException {
-
+        /*
         // Premises are atomic claims
         //if (argumentToAttack.isAtomic()) {
 
@@ -175,7 +174,7 @@ public class StrategyHelper {
             if (newFound != null) {
                 return newFound;
             }
-        }
+        }*/
 
         // No underminer/undercutter found at all for this argument or any of its subarguments
         return null;
@@ -205,7 +204,7 @@ public class StrategyHelper {
      * @return An argument supporting the term we want to prove; or null if none could be formed
      */
     public RuleArgument generateArgument(KnowledgeBase kb, Constant termToProve, double needed, PersuasionMove<? extends Locution> moveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, List<Rule> addKnowledge, Constant requiredPremise) throws ParseException, ReasonerException {
-
+        /*
         // Try to find a single argument for the term that we are trying to prove
         List<RuleArgument> proofs = findProof(new ConstantList(termToProve), needed, kb, addKnowledge, requiredPremise);
         for (RuleArgument proof : proofs) {
@@ -239,7 +238,7 @@ public class StrategyHelper {
                 return proof;
             }
 
-        }
+        }*/
 
         // No argument can be formed to support this term (that wasn't already used in this proposal branch)
         return null;

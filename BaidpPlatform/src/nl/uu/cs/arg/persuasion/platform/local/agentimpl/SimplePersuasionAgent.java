@@ -3,8 +3,10 @@ package nl.uu.cs.arg.persuasion.platform.local.agentimpl;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
 import nl.uu.cs.arg.persuasion.platform.local.AgentXmlData;
+import nl.uu.cs.arg.persuasion.platform.local.ValuedOption;
 import nl.uu.cs.arg.shared.dialogue.DialogueException;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
+import org.aspic.inference.Constant;
 import org.aspic.inference.ReasonerException;
 import org.aspic.inference.parser.ParseException;
 
@@ -15,6 +17,23 @@ public class SimplePersuasionAgent extends PersuadingAgent {
     public SimplePersuasionAgent(AgentXmlData xmlDataFile)
     {
         super(xmlDataFile);
+    }
+
+    @Override
+    protected List<ValuedOption> evaluateAllOptions(List<Constant> options) throws ParseException, ReasonerException {
+        System.out.println("evaluateAllOptions");
+        return null;
+    }
+
+    @Override
+    protected void analyseOptions(List<ValuedOption> valuedOptions) {
+        System.out.println("analyseOptions");
+    }
+
+    @Override
+    protected List<PersuasionMove<? extends Locution>> generateMoves(List<ValuedOption> valuedOptions) throws PersuasionDialogueException, ParseException, ReasonerException {
+        System.out.println("generateMoves");
+        return null;
     }
 
     @Override
