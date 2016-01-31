@@ -254,7 +254,7 @@ public class PersuasionPlatform implements Runnable {
 
     private void playPersuasionRound() {
         // Give the next agent to move a single turn to make new moves
-        PersuasionParticipatingAgent toMove = getNextToMove();
+        PersuasionParticipatingAgent toMove = this.getNextToMove();
         List<PersuasionMove<? extends Locution>> moves = toMove.getAgent().makeMoves();
 
         if (moves != null) {
@@ -297,9 +297,6 @@ public class PersuasionPlatform implements Runnable {
         } else if (terminationCause == null && moves == null) {
             // TODO: FIX
             // This should not happen, but might happen
-        } else {
-            // Advance to the next participant
-            this.currentToMove = toMove;
         }
     }
 

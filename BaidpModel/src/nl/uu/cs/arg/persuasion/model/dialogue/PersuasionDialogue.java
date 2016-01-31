@@ -94,7 +94,7 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
         }
 
         // Find the newPersuasionMove's target
-        IndexedNode<PersuasionMove<? extends Locution>> target = findNodeByIndex(newPersuasionMove.getTarget().getIndex());
+        IndexedNode<PersuasionMove<? extends Locution>> target = this.findNodeByIndex(newPersuasionMove.getTarget().getIndex());
         if (target == null) {
             // Not in this proposal tree
             return null;
@@ -290,6 +290,10 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
                 this.fillActiveAttackersList(attackers, reply, false);
             }
         }
+    }
+
+    public boolean isStarted() {
+        return this.getRootElement() != null;
     }
 
 }

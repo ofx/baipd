@@ -5,7 +5,6 @@ import nl.uu.cs.arg.persuasion.model.PersuasionParticipant;
 import nl.uu.cs.arg.persuasion.model.dialogue.*;
 import nl.uu.cs.arg.persuasion.platform.local.AgentXmlData;
 
-import nl.uu.cs.arg.persuasion.platform.local.ValuedOption;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import org.aspic.inference.*;
 import org.aspic.inference.parser.ParseException;

@@ -58,10 +58,6 @@ public class StrategyHelper {
 
         //KnowledgeBase useKb = (KnowledgeBase) kb.clone(); // KnowledgeBase.clone() leaks memory!
         KnowledgeBase useKb = kb;
-        // Add new knowledge
-        /*if (addKnowledge != null) {
-            useKb.addRules(addKnowledge);
-        }*/
 
         // Start the reasoning engine on our query
         Engine engine = new Engine(useKb);
@@ -84,12 +80,7 @@ public class StrategyHelper {
             }
         }
 
-        // Remove added knowledge
-        /*if (addKnowledge != null)
-            for (Rule r : addKnowledge) { kb.removeRule(r); }*/
-
         return proofs;
-
     }
 
     private boolean onBasisOfConstant(Constant p, RuleArgument arg) {
@@ -114,13 +105,12 @@ public class StrategyHelper {
      * @return A list of all the proposals that are viable, i.e. that we can build a sufficient argument for
      * @return A single argument that undermines or undercuts the given argue move
      */
-    public RuleArgument generateUnderminerOrUndercutter(KnowledgeBase kb, RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, List<Rule> addKnowledge) throws ParseException, ReasonerException {
-        /*
+    public RuleArgument generateUnderminerOrUndercutter(KnowledgeBase kb, RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies) throws ParseException, ReasonerException {
         // Premises are atomic claims
         //if (argumentToAttack.isAtomic()) {
 
         // Find arguments for the negation of this claim
-        List<RuleArgument> proofs = findProof(new ConstantList(argumentToAttack.getClaim().negation()), argumentToAttack.getModifier(), kb, addKnowledge, null);
+        List<RuleArgument> proofs = this.findProof(new ConstantList(argumentToAttack.getClaim().negation()), argumentToAttack.getModifier(), kb, null);
 
         // If an argument can be formed that was not yet moved, return this as the new underminer
         RuleArgument newArgument = null;
@@ -170,23 +160,18 @@ public class StrategyHelper {
 
         // Try to find a single argument that attacks one of the premises used in the argumentToAttack
         for (RuleArgument subArgument : argumentToAttack.getSubArgumentList().getArguments()) {
-            RuleArgument newFound = generateUnderminerOrUndercutter(kb, subArgument, argueMoveToAttack, existingReplies, addKnowledge);
+            RuleArgument newFound = generateUnderminerOrUndercutter(kb, subArgument, argueMoveToAttack, existingReplies);
             if (newFound != null) {
                 return newFound;
             }
-        }*/
+        }
 
         // No underminer/undercutter found at all for this argument or any of its subarguments
         return null;
-
     }
 
     public RuleArgument generateArgument(KnowledgeBase kb, Constant termToProve, double needed, PersuasionMove<? extends Locution> moveToAttack, List<PersuasionMove<? extends Locution>> existingReplies) throws ParseException, ReasonerException {
         return generateArgument(kb, termToProve, needed, moveToAttack, existingReplies, null);
-    }
-
-    public RuleArgument generateArgument(KnowledgeBase kb, Constant termToProve, double needed, PersuasionMove<? extends Locution> moveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, List<Rule> addKnowledge) throws ParseException, ReasonerException {
-        return generateArgument(kb, termToProve, needed, moveToAttack, existingReplies, addKnowledge, null);
     }
 
     /**
@@ -199,14 +184,12 @@ public class StrategyHelper {
      * @param needed The minimum required degree of belief (support)
      * @param moveToAttack The move that we want to attack
      * @param existingReplies The existing replies to the argue move that we want to attack
-     * @param addKnowledge Some beliefs to temporarily add to the knowledge base, just for this query
      * @param requiredPremise Optionally a premise that is mandatory to be used as premise in any found argument
      * @return An argument supporting the term we want to prove; or null if none could be formed
      */
-    public RuleArgument generateArgument(KnowledgeBase kb, Constant termToProve, double needed, PersuasionMove<? extends Locution> moveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, List<Rule> addKnowledge, Constant requiredPremise) throws ParseException, ReasonerException {
-        /*
+    public RuleArgument generateArgument(KnowledgeBase kb, Constant termToProve, double needed, PersuasionMove<? extends Locution> moveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, Constant requiredPremise) throws ParseException, ReasonerException {
         // Try to find a single argument for the term that we are trying to prove
-        List<RuleArgument> proofs = findProof(new ConstantList(termToProve), needed, kb, addKnowledge, requiredPremise);
+        List<RuleArgument> proofs = this.findProof(new ConstantList(termToProve), needed, kb, requiredPremise);
         for (RuleArgument proof : proofs) {
 
             // Look if we didn't already move it earlier in the branch
@@ -237,44 +220,38 @@ public class StrategyHelper {
             if (!alreadyUsed) {
                 return proof;
             }
-
-        }*/
+        }
 
         // No argument can be formed to support this term (that wasn't already used in this proposal branch)
         return null;
-
     }
 
-    public RuleArgument generateCounterAttack(KnowledgeBase kb, RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, List<Rule> addKnowledge) throws ParseException, ReasonerException {
-
+    public RuleArgument generateCounterAttack(KnowledgeBase kb, RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies) throws ParseException, ReasonerException {
         // Try to attack the move's conclusion (rebutting)
-        RuleArgument rebuttal = generateArgument(kb, argumentToAttack.getClaim().negation(), argumentToAttack.getModifier(), argueMoveToAttack, existingReplies, addKnowledge);
+        RuleArgument rebuttal = this.generateArgument(kb, argumentToAttack.getClaim().negation(), argumentToAttack.getModifier(), argueMoveToAttack, existingReplies);
         if (rebuttal != null) {
             return rebuttal;
         }
 
         // Try to attack a premise (undermining) or used rule (undercutting) of the move's argument
-        RuleArgument underminer = generateUnderminerOrUndercutter(kb, argumentToAttack, argueMoveToAttack, existingReplies, addKnowledge);
+        RuleArgument underminer = this.generateUnderminerOrUndercutter(kb, argumentToAttack, argueMoveToAttack, existingReplies);
         if (underminer != null) {
             return underminer;
         }
 
         // No counter-argument can be formed
         return null;
-
     }
 
     public Constant generateUncheckedUnderminerOrUndercutter(RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, Constant dialogueTopic) throws PersuasionDialogueException {
-
-        /*// Premises are atomic claims and we don't consider the dialogue topic as a premise to attack
-        if (argumentToAttack.isAtomic() && !argumentToAttack.getClaim().equals(dialogueTopic)) {
-
+        // Premises are atomic claims and we don't consider the dialogue topic as a premise to attack
+        /*if (argumentToAttack.isAtomic() && !argumentToAttack.getClaim().equals(dialogueTopic)) {
             // Look if we didn't already attack it earlier in the branch
             boolean alreadyUsed = false;
-            Move<? extends Locution> target = argueMoveToAttack;
+            PersuasionMove<? extends Locution> target = argueMoveToAttack;
             while (target != null) {
                 if (target.getLocution() instanceof ArgueLocution) {
-                    for (Move<? extends Locution> reply : proposal.getReplies(target)) {
+                    for (PersuasionMove<? extends Locution> reply : proposal.getReplies(target)) {
                         if (reply.getLocution() instanceof WhyLocution && ((WhyLocution)reply.getLocution()).getAttackedPremise().equals(argumentToAttack.getClaim())) {
                             alreadyUsed = true;
                             break;
@@ -300,6 +277,8 @@ public class StrategyHelper {
         }
 
         // No underminer/undercutter found at all for this argument or any of its subarguments
+        return null;
+
         return null;*/
 
         return null;

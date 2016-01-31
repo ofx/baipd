@@ -1,22 +1,25 @@
 package nl.uu.cs.arg.persuasion.platform.local.agentimpl;
 
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
+import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueState;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
+import nl.uu.cs.arg.persuasion.model.dialogue.locutions.ClaimLocution;
 import nl.uu.cs.arg.persuasion.platform.local.AgentXmlData;
-import nl.uu.cs.arg.persuasion.platform.local.ValuedOption;
-import nl.uu.cs.arg.shared.dialogue.DialogueException;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
-import org.aspic.inference.Constant;
 import org.aspic.inference.ReasonerException;
 import org.aspic.inference.parser.ParseException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimplePersuasionAgent extends PersuadingAgent {
 
-    public SimplePersuasionAgent(AgentXmlData xmlDataFile)
-    {
+    private boolean outOfMoves;
+
+    public SimplePersuasionAgent(AgentXmlData xmlDataFile) {
         super(xmlDataFile);
+
+        this.outOfMoves = false;
     }
 
     @Override
@@ -26,13 +29,28 @@ public class SimplePersuasionAgent extends PersuadingAgent {
 
     @Override
     protected List<PersuasionMove<? extends Locution>> generateMoves() throws PersuasionDialogueException, ParseException, ReasonerException {
-        System.out.println("generateMoves");
-        return null;
+        List<PersuasionMove<? extends Locution>> moves = new ArrayList<PersuasionMove<? extends Locution>>();
+
+        // The first move, if we're proponent should be a claim locution move containing the topic
+        if (!this.dialogue.isStarted()) {
+            if (this.isProponent(this.dialogue)) {
+                moves.add(PersuasionMove.buildMove(this.participant, null, new ClaimLocution(this.dialogue.getTopic())));
+            } else {
+                // Only in this case we're safe to return null since we have not specified that we're out of moves
+                return null;
+            }
+        }
+
+        // Get the active attackers
+        /*for (PersuasionMove<? extends Locution> attack : this.dialogue.getActiveAttackers()) {
+
+        }*/
+
+        return moves;
     }
 
     @Override
     public boolean outOfMoves() {
-        System.out.println("outOfMoves");
-        return false;
+        return this.outOfMoves;
     }
 }
