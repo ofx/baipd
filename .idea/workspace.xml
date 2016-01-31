@@ -33,44 +33,79 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PersuasionTerminationRule.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BaidpModel/src/nl/uu/cs/arg/persuasion/model/dialogue/protocol/PersuasionTerminationRule.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PersuasionDialogueState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BaidpModel/src/nl/uu/cs/arg/persuasion/model/dialogue/PersuasionDialogueState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="5" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PersuasionDialogue.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BaidpModel/src/nl/uu/cs/arg/persuasion/model/dialogue/PersuasionDialogue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="146" column="97" selection-start-line="146" selection-start-column="97" selection-end-line="146" selection-end-column="97" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PersuadingAgent.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PersuadingAgent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/PersuadingAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.20116054">
-              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2607#2617#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BDIAgent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BaiddPlatform/src/nl/uu/cs/arg/platform/local/BDIAgent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.206897">
+              <caret line="458" column="114" selection-start-line="458" selection-start-column="106" selection-end-line="458" selection-end-column="114" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constant.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AspicInference/src/org/aspic/inference/Constant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Element.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AspicInference/src/org/aspic/inference/Element.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Term.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AspicInference/src/org/aspic/inference/Term.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Variable.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AspicInference/src/org/aspic/inference/Variable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RuleArgument.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AspicInference/src/org/aspic/inference/RuleArgument.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="339" column="0" selection-start-line="339" selection-start-column="0" selection-end-line="339" selection-end-column="0" />
+              <folding>
+                <element signature="e#11756#11757#0" expanded="true" />
+                <element signature="e#11812#11813#0" expanded="true" />
+                <element signature="e#12425#12426#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -80,56 +115,18 @@
         <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/SimplePersuasionAgent.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-              <folding>
-                <element signature="e#1040#1041#0" expanded="true" />
-                <element signature="e#1092#1093#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ValuedOption.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BaiddPlatform/src/nl/uu/cs/arg/platform/local/ValuedOption.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+              <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ValuedOption.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/ValuedOption.java">
+      <file leaf-file-name="LocalAgent.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/LocalAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="98" column="1" selection-start-line="98" selection-start-column="1" selection-end-line="98" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.18681319">
+              <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DeliberatingAgent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BaiddPlatform/src/nl/uu/cs/arg/platform/local/DeliberatingAgent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.275862">
-              <caret line="191" column="4" selection-start-line="191" selection-start-column="4" selection-end-line="191" selection-end-column="162" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleAgent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BaiddPlatform/src/nl/uu/cs/arg/platform/local/SimpleAgent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="51" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="51" />
-              <folding>
-                <element signature="e#450#451#0" expanded="true" />
-                <element signature="e#475#476#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -927,7 +924,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -944,7 +941,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39958158" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39958158" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -969,48 +966,24 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/SimplePersuasionAgent.java</url>
-          <line>46</line>
+          <line>29</line>
           <properties />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/SimplePersuasionAgent.java</url>
-          <line>52</line>
+          <line>35</line>
           <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/SimplePersuasionAgent.java</url>
-          <line>40</line>
+          <line>23</line>
           <properties />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/SimplePersuasionAgent.java</url>
-          <line>34</line>
-          <properties />
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/SimplePersuasionAgent.java</url>
-          <line>29</line>
-          <properties />
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/SimplePersuasionAgent.java</url>
-          <line>23</line>
-          <properties />
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/PersuadingAgent.java</url>
-          <line>109</line>
-          <properties />
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="24" />
+      <option name="time" value="25" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1019,34 +992,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/BaidpModel/src/nl/uu/cs/arg/persuasion/model/dialogue/PersuasionDialogueStartedMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="45" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BaiddPlatform/src/nl/uu/cs/arg/platform/PlatformStateMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/PersuasionPlatformStateMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="2" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BaiddModel/src/nl/uu/cs/arg/shared/Agent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1224,13 +1169,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/LocalAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="125" selection-start-line="8" selection-start-column="125" selection-end-line="8" selection-end-column="125" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/AgentXmlData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1242,16 +1180,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BaiddPlatform/src/nl/uu/cs/arg/platform/local/BDIAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="206" column="31" selection-start-line="206" selection-start-column="19" selection-end-line="206" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1366,31 +1294,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/ValuedOption.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="98" column="1" selection-start-line="98" selection-start-column="1" selection-end-line="98" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BaiddPlatform/src/nl/uu/cs/arg/platform/local/DeliberatingAgent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.275862">
           <caret line="191" column="4" selection-start-line="191" selection-start-column="4" selection-end-line="191" selection-end-column="162" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/SimplePersuasionAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="e#1040#1041#0" expanded="true" />
-            <element signature="e#1092#1093#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1405,14 +1314,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/PersuadingAgent.java">
+    <entry file="file://$PROJECT_DIR$/AspicInference/src/org/aspic/inference/Constant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20116054">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AspicInference/src/org/aspic/inference/Element.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AspicInference/src/org/aspic/inference/Term.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AspicInference/src/org/aspic/inference/Variable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AspicInference/src/org/aspic/inference/RuleArgument.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="339" column="0" selection-start-line="339" selection-start-column="0" selection-end-line="339" selection-end-column="0" />
+          <folding>
+            <element signature="e#11756#11757#0" expanded="true" />
+            <element signature="e#11812#11813#0" expanded="true" />
+            <element signature="e#12425#12426#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaiddPlatform/src/nl/uu/cs/arg/platform/local/BDIAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.206897">
+          <caret line="458" column="114" selection-start-line="458" selection-start-column="106" selection-end-line="458" selection-end-column="114" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2607#2617#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/PersuadingAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/SimplePersuasionAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/LocalAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18681319">
+          <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>

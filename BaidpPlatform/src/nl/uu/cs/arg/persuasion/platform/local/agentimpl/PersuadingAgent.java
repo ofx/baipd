@@ -68,55 +68,10 @@ public abstract class PersuadingAgent implements PersuasionAgent, StrategyExpose
         this.dialogue.setState(dialogue.getState());
     }
 
-    protected List<Constant> generateOptions() throws ParseException, ReasonerException {
-        Constant topic = this.dialogue.getTopic();
-        List<RuleArgument> proofs = helper.findProof(new ConstantList(topic), 0.0, this.beliefs, null);
-        List<Constant> found = new ArrayList<Constant>();
-
-        // If there are arguments found, use one to create a new proposal
-        for (RuleArgument proof : proofs) {
-
-            // Look into the sub-arguments to get the original concrete instantiation of the topic
-            // (This sub-arguments iterator is handles the recursion)
-            Iterator<RuleArgument> iter = proof.subArgumentIterator();
-            while (iter.hasNext()) {
-                RuleArgument arg = iter.next();
-
-                // If we have found the bottom-level rule, add this as the concrete proposal (but no duplicates)
-                if (arg.isAtomic() && arg.getClaim() instanceof Term && arg.getClaim().isUnifiable(topic) && !found.contains(arg.getClaim())) {
-                    found.add((Term) arg.getClaim());
-                    break;
-                }
-            }
-
-        }
-
-        return found;
-    }
-
-    protected abstract List<ValuedOption> evaluateAllOptions(List<Constant> options) throws ParseException, ReasonerException;
-
-    protected abstract void analyseOptions(List<ValuedOption> valuedOptions);
-
-    protected abstract List<PersuasionMove<? extends Locution>> generateMoves(List<ValuedOption> valuedOptions) throws PersuasionDialogueException, ParseException, ReasonerException;
-
     @Override
     public List<PersuasionMove<? extends Locution>> makeMoves() {
         try {
-            // 1: Move evaluation
-            // See onNewMovesReceived
-
-            // 2: Option generation
-            List<Constant> options = this.generateOptions();
-
-            // 3: Option evaluation
-            List<ValuedOption> valuedOptions = this.evaluateAllOptions(options);
-
-            // 4: Option analysis
-            this.analyseOptions(valuedOptions);
-
-            // 5: Move generation
-            return this.generateMoves(valuedOptions);
+            return this.generateMoves();
         } catch (ParseException e) {
             e.printStackTrace();
             return null;

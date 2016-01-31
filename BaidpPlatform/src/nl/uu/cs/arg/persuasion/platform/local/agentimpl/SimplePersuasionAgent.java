@@ -20,23 +20,6 @@ public class SimplePersuasionAgent extends PersuadingAgent {
     }
 
     @Override
-    protected List<ValuedOption> evaluateAllOptions(List<Constant> options) throws ParseException, ReasonerException {
-        System.out.println("evaluateAllOptions");
-        return null;
-    }
-
-    @Override
-    protected void analyseOptions(List<ValuedOption> valuedOptions) {
-        System.out.println("analyseOptions");
-    }
-
-    @Override
-    protected List<PersuasionMove<? extends Locution>> generateMoves(List<ValuedOption> valuedOptions) throws PersuasionDialogueException, ParseException, ReasonerException {
-        System.out.println("generateMoves");
-        return null;
-    }
-
-    @Override
     protected void storeNewBeliefs(List<PersuasionMove<? extends Locution>> moves) throws ParseException, ReasonerException {
         System.out.println("storeNewBeliefs");
     }
