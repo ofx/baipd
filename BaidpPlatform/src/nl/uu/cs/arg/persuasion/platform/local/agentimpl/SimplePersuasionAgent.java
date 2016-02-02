@@ -36,7 +36,8 @@ public class SimplePersuasionAgent extends PersuadingAgent {
             if (this.isProponent(this.dialogue)) {
                 moves.add(PersuasionMove.buildMove(this.participant, null, new ClaimLocution(this.dialogue.getTopic())));
             } else {
-                // Only in this case we're safe to return null since we have not specified that we're out of moves
+                this.outOfMoves = true;
+
                 return null;
             }
         }

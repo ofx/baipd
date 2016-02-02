@@ -300,8 +300,7 @@ public class PersuasionPlatform implements Runnable {
             this.broadcastMessage(terminationCause);
             this.setDialogueState(PersuasionDialogueState.Terminating);
         } else if (terminationCause == null && moves == null) {
-            // TODO: FIX
-            // This should not happen, but might happen
+            this.broadcastException(new PersuasionPlatformException("", false));
         }
     }
 
@@ -334,9 +333,8 @@ public class PersuasionPlatform implements Runnable {
     }
 
     private void determineOutcome() {
-        // TODO: Winner should be broadcasted!
         // Get the dialogue outcome and broadcast this message
-        //this.broadcastMessage(new PersuasionOutcomeMessage(settings.getOutcomeSelectionRule().determineOutcome(this.dialogue, this.allMoves)), false);
+        this.broadcastMessage(new PersuasionOutcomeMessage(settings.getOutcomeSelectionRule().determineWinners(this.dialogue)));
 
         // Set the dialogue state to terminated
         this.setDialogueState(PersuasionDialogueState.Terminated);

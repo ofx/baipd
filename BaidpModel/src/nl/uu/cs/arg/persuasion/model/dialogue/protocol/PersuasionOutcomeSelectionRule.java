@@ -2,6 +2,7 @@ package nl.uu.cs.arg.persuasion.model.dialogue.protocol;
 
 import nl.uu.cs.arg.persuasion.model.PersuasionParticipant;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogue;
+import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import org.aspic.inference.Constant;
@@ -17,17 +18,26 @@ public enum PersuasionOutcomeSelectionRule {
      */
     PurePersuasion {
         @Override
-        public Set<PersuasionParticipant> determineWinners(PersuasionDialogue dialogue) {
+        public PersuasionOutcome determineWinners(PersuasionDialogue dialogue) {
+            PersuasionOutcome outcome = new PersuasionOutcome();
+
             Constant topic = dialogue.getTopic();
             Set<PersuasionParticipant> Wt = this.getWinners(dialogue);
             for (PersuasionParticipant participant : Wt)
             {
                 if (!participant.isCommittedTo(topic))
                 {
-                    return new HashSet<PersuasionParticipant>();
+                    outcome.Winners = new HashSet<PersuasionParticipant>();
                 }
             }
-            return Wt;
+            outcome.Winners = Wt;
+            try {
+                outcome.TopicIsIn = dialogue.isTopicIn();
+            } catch (PersuasionDialogueException e) {
+                e.printStackTrace();
+            }
+
+            return outcome;
         }
     },
 
@@ -36,8 +46,17 @@ public enum PersuasionOutcomeSelectionRule {
      */
     ConflictResolution {
         @Override
-        public Set<PersuasionParticipant> determineWinners(PersuasionDialogue dialogue) {
-            return this.getWinners(dialogue);
+        public PersuasionOutcome determineWinners(PersuasionDialogue dialogue) {
+            PersuasionOutcome outcome = new PersuasionOutcome();
+
+            outcome.Winners = this.getWinners(dialogue);
+            try {
+                outcome.TopicIsIn = dialogue.isTopicIn();
+            } catch (PersuasionDialogueException e) {
+                e.printStackTrace();
+            }
+
+            return outcome;
         }
     };
 
@@ -65,6 +84,6 @@ public enum PersuasionOutcomeSelectionRule {
         return Wt;
     }
 
-    public abstract Set<PersuasionParticipant> determineWinners(PersuasionDialogue dialogue);
+    public abstract PersuasionOutcome determineWinners(PersuasionDialogue dialogue);
 
 }
