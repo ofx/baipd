@@ -24,10 +24,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class BaidpXmlData {
+public class BaipdXmlData {
 
     private static final String FILEEXT_AGENT = ".agent";
-    private static final String XML_MAS = "baidp-mas";
+    private static final String XML_MAS = "baipd-mas";
     private static final String XML_TOPIC = "topic";
     private static final String XML_PROTOCOL = "protocol";
     private static final String XML_RULE = "rule";
@@ -52,7 +52,7 @@ public class BaidpXmlData {
 
     private final PersuasionOutcomeSelectionRule outcomeSelectionRule;
 
-    public static BaidpXmlData loadAgentDataFromXml(File xmlFile) throws SAXException, IOException, ParserConfigurationException, ParseException {
+    public static BaipdXmlData loadAgentDataFromXml(File xmlFile) throws SAXException, IOException, ParserConfigurationException, ParseException {
         // Read the XML file using a DOM parser
         DocumentBuilderFactory xmlDocFactory = DocumentBuilderFactory.newInstance();
         //xmlDocFactory.setCoalescing(true);
@@ -159,10 +159,10 @@ public class BaidpXmlData {
             typedLocalAgents.add(agent.createAgent(xmlAgent));
         }
 
-        return new BaidpXmlData(topic, typedLocalAgents, xmlAgents, persuasionRules, terminationRules, outcomeRule);
+        return new BaipdXmlData(topic, typedLocalAgents, xmlAgents, persuasionRules, terminationRules, outcomeRule);
     }
 
-    public BaidpXmlData(Constant topic, List<PersuasionAgent> localAgents, List<AgentXmlData> agentXmlDatas, List<PersuasionRule> deliberationRules, List<PersuasionTerminationRule> terminationRules, PersuasionOutcomeSelectionRule outcomeSelectionRule) {
+    public BaipdXmlData(Constant topic, List<PersuasionAgent> localAgents, List<AgentXmlData> agentXmlDatas, List<PersuasionRule> deliberationRules, List<PersuasionTerminationRule> terminationRules, PersuasionOutcomeSelectionRule outcomeSelectionRule) {
         this.topic = topic;
         this.localAgents = localAgents;
         this.agentXmlDatas = agentXmlDatas;

@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="yes" ?>
-<baidp-mas>
+<baipd-mas>
 	<topic>safe</topic>
 	<protocol>
 		<persuasion-rules>
@@ -15,4 +15,4 @@
 		<agent name="Olga" type="SimplePersuasionAgent" file="Olga.agent" />
 		<agent name="Paul" type="SimplePersuasionAgent" file="Paul.agent" />
 	</agents>
-</baidp-mas>
+</baipd-mas>

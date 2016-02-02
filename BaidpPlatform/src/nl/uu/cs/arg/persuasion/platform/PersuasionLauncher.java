@@ -12,7 +12,7 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpecBuilder;
 
-import nl.uu.cs.arg.persuasion.platform.local.BaidpXmlData;
+import nl.uu.cs.arg.persuasion.platform.local.BaipdXmlData;
 
 public class PersuasionLauncher {
 
@@ -20,7 +20,7 @@ public class PersuasionLauncher {
 
     PersuasionPlatform platform;
 
-    BaidpXmlData baidpXml;
+    BaipdXmlData baipdXml;
 
     public static void main(String[] args) {
 
@@ -79,9 +79,9 @@ public class PersuasionLauncher {
             }
 
             // Read the MAS XML file (and agent XML files that are specified there)
-            BaidpXmlData baidpXml = null;
+            BaipdXmlData baipdXml = null;
             try {
-                baidpXml = BaidpXmlData.loadAgentDataFromXml(masFile);
+                baipdXml = BaipdXmlData.loadAgentDataFromXml(masFile);
             } catch (Exception e) {
                 System.out.println("An error occured during the parsing of the MAS and agent XML files.");
                 e.printStackTrace();
@@ -89,11 +89,11 @@ public class PersuasionLauncher {
             }
 
             // Copy the read settings to the platform settings object
-            PersuasionSettings settings = new PersuasionSettings(baidpXml.getPersuasionRules(),
-                    baidpXml.getTerminationRules(), baidpXml.getOutcomeSelectionRule());
+            PersuasionSettings settings = new PersuasionSettings(baipdXml.getPersuasionRules(),
+                    baipdXml.getTerminationRules(), baipdXml.getOutcomeSelectionRule());
 
             // Start the agent platform
-            PersuasionLauncher launcher = new PersuasionLauncher(settings, baidpXml, listeners);
+            PersuasionLauncher launcher = new PersuasionLauncher(settings, baipdXml, listeners);
             launcher.initPlatform();
             launcher.startPlatform();
 
@@ -138,10 +138,10 @@ public class PersuasionLauncher {
 
     }
 
-    public PersuasionLauncher(PersuasionSettings settings, BaidpXmlData baidpXml, List<PersuasionPlatformListener> listeners) {
+    public PersuasionLauncher(PersuasionSettings settings, BaipdXmlData baipdXml, List<PersuasionPlatformListener> listeners) {
         this.platform =  new PersuasionPlatform(settings);
         this.platformThread = new Thread(platform);
-        this.baidpXml = baidpXml;
+        this.baipdXml = baipdXml;
 
         // Add platform listeners
         if (listeners != null) {
@@ -152,7 +152,7 @@ public class PersuasionLauncher {
     }
 
     public void initPlatform() {
-        this.platform.init(this.baidpXml.getTopic(), this.baidpXml.getLocalAgents());
+        this.platform.init(this.baipdXml.getTopic(), this.baipdXml.getLocalAgents());
         this.platformThread.start();
     }
 
