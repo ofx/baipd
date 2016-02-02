@@ -222,29 +222,34 @@ public class PersuasionPlatform implements Runnable {
         return opponent;
     }
 
-    private PersuasionParticipatingAgent getNextToMove() {
-        if (this.agents.size() == 0) {
-            return null;
-        }
-
+    private PersuasionParticipatingAgent nextToMove() {
         PersuasionParticipatingAgent agent = null;
 
-        // Nobody moved, return this first proponent
-        if (this.currentToMove == null) {
-            return this.advanceProponentIterator();
-        }
-        try {
-            if (this.currentToMove.getAgent().isProponent(this.dialogue)) {
-                // Check for the next opponent to move
-                agent =  this.advanceOpponentIterator();
-            } else {
-                // Check for the next proponent to move
+        if (this.agents.size() == 0) {
+            agent = null;
+        } else {
+            // Nobody moved, return this first proponent
+            if (this.currentToMove == null) {
                 agent = this.advanceProponentIterator();
+            } else {
+                try {
+                    if (this.currentToMove.getAgent().isProponent(this.dialogue)) {
+                        // Check for the next opponent to move
+                        agent =  this.advanceOpponentIterator();
+                    } else {
+                        // Check for the next proponent to move
+                        agent = this.advanceProponentIterator();
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+
+                    agent = null;
+                } catch (ReasonerException e) {
+                    e.printStackTrace();
+
+                    agent = null;
+                }
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (ReasonerException e) {
-            e.printStackTrace();
         }
 
         this.currentToMove = agent;
@@ -254,7 +259,7 @@ public class PersuasionPlatform implements Runnable {
 
     private void playPersuasionRound() {
         // Give the next agent to move a single turn to make new moves
-        PersuasionParticipatingAgent toMove = this.getNextToMove();
+        PersuasionParticipatingAgent toMove = this.nextToMove();
         List<PersuasionMove<? extends Locution>> moves = toMove.getAgent().makeMoves();
 
         if (moves != null) {
