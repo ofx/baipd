@@ -334,7 +334,11 @@ public class PersuasionPlatform implements Runnable {
 
     private void determineOutcome() {
         // Get the dialogue outcome and broadcast this message
-        this.broadcastMessage(new PersuasionOutcomeMessage(settings.getOutcomeSelectionRule().determineWinners(this.dialogue)));
+        List<PersuasionParticipant> participants = new ArrayList<PersuasionParticipant>();
+        for (PersuasionParticipatingAgent participant : this.agents) {
+            participants.add(participant.getParticipant());
+        }
+        this.broadcastMessage(new PersuasionOutcomeMessage(settings.getOutcomeSelectionRule().determineWinners(this.dialogue, participants)));
 
         // Set the dialogue state to terminated
         this.setDialogueState(PersuasionDialogueState.Terminated);

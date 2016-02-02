@@ -18,19 +18,18 @@ public enum PersuasionOutcomeSelectionRule {
      */
     PurePersuasion {
         @Override
-        public PersuasionOutcome determineWinners(PersuasionDialogue dialogue) {
+        public PersuasionOutcome determineWinners(PersuasionDialogue dialogue, List<PersuasionParticipant> participants) {
             PersuasionOutcome outcome = new PersuasionOutcome();
+            outcome.Winners = this.getWinners(dialogue);
 
             Constant topic = dialogue.getTopic();
-            Set<PersuasionParticipant> Wt = this.getWinners(dialogue);
-            for (PersuasionParticipant participant : Wt)
-            {
-                if (!participant.isCommittedTo(topic))
-                {
+            for (PersuasionParticipant participant : participants) {
+                if (!participant.isCommittedTo(topic)) {
                     outcome.Winners = new HashSet<PersuasionParticipant>();
+                    break;
                 }
             }
-            outcome.Winners = Wt;
+
             try {
                 outcome.TopicIsIn = dialogue.isTopicIn();
             } catch (PersuasionDialogueException e) {
@@ -46,7 +45,7 @@ public enum PersuasionOutcomeSelectionRule {
      */
     ConflictResolution {
         @Override
-        public PersuasionOutcome determineWinners(PersuasionDialogue dialogue) {
+        public PersuasionOutcome determineWinners(PersuasionDialogue dialogue, List<PersuasionParticipant> participants) {
             PersuasionOutcome outcome = new PersuasionOutcome();
 
             outcome.Winners = this.getWinners(dialogue);
@@ -84,6 +83,6 @@ public enum PersuasionOutcomeSelectionRule {
         return Wt;
     }
 
-    public abstract PersuasionOutcome determineWinners(PersuasionDialogue dialogue);
+    public abstract PersuasionOutcome determineWinners(PersuasionDialogue dialogue, List<PersuasionParticipant> participants);
 
 }
