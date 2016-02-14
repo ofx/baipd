@@ -48,6 +48,8 @@ public class PersuasionPlatform implements Runnable {
 
     private boolean startPaused = true;
 
+    private int skipsInRound;
+
     public PersuasionPlatform(PersuasionSettings settings) {
         // Define settings
         this.settings = settings;
@@ -262,7 +264,10 @@ public class PersuasionPlatform implements Runnable {
         PersuasionParticipatingAgent toMove = this.nextToMove();
         List<PersuasionMove<? extends Locution>> moves = toMove.getAgent().makeMoves();
 
-        if (moves != null) {
+        if (moves != null && moves.size() > 0) {
+            // Someone has moved
+            this.skipsInRound = 0;
+
             // Check validity of the moves
             for (Iterator<PersuasionMove<? extends Locution>> iter = moves.iterator(); iter.hasNext(); ) {
                 PersuasionMove<? extends Locution> check = iter.next();
@@ -291,6 +296,10 @@ public class PersuasionPlatform implements Runnable {
 
             // Broadcast the moves made
             this.broadcastDialogeMoves(moves);
+        } else {
+            ++this.skipsInRound;
+
+            this.broadcastMessage(new PersuasionSkipMoveMessage(toMove.getParticipant()));
         }
 
         // Determine if the dialogue should end; if so, broadcast message and advance the dialogue to the terminating state
@@ -324,7 +333,7 @@ public class PersuasionPlatform implements Runnable {
                 agents.add(agent.getAgent());
             }
 
-            PersuasionTerminationMessage cause = rule.shouldTerminate(this.dialogue, agents);
+            PersuasionTerminationMessage cause = rule.shouldTerminate(this.dialogue, agents, this.skipsInRound);
             if (cause != null) {
                 return cause;
             }

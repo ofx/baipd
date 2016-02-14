@@ -36,8 +36,7 @@ public class SimplePersuasionAgent extends PersuadingAgent {
             if (this.isProponent(this.dialogue)) {
                 moves.add(PersuasionMove.buildMove(this.participant, null, new ClaimLocution(this.dialogue.getTopic())));
             } else {
-                this.outOfMoves = true;
-
+                // Skip
                 return null;
             }
         }
@@ -48,10 +47,5 @@ public class SimplePersuasionAgent extends PersuadingAgent {
         }*/
 
         return moves;
-    }
-
-    @Override
-    public boolean outOfMoves() {
-        return this.outOfMoves;
     }
 }
