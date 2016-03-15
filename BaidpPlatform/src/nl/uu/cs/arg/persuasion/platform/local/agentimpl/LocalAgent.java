@@ -8,6 +8,9 @@ public enum LocalAgent {
 
     SimplePersuasionAgent {
         @Override public PersuasionAgent createAgent(AgentXmlData xmlDataFile) { return new SimplePersuasionAgent(xmlDataFile); }
+    },
+    PersonalityAgent {
+        @Override public PersuasionAgent createAgent(AgentXmlData xmlDataFile) {return new PersonalityAgent(xmlDataFile); }
     };
 
     public abstract PersuasionAgent createAgent(AgentXmlData xmlDataFile);

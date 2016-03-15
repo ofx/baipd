@@ -12,7 +12,7 @@
 		</termination-rules>
 	</protocol>
 	<agents>
-		<agent name="Olga" type="SimplePersuasionAgent" file="Olga.agent" />
-		<agent name="Paul" type="SimplePersuasionAgent" file="Paul.agent" />
+		<agent name="Olga" type="PersonalityAgent" file="Olga.agent" />
+		<agent name="Paul" type="PersonalityAgent" file="Paul.agent" />
 	</agents>
 </baipd-mas>

@@ -19,7 +19,7 @@ import org.xml.sax.SAXException;
 
 public class AgentXmlData {
 
-    private static final String XML_AGENT = "baidd-agent";
+    private static final String XML_AGENT = "baidp-agent";
     private static final String XML_BELIEFBASE = "beliefbase";
     private static final String XML_PROPERTIES = "properties";
     private static final String XML_PROPERTY = "property";
@@ -80,6 +80,8 @@ public class AgentXmlData {
                             properties.put(optName, Boolean.parseBoolean(optText));
                         } else if (optType != null && optType.toLowerCase().equals("integer")) {
                             properties.put(optName, Integer.parseInt(optText));
+                        } else if (optType != null && optType.toLowerCase().equals("double")) {
+                            properties.put(optName, Double.parseDouble(optText));
                         } else {
                             properties.put(optName, optText);
                         }

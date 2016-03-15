@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="yes" ?>
-<baidd-agent>
+<baidp-agent>
 	<beliefbase>
 		<![CDATA[
 		safe <- airbag.
@@ -7,4 +7,24 @@
 		airbag.
 		]]>
 	</beliefbase>
-</baidd-agent>
+    <properties>
+        <property name="impulsiveness" type="double">0.05</property>
+        <property name="selfconsciousness" type="double">0.1</property>
+        <property name="depression" type="double">0.15</property>
+        <property name="angryhostility" type="double">0.20</property>
+        <property name="anxiety" type="double">0.25</property>
+        <property name="modesty" type="double">0.30</property>
+        <property name="straightforwardness" type="double">0.35</property>
+        <property name="deliberation" type="double">0.40</property>
+        <property name="trust" type="double">0.45</property>
+        <property name="activity" type="double">0.5</property>
+        <property name="assertiveness" type="double">0.55</property>
+        <property name="selfdiscipline" type="double">0.6</property>
+        <property name="achievementstriving" type="double">0.65</property>
+        <property name="dutifulness" type="double">0.7</property>
+        <property name="competence" type="double">0.75</property>
+        <property name="values" type="double">0.8</property>
+        <property name="ideas" type="double">0.85</property>
+        <property name="actions" type="double">0.9</property>
+    </properties>
+</baidp-agent>

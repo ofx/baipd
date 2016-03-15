@@ -10,5 +10,16 @@
     <orderEntry type="module" module-name="BaidpModel" />
     <orderEntry type="module" module-name="BaiddPlatform" />
     <orderEntry type="library" name="jopt-simple-3.1" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jFuzzyLogic.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/jFuzzyLogic.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
