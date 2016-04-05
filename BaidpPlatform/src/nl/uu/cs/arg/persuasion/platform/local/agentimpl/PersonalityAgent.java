@@ -114,7 +114,7 @@ public class PersonalityAgent extends PersuadingAgent {
 
         this.output("Input/output variables:");
         for (Map.Entry<String, Variable> variable : fb.getVariables().entrySet()) {
-            if (variable.getValue().isOutput()) {
+            if (true || variable.getValue().isOutput()) {
                 this.output(variable.getKey() + ": " + variable.getValue().getValue());
             }
         }

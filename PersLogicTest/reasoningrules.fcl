@@ -280,84 +280,39 @@ RULEBLOCK No1
 	ACT : MIN;
 	ACCU : MAX;
 
-    /*
-        Thoughtful
-
-        The three factors that directly influence the thoughtful attitude are achievement striving,
-        self-discipline and deliberation. Achievement striving makes the agent prefer to achieve its
-        goal, by making a claim the agent does so. Next, self-discipline makes the agent prefer to
-        contribute (and not abandon) while the agent is able to contribute still. Lastly, deliberation
-        makes the agent move well-motivated arguments. A thoughtful attitude only allows for moving
-        well-motivated moves.
-
-        Next, impulsiveness, anxiety and activity influence the preference over a thoughtful attitude. When
-        the agent is impulsive, the agent is less likely to prefer a thoughtful attitude, since the agent is
-        more likely to select a non-well-motivated attitude. When the agent is anxious, the agent is less likely
-        to claim at all, so selecting a thoughtful attitude is also less likely.
-
-        Overall, the agent is expected to be active, otherwise the agent should prefer to select an attitude that
-        does not allow for moving claim moves. Additionally, the agent is expected to be honest and direct, covered
-        by the facets dutifulness and straightforwardness.
-    */
     RULE 1 : IF achievementstriving IS high
+             AND dutifulness IS high
              AND selfdiscipline IS high
              AND deliberation IS high
-             AND impulsiveness IS low
-             AND anxiety IS low
              AND activity IS high
              AND straightforwardness IS high
-             AND dutifulness IS high
              AND modesty IS low
+             AND anxiety IS low
+             AND impulsiveness IS low
              THEN thoughtful IS high;
 
-     /*
-        Careful
-
-        Selection of the careful attitude is similar to that of the thoughtful attitude, except for deliberation (where
-        a careful attitude is considered less deliberate).
-     */
      RULE 2 : IF achievementstriving IS high
+              AND dutifulness IS high
               AND selfdiscipline IS high
               AND deliberation IS mid
-              AND impulsiveness IS low
-              AND anxiety IS low
               AND activity IS high
               AND straightforwardness IS high
-              AND dutifulness IS high
               AND modesty IS low
+              AND anxiety IS low
+              AND impulsiveness IS mid
               THEN careful IS high;
 
-    /*
-        Confident
-
-        A confident attitude is preferred if the agent is achievement striving, since it tries to achieve its personal goal.
-        By contributing to the dialogue, the agent is showing self-discipline. Deliberation in contrast with careful and thoughtful
-        attitudes is low, since the a confident attitude does not restrict allowed moves to only well-motivated moves. Additionally,
-        high impulsiveness contributes to the selection of a confident attitude, since impulsiveness is considered to allow for non-
-        well-motivated moves.
-    */
     RULE 3 : IF achievementstriving IS high
+             AND dutifulness IS high
              AND selfdiscipline IS high
-             AND impulsiveness IS high
              AND deliberation IS low
-             AND anxiety IS low
              AND activity IS high
              AND straightforwardness IS high
-             AND dutifulness IS high
              AND modesty IS low
+             AND anxiety IS low
+             AND impulsiveness IS high
              THEN confident IS high;
 
-    /*
-        Spurious
-
-        A spurious attitude can be selected based on three facets, being achievement-striving, angry-hostility and depression. For the first
-        facet, the agent is trying to achieve its personal goal, at the expense of being fair, supported by low deliberation, self-discipline,
-        dutifulness and high impulsiveness. The second reason for selecting this attitude is angry-hostility, where the agent does not care about
-        being direct and frank. The same holds for depression.
-
-        Overall, selecting this attitude is supported by high activity, since the agent moves a claim move. Low anxiety, since the agent dares to
-        move.
-    */
     RULE 4 : IF (achievementstriving IS high OR angryhostility IS high OR depression IS high)
              AND dutifulness IS mid
              AND selfdiscipline IS mid
@@ -369,9 +324,6 @@ RULEBLOCK No1
              AND impulsiveness IS high
              THEN spurious IS high;
 
-    /*
-        Deceptive
-    */
     RULE 5 : IF (achievementstriving IS high OR angryhostility IS high OR depression IS high)
              AND dutifulness IS low
              AND selfdiscipline IS low
@@ -381,17 +333,14 @@ RULEBLOCK No1
              AND modesty IS low
              AND anxiety IS low
              AND impulsiveness IS high
-             THEN spurious IS high;
+             THEN deceptive IS high;
 
-    /*
-        Hesitant
-    */
     RULE 6 : IF (achievementstriving IS low OR angryhostility IS high OR depression IS high OR anxiety IS high OR modesty IS high)
              AND (impulsiveness IS low
-             OR straightforwardness IS low
-             OR activity IS low
-             OR deliberation IS low
-             OR selfdiscipline IS low)
+             AND straightforwardness IS low
+             AND activity IS low
+             AND deliberation IS low
+             AND selfdiscipline IS low)
              THEN hesitant IS high;
 END_RULEBLOCK
 
