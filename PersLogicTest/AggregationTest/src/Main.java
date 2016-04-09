@@ -21,6 +21,8 @@ public class Main
 {
     public static void main(String[] args)
     {
+        FuzzyLite.setDebug(true);
+
         Engine engine = new Engine();
         engine.setName("simple-dimmer");
 
@@ -31,7 +33,7 @@ public class Main
 
         // Output membership distributions
         Triangle disfavored  = new Triangle("disfavored", -0.5, 0.0, 0.5);
-        Triangle favored     = new Triangle("favored", 0.5, 1.0, 1.5);
+        Triangle favored     = new Triangle("favored",     0.5, 1.0, 1.5);
 
         Map<String, InputVariable> inputVariables   = new HashMap<String, InputVariable>();
         Map<String, OutputVariable> outputVariables = new HashMap<String, OutputVariable>();
@@ -101,7 +103,7 @@ public class Main
             }
         }
 
-        inputVariables.get("achievementstriving").setInputValue(1.0);
+        /*inputVariables.get("achievementstriving").setInputValue(1.0);
         inputVariables.get("selfdiscipline").setInputValue(1.0);
         inputVariables.get("deliberation").setInputValue(1.0);
         inputVariables.get("impulsiveness").setInputValue(1.0);
@@ -110,7 +112,7 @@ public class Main
         inputVariables.get("straightforwardness").setInputValue(1.0);
         inputVariables.get("dutifulness").setInputValue(1.0);
         inputVariables.get("modesty").setInputValue(0.0);
-        inputVariables.get("depression").setInputValue(0.0);
+        inputVariables.get("depression").setInputValue(0.0);*/
 
         String rules[] = {
                 /*
@@ -205,11 +207,11 @@ public class Main
         };
 
         // Construct rules
-        Rule r[] = new Rule[rules.length];
+        OwaRule r[] = new OwaRule[rules.length];
         {
             int i = 0;
             for (String rule : rules) {
-                r[i++] = Rule.parse(rule, engine);
+                r[i++] = OwaRule.parse(rule, engine, 0.4);
             }
         }
 
@@ -234,7 +236,7 @@ public class Main
             throw new RuntimeException("Engine not ready. " + "The following errors were encountered:\n" + status.toString());
         }
 
-        for (int i = 0; i < 10; ++i)
+        for (int i = 0; i < 1; ++i)
         {
             /*double rho = i * (1.0 / 50.0);
             for (OwaRule rule : r) {
