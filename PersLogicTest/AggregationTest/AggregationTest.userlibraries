@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="jcommon-1.0.23">
+    <archive path="/home/argon/IdeaProjects/AggregationTest/lib/jcommon-1.0.23.jar" />
+    <archive path="/home/argon/IdeaProjects/AggregationTest/lib/jfreechart-1.0.19.jar" />
+  </library>
+  <library name="jfuzzylite-5.0.1">
+    <archive path="/home/argon/IdeaProjects/AggregationTest/lib/jfuzzylite-5.0.1.jar" />
+  </library>
+  <library name="scala-sdk-2.11.6">
+    <archive path="/usr/share/scala/lib/scala-actors.jar" />
+    <archive path="/usr/share/scala/lib/scala-parser-combinators.jar" />
+    <archive path="/usr/share/scala/lib/scala-library.jar" />
+    <archive path="/usr/share/scala/lib/scala-xml.jar" />
+    <archive path="/usr/share/scala/lib/scala-reflect.jar" />
+  </library>
+</eclipse-userlibraries>
+
