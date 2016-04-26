@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jcommon-1.0.23">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/BaidpPlatform/lib/jcommon-1.0.23.jar!/" />
+      <root url="jar://$PROJECT_DIR$/BaidpPlatform/lib/jfreechart-1.0.19.jar!/" />
+      <root url="jar://$PROJECT_DIR$/BaidpPlatform/lib/jfuzzylite-5.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,4 +1,6 @@
 package nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance;
 
-public class AcceptanceAttitude {
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.Attitude;
+
+public class AcceptanceAttitude extends Attitude {
 }
