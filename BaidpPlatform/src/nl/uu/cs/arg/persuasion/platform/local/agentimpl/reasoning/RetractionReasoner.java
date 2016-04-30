@@ -3,16 +3,18 @@ package nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning;
 import com.fuzzylite.variable.InputVariable;
 import com.fuzzylite.variable.OutputVariable;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.Attitude;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.AcceptanceAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.AssertionAttitude;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction.RetractionAttitude;
 
 import java.util.Map;
 
-public class ClaimReasoner extends Reasoner<AssertionAttitude>
+public class RetractionReasoner extends Reasoner<RetractionAttitude>
 {
 
-    public ClaimReasoner(double rho)
+    public RetractionReasoner(double rho)
     {
-        super("ClaimReasoningEngine", rho, AssertionAttitude.class);
+        super("RetractionReasoningEngine", rho, RetractionAttitude.class);
     }
 
     @Override
