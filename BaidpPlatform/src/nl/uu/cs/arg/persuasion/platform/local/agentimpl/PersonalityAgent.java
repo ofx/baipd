@@ -4,7 +4,9 @@ import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
 import nl.uu.cs.arg.persuasion.model.dialogue.locutions.ClaimLocution;
 import nl.uu.cs.arg.persuasion.platform.local.AgentXmlData;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.AcceptanceAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.AssertionAttitude;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.AcceptanceReasoner;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.AssertionReasoner;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import org.aspic.inference.ReasonerException;
@@ -21,7 +23,6 @@ public class PersonalityAgent extends PersuadingAgent {
         put("ideas", 0.0);
         put("values", 0.0);
         put("competence", 0.0);
-        put("dutifulness", 0.0);
         put("achievementstriving", 0.0);
         put("selfdiscipline", 0.0);
         put("deliberation", 0.0);
@@ -76,9 +77,9 @@ public class PersonalityAgent extends PersuadingAgent {
             this.output("Configuration incomplete, missing components of personality vector");
         }
 
-        AssertionReasoner reasoner = new AssertionReasoner(0.2);
+        AcceptanceReasoner reasoner = new AcceptanceReasoner(0.2);
         reasoner.setPersonalityVector(this.personalityVector);
-        ArrayList<AssertionAttitude> ordering = (ArrayList<AssertionAttitude>) reasoner.run();
+        ArrayList<AcceptanceAttitude> ordering = (ArrayList<AcceptanceAttitude>) reasoner.run();
 
         this.outOfMoves = false;
     }

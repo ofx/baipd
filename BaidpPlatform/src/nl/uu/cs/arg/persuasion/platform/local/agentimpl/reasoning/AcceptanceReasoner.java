@@ -4,8 +4,6 @@ import com.fuzzylite.variable.InputVariable;
 import com.fuzzylite.variable.OutputVariable;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.AcceptanceAttitude;
 
-import java.util.Map;
-
 public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
 {
 
@@ -25,6 +23,7 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
         InputVariable anxiety             = new InputVariable();
         InputVariable angryhostility      = new InputVariable();
         InputVariable impulsiveness       = new InputVariable();
+        InputVariable straightforwardness = new InputVariable();
 
         this.inputVariables.put("achievementstriving", achievementstriving);
         this.inputVariables.put("deliberation",        deliberation);
@@ -34,6 +33,7 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
         this.inputVariables.put("anxiety",             anxiety);
         this.inputVariables.put("angryhostility",      angryhostility);
         this.inputVariables.put("impulsiveness",       impulsiveness);
+        this.inputVariables.put("straightforwardness", straightforwardness);
     }
 
     @Override
@@ -66,28 +66,89 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
     {
         String rules[] = {
             /*
-                The agent is more likely to be credulous if the agent is achievement striving, since an achievement
+                The agent is more likely to be credulous if the agent is not achievement striving, since an achievement
                 striving agent will prefer to achieve its personal goal. By accepting a proposition by the opponent, the
                 agent is not contributing towards its personal goal. Being credulous is not considered deliberate, so a
                 low-keyed deliberation facet indicates a preference for a credulous attitude. A trusting agent is more likely
                 to select a credulous attitude, since the move is not well-motivated, and the opponent is able to lie.
-                The agent can not be unmodest, since this will disallow the agent to accept a proposition. The credulous
+                The agent can not be immodest, since this will disallow the agent to accept a proposition. The credulous
                 attitude is considered to be an impulsive move.
              */
-            "if achievementstriving is high " +
+            "if achievementstriving is not high " +
                     "and deliberation is low " +
                     "and trust is high " +
                     "and modesty is not low " +
                     "and impulsiveness is high " +
                     "and activity is high " +
-                    "and (anxiety is not low or angryhostility is not low) " +
+                    //"or anxiety is not low " +
                     "then credulous is favored",
-            "if activity is high" +
-                    "and (anxiety is not low or angryhostility is not low)" +
+            /*
+                Same holds for a cautious attitude, except for trust being med, deliberation being med and impulsiveness
+                being med.
+             */
+            "if achievementstriving is not high " +
+                    "and deliberation is med " +
+                    "and trust is med " +
+                    "and modesty is not low " +
+                    "and impulsiveness is med " +
+                    "and activity is high " +
+                    //"or anxiety is not low " +
                     "then cautious is favored",
-            "if activity is high" +
-                    "and (anxiety is not low or angryhostility is not low)" +
+            /*
+                Same holds for a skeptical attitude, except for trust being low, deliberation being high and impulsiveness
+                being low.
+             */
+            "if achievementstriving is not high " +
+                    "and deliberation is high " +
+                    "and trust is low " +
+                    "and modesty is not low " +
+                    "and impulsiveness is low " +
+                    "and activity is high " +
+                    //"or anxiety is not low " +
                     "then skeptical is favored",
+
+            "if deliberation is not low " +
+                    "and impulsiveness is not high " +
+                    "and trust is not high " +
+                    "then credulous is disfavored",
+            "if deliberation is not med " +
+                    "and impulsiveness is not med " +
+                    "and trust is not med " +
+                    "then cautious is disfavored",
+            "if deliberation is not high " +
+                    "and impulsiveness is not low " +
+                    "and trust is not low " +
+                    "then skeptical is disfavored",
+
+            "if achievementstriving is low " +
+                    "and activity is high " +
+                    "and trust is high " +
+                    "and modesty is high " +
+                    "and impulsiveness is high " +
+                    "or anxiety is high " +
+                    "then obedient is favored",
+
+            "if achievementstriving is not low " +
+                    "and trust is not high " +
+                    "and modesty is not high " +
+                    "and impulsiveness is not high " +
+                    "then obedient is disfavored",
+
+            "if achievementstriving is high " +
+                    "and activity is low " +
+                    "and trust is low " +
+                    "and straightforwardness is low " +
+                    "and modesty is low " +
+                    "and impulsiveness is high " +
+                    "or angryhostility is high " +
+                    "then rigid is favored",
+
+            "if achievementstriving is not high " +
+                    "and trust is not low " +
+                    "and straightforwardness is not low " +
+                    "and modesty is not low " +
+                    "and impulsiveness is not high " +
+                    "then rigid is disfavored"
         };
 
         for (String rule : rules) {

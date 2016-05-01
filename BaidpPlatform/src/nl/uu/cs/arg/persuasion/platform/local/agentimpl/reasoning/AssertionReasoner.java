@@ -4,8 +4,6 @@ import com.fuzzylite.variable.InputVariable;
 import com.fuzzylite.variable.OutputVariable;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.AssertionAttitude;
 
-import java.util.Map;
-
 public class AssertionReasoner extends Reasoner<AssertionAttitude>
 {
 
@@ -18,7 +16,6 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
     protected void defineInputVariables()
     {
         InputVariable achievementstriving = new InputVariable();
-        InputVariable dutifulness         = new InputVariable();
         InputVariable selfdiscipline      = new InputVariable();
         InputVariable deliberation        = new InputVariable();
         InputVariable activity            = new InputVariable();
@@ -30,7 +27,6 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
         InputVariable angryhostility      = new InputVariable();
 
         this.inputVariables.put("achievementstriving", achievementstriving);
-        this.inputVariables.put("dutifulness",         dutifulness);
         this.inputVariables.put("selfdiscipline",      selfdiscipline);
         this.inputVariables.put("deliberation",        deliberation);
         this.inputVariables.put("activity",            activity);
@@ -69,7 +65,6 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                 would prefer to make a claim supported by an argument the agent can construct.
                  */
                 "if achievementstriving is high " +
-                        "and dutifulness is high " +
                         "and selfdiscipline is high " +
                         "and straightforwardness is high " +
                         "and modesty is low " +
@@ -79,7 +74,6 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                         "and impulsiveness is low " +
                         "then thoughtful is favored",
                 "if achievementstriving is high " +
-                        "and dutifulness is high " +
                         "and selfdiscipline is high " +
                         "and straightforwardness is high " +
                         "and modesty is low " +
@@ -89,7 +83,6 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                         "and impulsiveness is med " +
                         "then careful is favored",
                 "if achievementstriving is high " +
-                        "and dutifulness is high " +
                         "and selfdiscipline is high " +
                         "and straightforwardness is high " +
                         "and modesty is low " +
@@ -161,27 +154,10 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                         "and modesty is low " +
                         "and anxiety is low " +
                         "and impulsiveness is high " +
-                        "and dutifulness is low " +
                         "and selfdiscipline is low " +
-                        "then deceptive is favored",
-                "if achievementstriving is high " +
-                        "and angryhostility is not low " +
-                        "and depression is not low " +
-                        "and deliberation is not high " +
-                        "and activity is high " +
-                        "and straightforwardness is low " +
-                        "and modesty is low " +
-                        "and anxiety is low " +
-                        "and impulsiveness is high " +
-                        "and dutifulness is med " +
-                        "and selfdiscipline is med " +
                         "then spurious is favored",
-                "if dutifulness is not low " +
-                        "and selfdiscipline is not low " +
-                        "then deceptive is disfavored",
-                "if dutifulness is not med " +
-                        "and selfdiscipline is not med " +
-                        "then spurious is disfavored"
+                "if selfdiscipline is not low " +
+                        "then spurious is disfavored",
         };
 
         for (String rule : rules) {
