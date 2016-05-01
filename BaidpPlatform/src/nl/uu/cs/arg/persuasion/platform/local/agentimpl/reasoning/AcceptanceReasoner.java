@@ -22,7 +22,6 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
         InputVariable modesty             = new InputVariable();
         InputVariable anxiety             = new InputVariable();
         InputVariable angryhostility      = new InputVariable();
-        InputVariable impulsiveness       = new InputVariable();
         InputVariable straightforwardness = new InputVariable();
 
         this.inputVariables.put("achievementstriving", achievementstriving);
@@ -32,7 +31,6 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
         this.inputVariables.put("modesty",             modesty);
         this.inputVariables.put("anxiety",             anxiety);
         this.inputVariables.put("angryhostility",      angryhostility);
-        this.inputVariables.put("impulsiveness",       impulsiveness);
         this.inputVariables.put("straightforwardness", straightforwardness);
     }
 
@@ -78,7 +76,6 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
                     "and deliberation is low " +
                     "and trust is high " +
                     "and modesty is not low " +
-                    "and impulsiveness is high " +
                     "and activity is high " +
                     //"or anxiety is not low " +
                     "then credulous is favored",
@@ -90,7 +87,6 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
                     "and deliberation is med " +
                     "and trust is med " +
                     "and modesty is not low " +
-                    "and impulsiveness is med " +
                     "and activity is high " +
                     //"or anxiety is not low " +
                     "then cautious is favored",
@@ -102,21 +98,17 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
                     "and deliberation is high " +
                     "and trust is low " +
                     "and modesty is not low " +
-                    "and impulsiveness is low " +
                     "and activity is high " +
                     //"or anxiety is not low " +
                     "then skeptical is favored",
 
             "if deliberation is not low " +
-                    "and impulsiveness is not high " +
                     "and trust is not high " +
                     "then credulous is disfavored",
             "if deliberation is not med " +
-                    "and impulsiveness is not med " +
                     "and trust is not med " +
                     "then cautious is disfavored",
             "if deliberation is not high " +
-                    "and impulsiveness is not low " +
                     "and trust is not low " +
                     "then skeptical is disfavored",
 
@@ -124,14 +116,12 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
                     "and activity is high " +
                     "and trust is high " +
                     "and modesty is high " +
-                    "and impulsiveness is high " +
                     "or anxiety is high " +
                     "then obedient is favored",
 
             "if achievementstriving is not low " +
                     "and trust is not high " +
                     "and modesty is not high " +
-                    "and impulsiveness is not high " +
                     "then obedient is disfavored",
 
             "if achievementstriving is high " +
@@ -139,7 +129,6 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
                     "and trust is low " +
                     "and straightforwardness is low " +
                     "and modesty is low " +
-                    "and impulsiveness is high " +
                     "or angryhostility is high " +
                     "then rigid is favored",
 
@@ -147,7 +136,6 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
                     "and trust is not low " +
                     "and straightforwardness is not low " +
                     "and modesty is not low " +
-                    "and impulsiveness is not high " +
                     "then rigid is disfavored"
         };
 

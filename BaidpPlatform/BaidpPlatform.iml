@@ -12,5 +12,14 @@
     <orderEntry type="library" name="jopt-simple-3.1" level="project" />
     <orderEntry type="library" name="jcommon-1.0.23" level="project" />
     <orderEntry type="library" name="org.reflections:reflections:0.9.10" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jfreechart-1.0.19.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
