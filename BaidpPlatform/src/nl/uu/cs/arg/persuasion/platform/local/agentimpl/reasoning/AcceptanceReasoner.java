@@ -63,80 +63,58 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
     protected void defineRules()
     {
         String rules[] = {
-            /*
-                The agent is more likely to be credulous if the agent is not achievement striving, since an achievement
-                striving agent will prefer to achieve its personal goal. By accepting a proposition by the opponent, the
-                agent is not contributing towards its personal goal. Being credulous is not considered deliberate, so a
-                low-keyed deliberation facet indicates a preference for a credulous attitude. A trusting agent is more likely
-                to select a credulous attitude, since the move is not well-motivated, and the opponent is able to lie.
-                The agent can not be immodest, since this will disallow the agent to accept a proposition. The credulous
-                attitude is considered to be an impulsive move.
-             */
-            "if achievementstriving is not high " +
-                    "and deliberation is low " +
-                    "and trust is high " +
-                    "and modesty is not low " +
-                    "and activity is high " +
-                    //"or anxiety is not low " +
-                    "then credulous is favored",
-            /*
-                Same holds for a cautious attitude, except for trust being med, deliberation being med and impulsiveness
-                being med.
-             */
-            "if achievementstriving is not high " +
-                    "and deliberation is med " +
-                    "and trust is med " +
-                    "and modesty is not low " +
-                    "and activity is high " +
-                    //"or anxiety is not low " +
-                    "then cautious is favored",
-            /*
-                Same holds for a skeptical attitude, except for trust being low, deliberation being high and impulsiveness
-                being low.
-             */
-            "if achievementstriving is not high " +
-                    "and deliberation is high " +
-                    "and trust is low " +
-                    "and modesty is not low " +
-                    "and activity is high " +
-                    //"or anxiety is not low " +
-                    "then skeptical is favored",
-
-            "if deliberation is not low " +
-                    "and trust is not high " +
-                    "then credulous is disfavored",
-            "if deliberation is not med " +
-                    "and trust is not med " +
-                    "then cautious is disfavored",
-            "if deliberation is not high " +
-                    "and trust is not low " +
-                    "then skeptical is disfavored",
-
             "if achievementstriving is low " +
-                    "and activity is high " +
-                    "and trust is high " +
-                    "and modesty is high " +
-                    "or anxiety is high " +
-                    "then obedient is favored",
-
-            "if achievementstriving is not low " +
-                    "and trust is not high " +
-                    "and modesty is not high " +
-                    "then obedient is disfavored",
-
+                "and deliberation is low " +
+                "and trust is high " +
+                "and modesty is not low " +
+                "and activity is high " +
+                "then credulous is favored",
+            "if achievementstriving is med " +
+                "and deliberation is med " +
+                "and trust is med " +
+                "and modesty is not low " +
+                "and activity is high " +
+                "then cautious is favored",
             "if achievementstriving is high " +
-                    "and activity is low " +
-                    "and trust is low " +
-                    "and straightforwardness is low " +
-                    "and modesty is low " +
-                    "or angryhostility is high " +
-                    "then rigid is favored",
-
+                "and deliberation is high " +
+                "and trust is low " +
+                "and modesty is not low " +
+                "and activity is high " +
+                "then skeptical is favored",
+            "if achievementstriving is not low " +
+                "and deliberation is not low " +
+                "and trust is not high " +
+                "then credulous is disfavored",
+            "if achievementstriving is not med " +
+                "and deliberation is not med " +
+                "and trust is not med " +
+                "then cautious is disfavored",
             "if achievementstriving is not high " +
-                    "and trust is not low " +
-                    "and straightforwardness is not low " +
-                    "and modesty is not low " +
-                    "then rigid is disfavored"
+                "and deliberation is not high " +
+                "and trust is not low " +
+                "then skeptical is disfavored",
+            "if achievementstriving is low " +
+                "and activity is high " +
+                "and trust is high " +
+                "and modesty is high " +
+                "and anxiety is high " +
+                "then obedient is favored",
+            "if achievementstriving is not low " +
+                "and trust is not high " +
+                "and modesty is not high " +
+                "then obedient is disfavored",
+            "if achievementstriving is high " +
+                "and activity is low " +
+                "and trust is low " +
+                "and straightforwardness is low " +
+                "and modesty is low " +
+                "and angryhostility is high " +
+                "then rigid is favored",
+            "if achievementstriving is not high " +
+                "and trust is not low " +
+                "and straightforwardness is not low " +
+                "and modesty is not low " +
+                "then rigid is disfavored"
         };
 
         for (String rule : rules) {
