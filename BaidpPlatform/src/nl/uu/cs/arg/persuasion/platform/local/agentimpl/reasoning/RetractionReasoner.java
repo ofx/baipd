@@ -68,19 +68,19 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
             "if achievementstriving is low " +
                     "and deliberation is low " +
                     "and activity is high " +
-                    "and modesty is high " +
+                    "and modesty is not low " +
                     "and impulsiveness is high " +
                     "then regretful is favored",
             "if achievementstriving is med " +
                     "and deliberation is med " +
                     "and activity is high " +
-                    "and modesty is high " +
+                    "and modesty is not low " +
                     "and impulsiveness is med " +
                     "then sensible is favored",
             "if achievementstriving is high " +
                     "and deliberation is high " +
                     "and activity is high " +
-                    "and modesty is high " +
+                    "and modesty is not low " +
                     "and impulsiveness is low " +
                     "then retentive is favored",
             "if achievementstriving is not low " +
@@ -95,7 +95,31 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
                     "and deliberation is not high " +
                     "and impulsiveness is not low " +
                     "then retentive is disfavored",
-            // TODO: Incongruous / Determined
+            "if achievementstriving is low " +
+                    "and deliberation is low " +
+                    "and activity is high " +
+                    "and modesty is high " +
+                    "and anxiety is high " +
+                    "and impulsiveness is high " +
+                    "and straightforwardness is low " +
+                    "and depression is high " +
+                    "then incongruous is favored",
+            "if achievementstriving is not low " +
+                    "and deliberation is not low " +
+                    "and modesty is not high " +
+                    "then incongruous is disfavored",
+            "if achievementstriving is high " +
+                    "and deliberation is low " +
+                    "and activity is low " +
+                    "and straightforwardness is low " +
+                    "and modesty is low " +
+                    "and angryhostility is high " +
+                    "and impulsiveness is high " +
+                    "then determined is favored",
+            "if achievementstriving is not high " +
+                    "and deliberation is not low " +
+                    "and modesty is not low " +
+                    "then determined is disfavored"
         };
 
         for (String rule : rules) {
