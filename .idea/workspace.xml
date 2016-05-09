@@ -21,21 +21,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PersonalityAgent.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PersonalityAgent.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/PersonalityAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.69868994">
+              <caret line="87" column="32" selection-start-line="87" selection-start-column="32" selection-end-line="87" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RetractionReasoner.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Reasoner.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/Reasoner.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="172" column="0" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RetractionReasoner.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/RetractionReasoner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.332472">
-              <caret line="80" column="49" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="49" />
+            <state vertical-scroll-proportion="-19.964285">
+              <caret line="128" column="85" selection-start-line="128" selection-start-column="85" selection-end-line="128" selection-end-column="85" />
               <folding />
             </state>
           </provider>
@@ -44,10 +54,12 @@
       <file leaf-file-name="AcceptanceReasoner.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/AcceptanceReasoner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-39.035713">
-              <caret line="125" column="26" selection-start-line="125" selection-start-column="24" selection-end-line="125" selection-end-column="26" />
+            <state vertical-scroll-proportion="-35.642857">
+              <caret line="119" column="12" selection-start-line="119" selection-start-column="9" selection-end-line="119" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#5113#5114#0" expanded="true" />
+                <element signature="e#5207#5208#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -56,8 +68,8 @@
       <file leaf-file-name="ChallengeReasoner.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/ChallengeReasoner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.5">
-              <caret line="23" column="26" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="26" />
+            <state vertical-scroll-proportion="-19.964285">
+              <caret line="133" column="84" selection-start-line="133" selection-start-column="84" selection-end-line="133" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -66,8 +78,8 @@
       <file leaf-file-name="AssertionReasoner.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/AssertionReasoner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="92" column="54" selection-start-line="92" selection-start-column="54" selection-end-line="92" selection-end-column="54" />
+            <state vertical-scroll-proportion="-11.0">
+              <caret line="71" column="47" selection-start-line="71" selection-start-column="47" selection-end-line="71" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -113,16 +125,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ObedientAttitude.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/attitudes/acceptance/ObedientAttitude.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="56" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -188,12 +190,12 @@
         <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/Reasoner.java" />
         <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/ClaimReasoner.java" />
         <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/attitudes/acceptance/ObedientAttitude.java" />
-        <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/PersonalityAgent.java" />
         <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/tools/FuzzyResultChart.java" />
         <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/attitudes/assertion/DeceptiveAttitude.java" />
-        <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/AssertionReasoner.java" />
         <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/AcceptanceReasoner.java" />
+        <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/AssertionReasoner.java" />
         <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/ChallengeReasoner.java" />
+        <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/PersonalityAgent.java" />
         <option value="$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/RetractionReasoner.java" />
       </list>
     </option>
@@ -206,10 +208,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1720" />
-    <option name="y" value="140" />
-    <option name="width" value="1720" />
-    <option name="height" value="1279" />
+    <option name="x" value="1633" />
+    <option name="y" value="40" />
+    <option name="width" value="1807" />
+    <option name="height" value="1379" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -236,7 +238,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -811,6 +812,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
@@ -1191,31 +1193,31 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1720" y="140" width="1720" height="1279" extended-state="0" />
+    <frame x="1633" y="40" width="1807" height="1379" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281759" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22782874" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13869464" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13200222" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4456522" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281759" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22847682" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="5.2083336E-4" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18375394" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43956953" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1238,8 +1240,14 @@
           <properties />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/PersonalityAgent.java</url>
+          <line>87</line>
+          <properties />
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="59" />
+      <option name="time" value="60" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1521,14 +1529,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/Reasoner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="202" column="25" selection-start-line="202" selection-start-column="25" selection-end-line="202" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/attitudes/acceptance/RigidAttitude.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1551,14 +1551,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/PersonalityAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1588,36 +1580,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/AcceptanceReasoner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-39.035713">
-          <caret line="125" column="26" selection-start-line="125" selection-start-column="24" selection-end-line="125" selection-end-column="26" />
+        <state vertical-scroll-proportion="-35.642857">
+          <caret line="119" column="12" selection-start-line="119" selection-start-column="9" selection-end-line="119" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#5113#5114#0" expanded="true" />
+            <element signature="e#5207#5208#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/ChallengeReasoner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5">
-          <caret line="23" column="26" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/AssertionReasoner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="54" selection-start-line="92" selection-start-column="54" selection-end-line="92" selection-end-column="54" />
+        <state vertical-scroll-proportion="-11.0">
+          <caret line="71" column="47" selection-start-line="71" selection-start-column="47" selection-end-line="71" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/Reasoner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="172" column="0" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/ChallengeReasoner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.964285">
+          <caret line="133" column="84" selection-start-line="133" selection-start-column="84" selection-end-line="133" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/reasoning/RetractionReasoner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.332472">
-          <caret line="80" column="49" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="49" />
+        <state vertical-scroll-proportion="-19.964285">
+          <caret line="128" column="85" selection-start-line="128" selection-start-column="85" selection-end-line="128" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaidpPlatform/src/nl/uu/cs/arg/persuasion/platform/local/agentimpl/PersonalityAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.69868994">
+          <caret line="87" column="32" selection-start-line="87" selection-start-column="32" selection-end-line="87" selection-end-column="32" />
           <folding />
         </state>
       </provider>

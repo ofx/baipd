@@ -20,28 +20,24 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
     protected void defineInputVariables()
     {
         InputVariable achievementstriving = new InputVariable();
-        InputVariable dutifulness         = new InputVariable();
-        InputVariable selfdiscipline      = new InputVariable();
         InputVariable deliberation        = new InputVariable();
         InputVariable activity            = new InputVariable();
         InputVariable straightforwardness = new InputVariable();
         InputVariable modesty             = new InputVariable();
         InputVariable anxiety             = new InputVariable();
         InputVariable impulsiveness       = new InputVariable();
-        InputVariable depression          = new InputVariable();
         InputVariable angryhostility      = new InputVariable();
+        InputVariable trust               = new InputVariable();
 
         this.inputVariables.put("achievementstriving", achievementstriving);
-        this.inputVariables.put("dutifulness",         dutifulness);
-        this.inputVariables.put("selfdiscipline",      selfdiscipline);
         this.inputVariables.put("deliberation",        deliberation);
         this.inputVariables.put("activity",            activity);
         this.inputVariables.put("straightforwardness", straightforwardness);
         this.inputVariables.put("modesty",             modesty);
         this.inputVariables.put("anxiety",             anxiety);
         this.inputVariables.put("impulsiveness",       impulsiveness);
-        this.inputVariables.put("depression",          depression);
         this.inputVariables.put("angryhostility",      angryhostility);
+        this.inputVariables.put("trust",               trust);
     }
 
     @Override
@@ -66,9 +62,9 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
         String rules[] = {
             "if achievementstriving is high " +
                     "and deliberation is low " +
-                    "and activity is high" +
+                    "and activity is high " +
                     "and trust is high " +
-                    "and modesty low " +
+                    "and modesty is low " +
                     "and anxiety is low " +
                     "and impulsiveness is high " +
                     "then judical is favored",
@@ -135,7 +131,7 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
     @Override
     protected String getSearchPath()
     {
-        return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion";
+        return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.challenge";
     }
 
 }

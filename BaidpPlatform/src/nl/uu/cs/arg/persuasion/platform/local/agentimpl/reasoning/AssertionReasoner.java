@@ -94,7 +94,7 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                         "and achievementstriving is low " +
                         "and activity is low " +
                         "and modesty is high " +
-                        "or anxiety is high " +
+                        "and anxiety is high " +
                         "then hesitant is favored",
                 "if selfdiscipline is not low " +
                         "and activity is not low " +
@@ -111,7 +111,7 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                         "and deliberation is not low " +
                         "and selfdiscipline is not low " +
                         "and achievementstriving is high " +
-                        "or angryhostility is high " +
+                        "and angryhostility is high " +
                         "then deceptive is favored",
                 "if deliberation is low " +
                         "then deceptive is disfavored"

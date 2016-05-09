@@ -21,8 +21,6 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
     protected void defineInputVariables()
     {
         InputVariable achievementstriving = new InputVariable();
-        InputVariable dutifulness         = new InputVariable();
-        InputVariable selfdiscipline      = new InputVariable();
         InputVariable deliberation        = new InputVariable();
         InputVariable activity            = new InputVariable();
         InputVariable straightforwardness = new InputVariable();
@@ -33,8 +31,6 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
         InputVariable angryhostility      = new InputVariable();
 
         this.inputVariables.put("achievementstriving", achievementstriving);
-        this.inputVariables.put("dutifulness",         dutifulness);
-        this.inputVariables.put("selfdiscipline",      selfdiscipline);
         this.inputVariables.put("deliberation",        deliberation);
         this.inputVariables.put("activity",            activity);
         this.inputVariables.put("straightforwardness", straightforwardness);
@@ -130,7 +126,7 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
     @Override
     protected String getSearchPath()
     {
-        return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion";
+        return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction";
     }
 
 }
