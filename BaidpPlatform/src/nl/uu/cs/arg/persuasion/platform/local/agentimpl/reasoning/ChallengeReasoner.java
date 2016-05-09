@@ -11,6 +11,8 @@ import java.util.Map;
 public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
 {
 
+    public ChallengeReasoner() { this(0.2); }
+
     public ChallengeReasoner(double rho)
     {
         super("ChallengeReasoningEngine", rho, ChallengeAttitude.class);

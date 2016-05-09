@@ -12,6 +12,8 @@ import java.util.Map;
 public class RetractionReasoner extends Reasoner<RetractionAttitude>
 {
 
+    public RetractionReasoner() { this(0.2); }
+
     public RetractionReasoner(double rho)
     {
         super("RetractionReasoningEngine", rho, RetractionAttitude.class);

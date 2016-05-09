@@ -8,10 +8,7 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.Acc
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.AssertionAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.challenge.ChallengeAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction.RetractionAttitude;
-import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.AcceptanceReasoner;
-import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.AssertionReasoner;
-import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.ChallengeReasoner;
-import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.RetractionReasoner;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.*;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import org.aspic.inference.ReasonerException;
 import org.aspic.inference.parser.ParseException;
@@ -81,16 +78,39 @@ public class PersonalityAgent extends PersuadingAgent {
             this.output("Configuration incomplete, missing components of personality vector");
         }
 
-        RetractionReasoner reasoner = new RetractionReasoner(0.2);
-        reasoner.setPersonalityVector(this.personalityVector);
-        ArrayList<RetractionAttitude> ordering = (ArrayList<RetractionAttitude>) reasoner.run();
-
         this.outOfMoves = false;
     }
 
     @Override
     protected void storeNewBeliefs(List<PersuasionMove<? extends Locution>> moves) throws ParseException, ReasonerException {
         System.out.println("storeNewBeliefs");
+    }
+
+    protected void generateOptions()
+    {
+
+    }
+
+    protected ArrayList<Reasoner> actionSelection()
+    {
+        // Determine the preference ordering over types of speech acts
+        ActionSelectionReasoner reasoner = new ActionSelectionReasoner(0.2);
+        reasoner.setPersonalityVector(this.personalityVector);
+        ArrayList<Reasoner> ordering = (ArrayList<Reasoner>) reasoner.run();
+
+        return ordering;
+    }
+
+    protected void actionRevision(ArrayList<Reasoner> actionOrdering)
+    {
+
+    }
+
+    protected void determinePreferences()
+    {
+        ArrayList<Reasoner> ordering = this.actionSelection();
+
+        this.actionRevision(ordering);
     }
 
     @Override
@@ -106,6 +126,14 @@ public class PersonalityAgent extends PersuadingAgent {
                 return null;
             }
         }
+
+        // Generate all available options
+        this.generateOptions();
+
+        // Determine preferences
+        this.determinePreferences();
+
+        //
 
         // Get the active attackers
         /*for (PersuasionMove<? extends Locution> attack : this.dialogue.getActiveAttackers()) {

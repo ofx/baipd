@@ -7,6 +7,8 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.Asse
 public class AssertionReasoner extends Reasoner<AssertionAttitude>
 {
 
+    public AssertionReasoner() { this(0.2); }
+
     public AssertionReasoner(double rho)
     {
         super("AssertionReasoningEngine", rho, AssertionAttitude.class);
