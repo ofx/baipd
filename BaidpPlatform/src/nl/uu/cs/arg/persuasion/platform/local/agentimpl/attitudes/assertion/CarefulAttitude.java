@@ -1,7 +1,16 @@
 package nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion;
 
-/**
- * Created by argon on 13-3-16.
- */
-public class CarefulAttitude extends AssertionAttitude {
+import nl.uu.cs.arg.shared.dialogue.Move;
+import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
+
+import java.util.List;
+
+public class CarefulAttitude extends AssertionAttitude
+{
+    @Override
+    public List<Move<? extends Locution>> generateMoves()
+    {
+        return null;
+    }
+
 }

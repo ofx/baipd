@@ -1,7 +1,17 @@
 package nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction;
 
-/**
- * Created by argon on 13-3-16.
- */
-public class RegretfulAttitude extends RetractionAttitude {
+import nl.uu.cs.arg.shared.dialogue.Move;
+import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
+
+import java.util.List;
+
+public class RegretfulAttitude extends RetractionAttitude
+{
+
+    @Override
+    public List<Move<? extends Locution>> generateMoves()
+    {
+        return null;
+    }
+
 }

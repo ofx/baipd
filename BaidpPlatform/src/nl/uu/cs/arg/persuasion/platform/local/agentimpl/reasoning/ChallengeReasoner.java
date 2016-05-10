@@ -27,7 +27,6 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
         InputVariable straightforwardness = new InputVariable();
         InputVariable modesty             = new InputVariable();
         InputVariable anxiety             = new InputVariable();
-        InputVariable impulsiveness       = new InputVariable();
         InputVariable angryhostility      = new InputVariable();
         InputVariable trust               = new InputVariable();
 
@@ -37,7 +36,6 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
         this.inputVariables.put("straightforwardness", straightforwardness);
         this.inputVariables.put("modesty",             modesty);
         this.inputVariables.put("anxiety",             anxiety);
-        this.inputVariables.put("impulsiveness",       impulsiveness);
         this.inputVariables.put("angryhostility",      angryhostility);
         this.inputVariables.put("trust",               trust);
     }
@@ -68,7 +66,6 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
                     "and trust is high " +
                     "and modesty is low " +
                     "and anxiety is low " +
-                    "and impulsiveness is high " +
                     "then judical is favored",
             "if achievementstriving is high " +
                     "and deliberation is med " +
@@ -76,7 +73,6 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
                     "and trust is med " +
                     "and modesty is low " +
                     "and anxiety is low " +
-                    "and impulsiveness is med " +
                     "then suspicious is favored",
             "if achievementstriving is high " +
                     "and deliberation is high " +
@@ -84,19 +80,15 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
                     "and trust is low " +
                     "and modesty is low " +
                     "and anxiety is low " +
-                    "and impulsiveness is low " +
                     "then persistent is favored",
             "if deliberation is not low " +
                     "and trust is not high " +
-                    "and impulsiveness is not high " +
                     "then judical is disfavored",
             "if deliberation is not med " +
                     "and trust is not med " +
-                    "and impulsiveness is not med " +
                     "then suspicious is disfavored",
             "if deliberation is not high " +
                     "and trust is not low " +
-                    "and impulsiveness is not low " +
                     "then persistent is disfavored",
             "if achievementstriving is high " +
                     "and deliberation is low " +
@@ -105,7 +97,6 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
                     "and modesty is low " +
                     "and anxiety is low " +
                     "and angryhostility is high " +
-                    "and impulsiveness is high " +
                     "then tentative is favored",
             "if achievementstriving is not high " +
                     "and deliberation is not low " +
@@ -117,7 +108,6 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
                     "and straightforwardness is low " +
                     "and anxiety is high " +
                     "and angryhostility is high " +
-                    "and impulsiveness is low " +
                     "then indifferent is favored",
             "if achievementstriving is not low " +
                     "and deliberation is not low " +

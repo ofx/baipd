@@ -28,7 +28,6 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
         InputVariable straightforwardness = new InputVariable();
         InputVariable modesty             = new InputVariable();
         InputVariable anxiety             = new InputVariable();
-        InputVariable impulsiveness       = new InputVariable();
         InputVariable depression          = new InputVariable();
         InputVariable angryhostility      = new InputVariable();
 
@@ -38,7 +37,6 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
         this.inputVariables.put("straightforwardness", straightforwardness);
         this.inputVariables.put("modesty",             modesty);
         this.inputVariables.put("anxiety",             anxiety);
-        this.inputVariables.put("impulsiveness",       impulsiveness);
         this.inputVariables.put("depression",          depression);
         this.inputVariables.put("angryhostility",      angryhostility);
     }
@@ -67,38 +65,31 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
                     "and deliberation is low " +
                     "and activity is high " +
                     "and modesty is not low " +
-                    "and impulsiveness is high " +
                     "then regretful is favored",
             "if achievementstriving is med " +
                     "and deliberation is med " +
                     "and activity is high " +
                     "and modesty is not low " +
-                    "and impulsiveness is med " +
                     "then sensible is favored",
             "if achievementstriving is high " +
                     "and deliberation is high " +
                     "and activity is high " +
                     "and modesty is not low " +
-                    "and impulsiveness is low " +
                     "then retentive is favored",
             "if achievementstriving is not low " +
                     "and deliberation is not low " +
-                    "and impulsiveness is not high " +
                     "then regretful is disfavored",
             "if achievementstriving is not med " +
                     "and deliberation is not med " +
-                    "and impulsiveness is not med " +
                     "then sensible is disfavored",
             "if achievementstriving is not high " +
                     "and deliberation is not high " +
-                    "and impulsiveness is not low " +
                     "then retentive is disfavored",
             "if achievementstriving is low " +
                     "and deliberation is low " +
                     "and activity is high " +
                     "and modesty is high " +
                     "and anxiety is high " +
-                    "and impulsiveness is high " +
                     "and straightforwardness is low " +
                     "and depression is high " +
                     "then incongruous is favored",
@@ -112,7 +103,6 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
                     "and straightforwardness is low " +
                     "and modesty is low " +
                     "and angryhostility is high " +
-                    "and impulsiveness is high " +
                     "then determined is favored",
             "if achievementstriving is not high " +
                     "and deliberation is not low " +

@@ -4,6 +4,7 @@ import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
 import nl.uu.cs.arg.persuasion.model.dialogue.locutions.ClaimLocution;
 import nl.uu.cs.arg.persuasion.platform.local.AgentXmlData;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.Attitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.AcceptanceAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.AssertionAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.challenge.ChallengeAttitude;
@@ -36,7 +37,6 @@ public class PersonalityAgent extends PersuadingAgent {
         put("angryhostility", 0.0);
         put("depression", 0.0);
         put("selfconsciousness", 0.0);
-        put("impulsiveness", 0.0);
     }};
 
     private void output(String msg)
@@ -103,7 +103,36 @@ public class PersonalityAgent extends PersuadingAgent {
 
     protected void actionRevision(ArrayList<Reasoner> actionOrdering)
     {
+        this.actionRevision(actionOrdering, 0);
+    }
 
+    protected void actionRevision(ArrayList<Reasoner> actionOrdering, int level)
+    {
+        int failCount = 0;
+        for (Reasoner reasoner : actionOrdering) {
+            reasoner.setPersonalityVector(this.personalityVector);
+            ArrayList<Attitude> actionRevisionOrdering = (ArrayList<Attitude>) reasoner.run();
+
+            final int l = actionRevisionOrdering.size();
+            if (level < l) {
+                Attitude attitude = actionRevisionOrdering.get(level);
+
+                boolean valid = true;
+                if (valid) {
+                    // Do action
+                    return; // Must return
+                }
+            } else {
+                ++failCount;
+            }
+        }
+
+        if (failCount == actionOrdering.size()) {
+            // No move is allowed...
+        }
+
+        // No action selected, recurse
+        this.actionRevision(actionOrdering, level + 1);
     }
 
     protected void determinePreferences()
