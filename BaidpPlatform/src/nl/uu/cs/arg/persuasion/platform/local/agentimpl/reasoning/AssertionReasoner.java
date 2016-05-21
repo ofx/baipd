@@ -61,7 +61,6 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
     {
         String rules[] = {
                 "if achievementstriving is high " +
-                        "and selfdiscipline is high " +
                         "and straightforwardness is high " +
                         "and modesty is low " +
                         "and anxiety is low " +
@@ -69,7 +68,6 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                         "and deliberation is high " +
                         "then thoughtful is favored",
                 "if achievementstriving is high " +
-                        "and selfdiscipline is high " +
                         "and straightforwardness is high " +
                         "and modesty is low " +
                         "and anxiety is low " +
@@ -77,7 +75,6 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                         "and deliberation is med " +
                         "then careful is favored",
                 "if achievementstriving is high " +
-                        "and selfdiscipline is high " +
                         "and straightforwardness is high " +
                         "and modesty is low " +
                         "and anxiety is low " +
@@ -92,7 +89,6 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                         "then confident is disfavored",
                 "if deliberation is low " +
                         "and straightforwardness is low " +
-                        "and selfdiscipline is low " +
                         "and achievementstriving is low " +
                         "and activity is low " +
                         "and modesty is high " +
@@ -104,14 +100,12 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                         "then hesitant is disfavored",
                 "if straightforwardness is low " +
                         "and deliberation is low " +
-                        "and selfdiscipline is not low " +
                         "and achievementstriving is high " +
                         "then spurious is favored",
                 "if deliberation is not low " +
                         "then spurious is disfavored",
                 "if straightforwardness is low " +
                         "and deliberation is not low " +
-                        "and selfdiscipline is not low " +
                         "and achievementstriving is high " +
                         "and angryhostility is high " +
                         "then deceptive is favored",
