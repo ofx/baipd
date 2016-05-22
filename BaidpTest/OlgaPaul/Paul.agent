@@ -2,6 +2,9 @@
 <baidp-agent>
 	<beliefbase>
 		<![CDATA[
+        harmHumanbeings <- newTechnologies.
+        newTechnologies <- science.
+
 		safe <- airbag.
 
 		airbag.

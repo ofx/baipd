@@ -200,7 +200,7 @@ public class PersuasionPlatform implements Runnable {
         this.proponentIterator = this.proponents.iterator();
         this.opponentIterator = this.opponents.iterator();
 
-        this.dialogue.setState(PersuasionDialogueState.Active);
+        this.setDialogueState(PersuasionDialogueState.Active);
     }
 
     private void setDialogueState(PersuasionDialogueState newState) {

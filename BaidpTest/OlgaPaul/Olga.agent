@@ -26,7 +26,5 @@
         <property name="depression" type="double">0.8</property>
         <property name="selfconsciousness" type="double">0.85</property>
         <property name="impulsiveness" type="double">0.9</property>
-
-        <property name="reasoningrules-fcl-path" type="string">/home/argon/IdeaProjects/baipd/PersLogicTest/reasoningrules.fcl</property>
     </properties>
 </baidp-agent>

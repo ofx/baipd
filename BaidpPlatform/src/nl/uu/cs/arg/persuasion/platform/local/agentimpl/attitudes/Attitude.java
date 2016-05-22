@@ -1,5 +1,6 @@
 package nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes;
 
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.PersuadingAgent;
 import nl.uu.cs.arg.shared.dialogue.Move;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 
@@ -11,6 +12,6 @@ import java.util.List;
 public abstract class Attitude
 {
 
-    public abstract List<Move<? extends Locution>> generateMoves();
+    public abstract List<Move<? extends Locution>> generateMoves(PersuadingAgent agent);
 
 }

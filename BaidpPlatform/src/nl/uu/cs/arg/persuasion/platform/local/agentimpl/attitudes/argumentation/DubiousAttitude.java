@@ -1,5 +1,6 @@
 package nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.argumentation;
 
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.PersuadingAgent;
 import nl.uu.cs.arg.shared.dialogue.Move;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 
@@ -12,7 +13,7 @@ public class DubiousAttitude extends ArgumentationAttitude
 {
 
     @Override
-    public List<Move<? extends Locution>> generateMoves()
+    public List<Move<? extends Locution>> generateMoves(PersuadingAgent agent)
     {
         return null;
     }

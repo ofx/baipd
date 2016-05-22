@@ -138,8 +138,7 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
                 this.setRootElement(new IndexedNode<PersuasionMove<? extends Locution>>(this, move));
             } else {
                 // Add the new PersuasionMoves to the dialogue.
-                for (PersuasionMove PersuasionMove : newPersuasionMoves)
-                {
+                for (PersuasionMove PersuasionMove : newPersuasionMoves) {
                     this.addPersuasionMoveNode(PersuasionMove);
                 }
             }

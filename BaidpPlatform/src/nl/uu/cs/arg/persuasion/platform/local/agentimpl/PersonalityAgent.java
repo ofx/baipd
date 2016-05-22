@@ -7,9 +7,11 @@ import nl.uu.cs.arg.persuasion.platform.local.AgentXmlData;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.Attitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.AcceptanceAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.AssertionAttitude;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.ConfidentAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.challenge.ChallengeAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction.RetractionAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.*;
+import nl.uu.cs.arg.shared.dialogue.Move;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import org.aspic.inference.ReasonerException;
 import org.aspic.inference.parser.ParseException;
@@ -86,11 +88,6 @@ public class PersonalityAgent extends PersuadingAgent {
         System.out.println("storeNewBeliefs");
     }
 
-    protected void generateOptions()
-    {
-
-    }
-
     protected ArrayList<Reasoner> actionSelection()
     {
         // Determine the preference ordering over types of speech acts
@@ -101,12 +98,12 @@ public class PersonalityAgent extends PersuadingAgent {
         return ordering;
     }
 
-    protected void actionRevision(ArrayList<Reasoner> actionOrdering)
+    protected List<Move<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering)
     {
-        this.actionRevision(actionOrdering, 0);
+        return this.actionRevision(actionOrdering, 0);
     }
 
-    protected void actionRevision(ArrayList<Reasoner> actionOrdering, int level)
+    protected List<Move<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering, int level)
     {
         int failCount = 0;
         for (Reasoner reasoner : actionOrdering) {
@@ -115,12 +112,11 @@ public class PersonalityAgent extends PersuadingAgent {
 
             final int l = actionRevisionOrdering.size();
             if (level < l) {
-                Attitude attitude = actionRevisionOrdering.get(level);
+                Attitude attitude = /*actionRevisionOrdering.get(level)*/ new ConfidentAttitude();
+                List<Move<? extends Locution>> moves = attitude.generateMoves(this);
 
-                boolean valid = true;
-                if (valid) {
-                    // Do action
-                    return; // Must return
+                if (moves.size() > 0) {
+                    return moves;
                 }
             } else {
                 ++failCount;
@@ -128,48 +124,39 @@ public class PersonalityAgent extends PersuadingAgent {
         }
 
         if (failCount == actionOrdering.size()) {
-            // No move is allowed...
+            return null; // Nothing is allowed...
         }
 
         // No action selected, recurse
-        this.actionRevision(actionOrdering, level + 1);
-    }
-
-    protected void determinePreferences()
-    {
-        ArrayList<Reasoner> ordering = this.actionSelection();
-
-        this.actionRevision(ordering);
+        return this.actionRevision(actionOrdering, level + 1);
     }
 
     @Override
     protected List<PersuasionMove<? extends Locution>> generateMoves() throws PersuasionDialogueException, ParseException, ReasonerException {
-        List<PersuasionMove<? extends Locution>> moves = new ArrayList<PersuasionMove<? extends Locution>>();
+        List<PersuasionMove<? extends Locution>> ret = new ArrayList<PersuasionMove<? extends Locution>>();
 
         // The first move, if we're proponent should be a claim locution move containing the topic
         if (!this.dialogue.isStarted()) {
             if (this.isProponent(this.dialogue)) {
-                moves.add(PersuasionMove.buildMove(this.participant, null, new ClaimLocution(this.dialogue.getTopic())));
+                ret.add(PersuasionMove.buildMove(this.participant, null, new ClaimLocution(this.dialogue.getTopic())));
             } else {
                 // Skip
                 return null;
             }
+        } else {
+            // Generate all available options
+            this.generateOptions();
+
+            ArrayList<Reasoner> ordering = this.actionSelection();
+            List<Move<? extends Locution>> moves = this.actionRevision(ordering);
         }
-
-        // Generate all available options
-        this.generateOptions();
-
-        // Determine preferences
-        this.determinePreferences();
-
-        //
 
         // Get the active attackers
         /*for (PersuasionMove<? extends Locution> attack : this.dialogue.getActiveAttackers()) {
 
         }*/
 
-        return moves;
+        return ret;
     }
 
 }

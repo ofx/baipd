@@ -60,6 +60,32 @@ public abstract class PersuadingAgent implements PersuasionAgent, StrategyExpose
         return proofs.size() != 0;
     }
 
+    public List<Constant> generateOptions() throws ParseException, ReasonerException {
+        Constant topic = this.dialogue.getTopic();
+        List<RuleArgument> proofs = helper.findProof(new ConstantList(topic), 0.0, this.beliefs, null);
+        List<Constant> found = new ArrayList<Constant>();
+
+        for (RuleArgument proof : proofs) {
+            Iterator<RuleArgument> iter = proof.subArgumentIterator();
+            while (iter.hasNext()) {
+                RuleArgument arg = iter.next();
+
+                boolean a = arg.isAtomic();
+                Constant c = arg.getClaim();
+                boolean b = arg.getClaim().isUnifiable(topic);
+                boolean d = !found.contains(arg.getClaim());
+
+                if (arg.isAtomic() && arg.getClaim() instanceof Term && arg.getClaim().isUnifiable(topic) && !found.contains(arg.getClaim())) {
+                    found.add((Term) arg.getClaim());
+                    break;
+                }
+            }
+
+        }
+        return found;
+
+    }
+
     @Override
     public void join(PersuasionDialogue dialogue) {
         // Store the dialogue (with topic and goal)
