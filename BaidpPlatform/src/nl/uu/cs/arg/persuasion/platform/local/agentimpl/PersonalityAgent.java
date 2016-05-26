@@ -7,6 +7,7 @@ import nl.uu.cs.arg.persuasion.platform.local.AgentXmlData;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.Attitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.AcceptanceAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.AssertionAttitude;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.CarefulAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.ConfidentAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.challenge.ChallengeAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction.RetractionAttitude;
@@ -98,12 +99,12 @@ public class PersonalityAgent extends PersuadingAgent {
         return ordering;
     }
 
-    protected List<Move<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering)
+    protected List<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering)
     {
         return this.actionRevision(actionOrdering, 0);
     }
 
-    protected List<Move<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering, int level)
+    protected List<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering, int level)
     {
         int failCount = 0;
         for (Reasoner reasoner : actionOrdering) {
@@ -112,8 +113,8 @@ public class PersonalityAgent extends PersuadingAgent {
 
             final int l = actionRevisionOrdering.size();
             if (level < l) {
-                Attitude attitude = /*actionRevisionOrdering.get(level)*/ new ConfidentAttitude();
-                List<Move<? extends Locution>> moves = attitude.generateMoves(this);
+                Attitude attitude = /*actionRevisionOrdering.get(level)*/ new CarefulAttitude();
+                List<PersuasionMove<? extends Locution>> moves = attitude.generateMoves(this, this.dialogue);
 
                 if (moves.size() > 0) {
                     return moves;
@@ -144,11 +145,8 @@ public class PersonalityAgent extends PersuadingAgent {
                 return null;
             }
         } else {
-            // Generate all available options
-            this.generateOptions();
-
             ArrayList<Reasoner> ordering = this.actionSelection();
-            List<Move<? extends Locution>> moves = this.actionRevision(ordering);
+            ret = this.actionRevision(ordering);
         }
 
         // Get the active attackers
