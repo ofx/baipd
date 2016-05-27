@@ -29,11 +29,11 @@ public class CarefulAttitude extends AssertionAttitude
 
                 // Check if we can construct a supporting claim
                 if (attacker instanceof WhyLocution) {
-                    newArgue = helper.generateArgument(agent.getBeliefs(), ((WhyLocution) attacker).getAttackedPremise(), 0.0, attackMove, dialogue.getReplies(attackMove));
+                    newArgue = helper.generateArgument(agent.getBeliefs(), ((WhyLocution) attacker).getAttackedPremise(), 0.0, attackMove, dialogue.getReplies(attackMove), null);
                 }
                 // Check if we can construct the negation
                 else if (attacker instanceof ClaimLocution) {
-                    newArgue = helper.generateArgument(agent.getBeliefs(), ((ClaimLocution) attacker).getProposition().negation(), 0.0, attackMove, dialogue.getReplies(attackMove));
+                    newArgue = helper.generateArgument(agent.getBeliefs(), ((ClaimLocution) attacker).getProposition().negation(), 0.0, attackMove, dialogue.getReplies(attackMove), null);
                 }
 
                 // Success?
@@ -42,7 +42,7 @@ public class CarefulAttitude extends AssertionAttitude
                     // as defined. Please note that the definition states that we should not be able to generate a stronger argument, however
                     // Kok does not regard rule strength. We therefore change the implementation such that we allow the move, if the agent
                     // cannot construct an argument for the contrary.
-                    RuleArgument _newArgue = helper.generateArgument(agent.getBeliefs(), newArgue.getClaim().negation(), 0.0, attackMove, null);
+                    RuleArgument _newArgue = helper.generateArgument(agent.getBeliefs(), newArgue.getClaim().negation(), 0.0, attackMove, null, null);
                     if (_newArgue == null) {
                         moves.add(
                                 PersuasionMove.buildMove(

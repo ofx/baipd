@@ -9,6 +9,7 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.Acc
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.AssertionAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.CarefulAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.ConfidentAttitude;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.ThoughtfulAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.challenge.ChallengeAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction.RetractionAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.*;
@@ -113,7 +114,7 @@ public class PersonalityAgent extends PersuadingAgent {
 
             final int l = actionRevisionOrdering.size();
             if (level < l) {
-                Attitude attitude = /*actionRevisionOrdering.get(level)*/ new CarefulAttitude();
+                Attitude attitude = /*actionRevisionOrdering.get(level)*/ new ThoughtfulAttitude();
                 List<PersuasionMove<? extends Locution>> moves = attitude.generateMoves(this, this.dialogue);
 
                 if (moves.size() > 0) {

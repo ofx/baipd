@@ -1,14 +1,11 @@
 package nl.uu.cs.arg.persuasion.platform.local.agentimpl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
+import nl.uu.cs.arg.persuasion.model.dialogue.locutions.ClaimLocution;
 import nl.uu.cs.arg.shared.dialogue.locutions.ArgueLocution;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import nl.uu.cs.arg.shared.dialogue.locutions.WhyLocution;
@@ -106,9 +103,6 @@ public class StrategyHelper {
      * @return A single argument that undermines or undercuts the given argue move
      */
     public RuleArgument generateUnderminerOrUndercutter(KnowledgeBase kb, RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies) throws ParseException, ReasonerException {
-        // Premises are atomic claims
-        //if (argumentToAttack.isAtomic()) {
-
         // Find arguments for the negation of this claim
         List<RuleArgument> proofs = this.findProof(new ConstantList(argumentToAttack.getClaim().negation()), argumentToAttack.getModifier(), kb, null);
 
@@ -124,6 +118,10 @@ public class StrategyHelper {
                     // This existing argue move has the same claim as the new found prove
                     alreadyUsed = true;
                     break;
+                } else if (target.getLocution() instanceof ClaimLocution && ((ClaimLocution)target.getLocution()).getProposition().equals(proof.getClaim())) {
+                    // This existing argue move has the same claim as the new found prove
+                    alreadyUsed = true;
+                    break;
                 } else if (target.getLocution() instanceof WhyLocution && ((WhyLocution)target.getLocution()).getAttackedPremise().isEqualModuloVariables(proof.getClaim().negation())) {
                     // This existing why move already questions the claim of the new found proof
                     alreadyUsed = true;
@@ -135,7 +133,11 @@ public class StrategyHelper {
             if (!alreadyUsed) {
                 // Look if we already moved it as reply to this argue move that we are attacking now
                 for (PersuasionMove<? extends Locution> existingReply : existingReplies) {
-                    if (existingReply.getLocution() instanceof ArgueLocution && ((ArgueLocution)existingReply.getLocution()).getArgument().isSemanticallyEqual(proof)) {
+                    if (existingReply.getLocution() instanceof ClaimLocution && ((ClaimLocution)existingReply.getLocution()).getProposition().equals(proof.getClaim())) {
+                        // This existing argue move has the same claim as the new found prove
+                        alreadyUsed = true;
+                        break;
+                    } else if (existingReply.getLocution() instanceof ArgueLocution && ((ArgueLocution)existingReply.getLocution()).getArgument().isSemanticallyEqual(proof)) {
                         // This existing argue move has the same claim as the new found prove
                         alreadyUsed = true;
                         break;
@@ -156,11 +158,9 @@ public class StrategyHelper {
             return newArgument;
         }
 
-        //}
-
         // Try to find a single argument that attacks one of the premises used in the argumentToAttack
         for (RuleArgument subArgument : argumentToAttack.getSubArgumentList().getArguments()) {
-            RuleArgument newFound = generateUnderminerOrUndercutter(kb, subArgument, argueMoveToAttack, existingReplies);
+            RuleArgument newFound = this.generateUnderminerOrUndercutter(kb, subArgument, argueMoveToAttack, existingReplies);
             if (newFound != null) {
                 return newFound;
             }
@@ -170,8 +170,26 @@ public class StrategyHelper {
         return null;
     }
 
-    public RuleArgument generateArgument(KnowledgeBase kb, Constant termToProve, double needed, PersuasionMove<? extends Locution> moveToAttack, List<PersuasionMove<? extends Locution>> existingReplies) throws ParseException, ReasonerException {
-        return generateArgument(kb, termToProve, needed, moveToAttack, existingReplies, null);
+    public boolean hasJustifiedArgument(RuleArgument argument, KnowledgeBase kb) throws ParseException, ReasonerException
+    {
+        // Check for rebuttals / underminers
+        List<RuleArgument> rebuttals = this.findProof(new ConstantList(argument.getClaim().negation()), 0.0, kb, null);
+        for (RuleArgument proof : rebuttals) {
+            if (this.hasJustifiedArgument(proof, kb)) {
+                return false;
+            }
+        }
+
+        // Check for undercutters
+        List<RuleArgument> undercutters = argument.getSubArgumentList().getArguments();
+        for (RuleArgument proof : undercutters) {
+            if (!this.hasJustifiedArgument(proof, kb)) {
+                return false;
+            }
+        }
+
+        // Is justified
+        return true;
     }
 
     /**
@@ -196,7 +214,10 @@ public class StrategyHelper {
             boolean alreadyUsed = false;
             PersuasionMove<? extends Locution> target = moveToAttack.getTarget();
             while (target != null) {
-                if (target.getLocution() instanceof ArgueLocution && ((ArgueLocution)target.getLocution()).getArgument().isSemanticallyEqual(proof)) {
+                if (target.getLocution() instanceof ClaimLocution && ((ClaimLocution)target.getLocution()).getProposition().equals(proof.getClaim())) {
+                    alreadyUsed = true;
+                    break;
+                } else if (target.getLocution() instanceof ArgueLocution && ((ArgueLocution)target.getLocution()).getArgument().isSemanticallyEqual(proof)) {
                     alreadyUsed = true;
                     break;
                 } else if (target.getLocution() instanceof WhyLocution && ((WhyLocution)target.getLocution()).getAttackedPremise().isEqualModuloVariables(proof.getClaim().negation())) {
@@ -209,7 +230,7 @@ public class StrategyHelper {
             if (!alreadyUsed) {
                 // Look if we already moved it as reply to this argue move that we are attacking now
                 for (PersuasionMove<? extends Locution> existingReply : existingReplies) {
-                    if (existingReply.getLocution() instanceof ArgueLocution && ((ArgueLocution)existingReply.getLocution()).getArgument().isSemanticallyEqual(proof)) {
+                    if (existingReply.getLocution() instanceof ClaimLocution && ((ClaimLocution)existingReply.getLocution()).getProposition().equals(proof.getClaim())) {
                         // This existing argue move contains the (semantically) same argument as the new found proof
                         alreadyUsed = true;
                         break;
@@ -228,7 +249,7 @@ public class StrategyHelper {
 
     public RuleArgument generateCounterAttack(KnowledgeBase kb, RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies) throws ParseException, ReasonerException {
         // Try to attack the move's conclusion (rebutting)
-        RuleArgument rebuttal = this.generateArgument(kb, argumentToAttack.getClaim().negation(), argumentToAttack.getModifier(), argueMoveToAttack, existingReplies);
+        RuleArgument rebuttal = this.generateArgument(kb, argumentToAttack.getClaim().negation(), argumentToAttack.getModifier(), argueMoveToAttack, existingReplies, null);
         if (rebuttal != null) {
             return rebuttal;
         }
@@ -240,47 +261,6 @@ public class StrategyHelper {
         }
 
         // No counter-argument can be formed
-        return null;
-    }
-
-    public Constant generateUncheckedUnderminerOrUndercutter(RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, Constant dialogueTopic) throws PersuasionDialogueException {
-        // Premises are atomic claims and we don't consider the dialogue topic as a premise to attack
-        /*if (argumentToAttack.isAtomic() && !argumentToAttack.getClaim().equals(dialogueTopic)) {
-            // Look if we didn't already attack it earlier in the branch
-            boolean alreadyUsed = false;
-            PersuasionMove<? extends Locution> target = argueMoveToAttack;
-            while (target != null) {
-                if (target.getLocution() instanceof ArgueLocution) {
-                    for (PersuasionMove<? extends Locution> reply : proposal.getReplies(target)) {
-                        if (reply.getLocution() instanceof WhyLocution && ((WhyLocution)reply.getLocution()).getAttackedPremise().equals(argumentToAttack.getClaim())) {
-                            alreadyUsed = true;
-                            break;
-                        }
-                    }
-
-                }
-                target = target.getTarget();
-            }
-
-            if (!alreadyUsed) {
-                return argumentToAttack.getClaim();
-            }
-
-        }
-
-        // Try to find a single argument that attacks one of the premises used in the argumentToAttack
-        for (RuleArgument subArgument : argumentToAttack.getSubArgumentList().getArguments()) {
-            Constant newFound = generateUncheckedUnderminerOrUndercutter(subArgument, proposal, argueMoveToAttack, existingReplies, dialogueTopic);
-            if (newFound != null) {
-                return newFound;
-            }
-        }
-
-        // No underminer/undercutter found at all for this argument or any of its subarguments
-        return null;
-
-        return null;*/
-
         return null;
     }
 

@@ -33,11 +33,11 @@ public class ConfidentAttitude extends AssertionAttitude
 
                 // Check if we can construct a supporting claim
                 if (attacker instanceof WhyLocution) {
-                    newArgue = helper.generateArgument(agent.getBeliefs(), ((WhyLocution) attacker).getAttackedPremise(), 0.0, attackMove, dialogue.getReplies(attackMove));
+                    newArgue = helper.generateArgument(agent.getBeliefs(), ((WhyLocution) attacker).getAttackedPremise(), 0.0, attackMove, dialogue.getReplies(attackMove), null);
                 }
                 // Check if we can construct the negation
                 else if (attacker instanceof ClaimLocution) {
-                    newArgue = helper.generateArgument(agent.getBeliefs(), ((ClaimLocution) attacker).getProposition().negation(), 0.0, attackMove, dialogue.getReplies(attackMove));
+                    newArgue = helper.generateArgument(agent.getBeliefs(), ((ClaimLocution) attacker).getProposition().negation(), 0.0, attackMove, dialogue.getReplies(attackMove), null);
                 }
 
                 // Success?
