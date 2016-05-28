@@ -42,11 +42,13 @@ public class ActionSelectionReasoner extends Reasoner<Reasoner>
         OutputVariable assertion  = new OutputVariable();
         OutputVariable challenge  = new OutputVariable();
         OutputVariable retraction = new OutputVariable();
+        OutputVariable argue      = new OutputVariable();
 
         this.outputVariables.put("acceptance", acceptance);
         this.outputVariables.put("assertion",  assertion);
         this.outputVariables.put("challenge",  challenge);
         this.outputVariables.put("retraction", retraction);
+        this.outputVariables.put("argue",      argue);
     }
 
     @Override

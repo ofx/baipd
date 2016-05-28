@@ -2,12 +2,10 @@
 <baidp-agent>
 	<beliefbase>
 		<![CDATA[
-        harmHumanbeings <- newTechnologies.
-        newTechnologies <- science.
+        endangersHumanity <- harmHumans.
+        harmHumans <- newTechnologies.
 
-		safe <- airbag.
-
-		airbag.
+        newTechnologies.
 		]]>
 	</beliefbase>
     <properties>

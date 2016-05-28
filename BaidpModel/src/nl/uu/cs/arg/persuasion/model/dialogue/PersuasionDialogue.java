@@ -7,6 +7,7 @@ import nl.uu.cs.arg.shared.dialogue.locutions.*;
 import nl.uu.cs.arg.shared.util.IndexedNode;
 import nl.uu.cs.arg.shared.util.IndexedTree;
 import org.aspic.inference.Constant;
+import org.aspic.inference.Term;
 
 import java.util.ArrayList;
 import java.util.List;

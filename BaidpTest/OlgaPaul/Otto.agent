@@ -2,9 +2,8 @@
 <baidp-agent>
 	<beliefbase>
 		<![CDATA[
-		~safe <- newsPaperExplode.
-
-		newsPaperExplode.
+		~endangersHumanity <- helpingHumans.
+        helpingHumans <- newTechnologies.
 		]]>
 	</beliefbase>
     <properties>

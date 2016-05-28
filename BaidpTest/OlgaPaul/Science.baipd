@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="yes" ?>
 <baipd-mas>
-	<topic>safe</topic>
+	<topic>endangersHumanity</topic>
 	<protocol>
 		<persuasion-rules>
 			<rule>AttackOnOwnMove</rule>
@@ -12,7 +12,7 @@
 		</termination-rules>
 	</protocol>
 	<agents>
-		<agent name="Olga" type="PersonalityAgent" file="Olga.agent" />
-		<agent name="Paul" type="PersonalityAgent" file="Paul.agent" />
+		<agent name="Otto" type="PersonalityAgent" file="Otto.agent" />
+		<agent name="Peter" type="PersonalityAgent" file="Peter.agent" />
 	</agents>
 </baipd-mas>

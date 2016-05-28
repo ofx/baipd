@@ -16,6 +16,7 @@ import nl.uu.cs.arg.shared.dialogue.Move;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import org.aspic.inference.Constant;
 import org.aspic.inference.ReasonerException;
+import org.aspic.inference.Term;
 import org.aspic.inference.parser.ParseException;
 
 public class PersuasionPlatform implements Runnable {

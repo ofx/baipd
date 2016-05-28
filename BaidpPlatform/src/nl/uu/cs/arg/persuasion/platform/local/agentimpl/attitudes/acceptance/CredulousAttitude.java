@@ -6,6 +6,7 @@ import nl.uu.cs.arg.shared.dialogue.Move;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class CredulousAttitude extends AcceptanceAttitude
@@ -14,7 +15,9 @@ public class CredulousAttitude extends AcceptanceAttitude
     @Override
     public List<PersuasionMove<? extends Locution>> generateMoves(PersuadingAgent agent, PersuasionDialogue dialogue)
     {
-        return null;
+        List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
+
+        return moves;
     }
 
 }

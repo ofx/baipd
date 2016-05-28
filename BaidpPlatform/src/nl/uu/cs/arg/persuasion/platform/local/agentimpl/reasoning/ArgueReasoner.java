@@ -3,15 +3,16 @@ package nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning;
 import com.fuzzylite.variable.InputVariable;
 import com.fuzzylite.variable.OutputVariable;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.AcceptanceAttitude;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.argue.ArgueAttitude;
 
-public class ArgumentationReasoner extends Reasoner<AcceptanceAttitude>
+public class ArgueReasoner extends Reasoner<ArgueAttitude>
 {
 
-    public ArgumentationReasoner() { this(0.2); }
+    public ArgueReasoner() { this(0.2); }
 
-    public ArgumentationReasoner(double rho)
+    public ArgueReasoner(double rho)
     {
-        super("AcceptanceReasoningEngine", rho, AcceptanceAttitude.class);
+        super("ArgueReasoningEngine", rho, ArgueAttitude.class);
     }
 
     @Override
@@ -20,20 +21,20 @@ public class ArgumentationReasoner extends Reasoner<AcceptanceAttitude>
         InputVariable achievementstriving = new InputVariable();
         InputVariable deliberation        = new InputVariable();
         InputVariable activity            = new InputVariable();
-        InputVariable trust               = new InputVariable();
         InputVariable modesty             = new InputVariable();
         InputVariable anxiety             = new InputVariable();
         InputVariable angryhostility      = new InputVariable();
         InputVariable straightforwardness = new InputVariable();
+        InputVariable selfdiscipline      = new InputVariable();
 
         this.inputVariables.put("achievementstriving", achievementstriving);
         this.inputVariables.put("deliberation",        deliberation);
         this.inputVariables.put("activity",            activity);
-        this.inputVariables.put("trust",               trust);
         this.inputVariables.put("modesty",             modesty);
         this.inputVariables.put("anxiety",             anxiety);
         this.inputVariables.put("angryhostility",      angryhostility);
         this.inputVariables.put("straightforwardness", straightforwardness);
+        this.inputVariables.put("selfdiscipline",      selfdiscipline);
     }
 
     @Override
@@ -75,7 +76,6 @@ public class ArgumentationReasoner extends Reasoner<AcceptanceAttitude>
                     "and activity is high " +
                     "and straightforwardness is high " +
                     "and anxiety is low " +
-                    "and impulsiveness is low " +
                     "then hopeful is favored",
             "if achievementstriving is high " +
                     "and selfdiscipline is high " +
@@ -83,7 +83,6 @@ public class ArgumentationReasoner extends Reasoner<AcceptanceAttitude>
                     "and activity is high " +
                     "and straightforwardness is high " +
                     "and anxiety is low " +
-                    "and impulsiveness is low " +
                     "then dubious is favored",
             "if achievementstriving is high " +
                     "and selfdiscipline is high " +
@@ -91,7 +90,6 @@ public class ArgumentationReasoner extends Reasoner<AcceptanceAttitude>
                     "and activity is high " +
                     "and straightforwardness is high " +
                     "and anxiety is low " +
-                    "and impulsiveness is low " +
                     "then thorough is favored",
             "if deliberation is not low " +
                     "then hopeful is disfavored",
@@ -100,15 +98,13 @@ public class ArgumentationReasoner extends Reasoner<AcceptanceAttitude>
             "if deliberation is not high " +
                     "then thorough is disfavored",
             "if achievementstriving is high " +
-                    "and selfdiscpline is med " +
+                    "and selfdiscipline is med " +
                     "and deliberation is low " +
                     "and activity is high " +
                     "and straightforwardness is low " +
-                    "and impulsiveness is high " +
                     "then misleading is favored",
             "if deliberation is not low " +
                     "and straightforwardness is not low " +
-                    "and impulsiveness is not high " +
                     "then misleading is disfavored",
             "if achievementstriving is high " +
                     "and selfdiscipline is med " +
@@ -140,7 +136,7 @@ public class ArgumentationReasoner extends Reasoner<AcceptanceAttitude>
     @Override
     protected String getSearchPath()
     {
-        return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.argumentation";
+        return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.argue";
     }
 
 }

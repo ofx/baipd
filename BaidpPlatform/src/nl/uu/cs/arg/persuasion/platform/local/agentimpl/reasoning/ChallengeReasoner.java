@@ -43,13 +43,13 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
     @Override
     protected void defineOutputVariables()
     {
-        OutputVariable judical = new OutputVariable();
+        OutputVariable judicial = new OutputVariable();
         OutputVariable suspicious = new OutputVariable();
         OutputVariable persistent = new OutputVariable();
         OutputVariable tentative = new OutputVariable();
         OutputVariable indifferent = new OutputVariable();
 
-        this.outputVariables.put("judical",     judical);
+        this.outputVariables.put("judicial",    judicial);
         this.outputVariables.put("suspicious",  suspicious);
         this.outputVariables.put("persistent",  persistent);
         this.outputVariables.put("tentative",   tentative);
@@ -66,7 +66,7 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
                     "and trust is high " +
                     "and modesty is low " +
                     "and anxiety is low " +
-                    "then judical is favored",
+                    "then judicial is favored",
             "if achievementstriving is high " +
                     "and deliberation is med " +
                     "and activity is high " +
@@ -83,7 +83,7 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
                     "then persistent is favored",
             "if deliberation is not low " +
                     "and trust is not high " +
-                    "then judical is disfavored",
+                    "then judicial is disfavored",
             "if deliberation is not med " +
                     "and trust is not med " +
                     "then suspicious is disfavored",

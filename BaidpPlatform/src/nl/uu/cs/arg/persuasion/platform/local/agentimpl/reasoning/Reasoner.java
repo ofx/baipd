@@ -170,7 +170,15 @@ public abstract class Reasoner<T>
         }
 
         if (i != this.inputVariables.size()) {
-            throw new RuntimeException("Not all input variables are defined!");
+            int n = 0;
+            String missing[] = new String[Math.abs(this.inputVariables.size() - i)];
+            for (Map.Entry<String, InputVariable> entry : this.inputVariables.entrySet()) {
+                if (!personalityVector.containsKey(entry.getKey())) {
+                    missing[n++] = entry.getKey();
+                }
+            }
+
+            throw new RuntimeException("Not all input variables are defined (" + Arrays.toString(missing) + ")!");
         }
     }
 
@@ -198,6 +206,9 @@ public abstract class Reasoner<T>
         try {
             for (Map.Entry<String, Double> entry : sortedMap.entrySet()) {
                 for (Class<? extends T> c : classes) {
+                    System.out.println(c.getSimpleName().toLowerCase());
+                    System.out.println(entry.getKey());
+
                     if (c.getSimpleName().toLowerCase().contains(entry.getKey())) {
                         ordering.add((T) c.newInstance());
                     }
