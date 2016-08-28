@@ -20,7 +20,9 @@ public enum PersuasionRule {
     NoRepeatInBranch {
         @Override
         public PersuasionProtocolException evaluateMove(PersuasionDialogue dialogue, PersuasionMove<? extends Locution> newMove) {
-            // TODO: Implement it (using proposal's .isRepeatedMove or something)
+            if (dialogue.isRepeatedMove(newMove)) {
+                return new PersuasionProtocolException(newMove, "The new move is a repeated move");
+            }
             return null;
         }
     };

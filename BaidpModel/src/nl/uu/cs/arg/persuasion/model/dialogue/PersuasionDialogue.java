@@ -182,6 +182,35 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
         return this.topic;
     }
 
+    public boolean isRepeatedMove(PersuasionMove<? extends Locution> newMove, IndexedNode<PersuasionMove<? extends Locution>> node) {
+        PersuasionMove<? extends Locution> move = node.getData();
+        if (newMove.getLocution().getClass().equals(move.getLocution().getClass())) {
+            if (move.getLocution() instanceof ClaimLocution && ((ClaimLocution) move.getLocution()).getProposition().equals(((ClaimLocution)newMove.getLocution()).getProposition())) {
+                return true;
+            } else if (move.getLocution() instanceof ArgueLocution && ((ArgueLocution) move.getLocution()).getArgument().isSemanticallyEqual(((ArgueLocution)newMove.getLocution()).getArgument())) {
+                return true;
+            } else if (move.getLocution() instanceof WhyLocution && ((WhyLocution) move.getLocution()).getAttackedPremise().isEqualModuloVariables(((WhyLocution)newMove.getLocution()).getAttackedPremise())) {
+                return true;
+            }
+        }
+
+        for (IndexedNode<PersuasionMove<? extends Locution>> child : node.getChildren()) {
+            if (this.isRepeatedMove(newMove, child)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isRepeatedMove(PersuasionMove<? extends Locution> newMove) {
+        if (getRootElement() == null) {
+            return false;
+        }
+
+        return this.isRepeatedMove(newMove, getRootElement());
+    }
+
     /**
      * Returns a flag specifying whether or not the first move of the dialogue is in.
      *
