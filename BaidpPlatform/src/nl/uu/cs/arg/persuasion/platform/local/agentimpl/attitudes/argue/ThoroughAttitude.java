@@ -34,7 +34,15 @@ public class ThoroughAttitude extends ArgueAttitude
 
             // Check if we can construct a supporting claim
             if (attacker instanceof WhyLocution) {
-                RuleArgument newArgue = helper.generateArgument(agent.getBeliefs(), ((WhyLocution) attacker).getAttackedPremise(), 0.0, attackMove, dialogue.getReplies(attackMove), null);
+                RuleArgument newArgue = helper.generateArgument(
+                        agent.getBeliefs(),
+                        ((WhyLocution) attacker).getAttackedPremise(),
+                        0.0,
+                        attackMove,
+                        dialogue.getReplies(attackMove),
+                        null,
+                        ArgueLocution.class
+                );
 
                 // We can construct an argument
                 if (newArgue != null) {
@@ -56,7 +64,8 @@ public class ThoroughAttitude extends ArgueAttitude
                         agent.getBeliefs(),
                         ((ArgueLocution)attacker).getArgument(),
                         (PersuasionMove<ArgueLocution>) attackMove,
-                        replies
+                        replies,
+                        ArgueLocution.class
                 );
 
                 // We can construct an argument

@@ -34,7 +34,15 @@ public class DubiousAttitude extends ArgueAttitude
 
             // Check if we can construct a supporting claim
             if (attacker instanceof WhyLocution) {
-                RuleArgument newArgue = helper.generateArgument(agent.getBeliefs(), ((WhyLocution) attacker).getAttackedPremise(), 0.0, attackMove, dialogue.getReplies(attackMove), null);
+                RuleArgument newArgue = helper.generateArgument(
+                        agent.getBeliefs(),
+                        ((WhyLocution) attacker).getAttackedPremise(),
+                        0.0,
+                        attackMove,
+                        dialogue.getReplies(attackMove),
+                        null,
+                        ArgueLocution.class
+                );
 
                 // We can construct an argument
                 if (newArgue != null) {
@@ -46,7 +54,8 @@ public class DubiousAttitude extends ArgueAttitude
                         0.0,
                         attackMove,
                         dialogue.getReplies(attackMove),
-                        null
+                        null,
+                        ArgueLocution.class
                     );
 
                     if (_newArgue == null) {
@@ -66,7 +75,8 @@ public class DubiousAttitude extends ArgueAttitude
                         agent.getBeliefs(),
                         ((ArgueLocution)attacker).getArgument(),
                         (PersuasionMove<ArgueLocution>) attackMove,
-                        replies
+                        replies,
+                        ArgueLocution.class
                 );
 
                 // We can construct an argument
@@ -77,7 +87,8 @@ public class DubiousAttitude extends ArgueAttitude
                             agent.getBeliefs(),
                             newArgue,
                             (PersuasionMove<ArgueLocution>) attackMove,
-                            replies
+                            replies,
+                            ArgueLocution.class
                     );
 
                     if (_newArgue == null) {

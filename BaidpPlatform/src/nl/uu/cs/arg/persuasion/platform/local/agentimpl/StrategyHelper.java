@@ -205,7 +205,7 @@ public class StrategyHelper {
      * @param requiredPremise Optionally a premise that is mandatory to be used as premise in any found argument
      * @return An argument supporting the term we want to prove; or null if none could be formed
      */
-    public RuleArgument generateArgument(KnowledgeBase kb, Constant termToProve, double needed, PersuasionMove<? extends Locution> moveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, Constant requiredPremise) throws ParseException, ReasonerException {
+    public RuleArgument generateArgument(KnowledgeBase kb, Constant termToProve, double needed, PersuasionMove<? extends Locution> moveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, Constant requiredPremise, Class<? extends Locution> locutionType) throws ParseException, ReasonerException {
         // Try to find a single argument for the term that we are trying to prove
         List<RuleArgument> proofs = this.findProof(new ConstantList(termToProve), needed, kb, requiredPremise);
         for (RuleArgument proof : proofs) {
@@ -214,13 +214,13 @@ public class StrategyHelper {
             boolean alreadyUsed = false;
             PersuasionMove<? extends Locution> target = moveToAttack.getTarget();
             while (target != null) {
-                if (target.getLocution() instanceof ClaimLocution && ((ClaimLocution)target.getLocution()).getProposition().equals(proof.getClaim())) {
+                if (target.getLocution() instanceof ClaimLocution && ((ClaimLocution)target.getLocution()).getProposition().equals(proof.getClaim()) && target.getLocution().getClass() == locutionType) {
                     alreadyUsed = true;
                     break;
-                } else if (target.getLocution() instanceof ArgueLocution && ((ArgueLocution)target.getLocution()).getArgument().isSemanticallyEqual(proof)) {
+                } else if (target.getLocution() instanceof ArgueLocution && ((ArgueLocution)target.getLocution()).getArgument().isSemanticallyEqual(proof) && target.getLocution().getClass() == locutionType) {
                     alreadyUsed = true;
                     break;
-                } else if (target.getLocution() instanceof WhyLocution && ((WhyLocution)target.getLocution()).getAttackedPremise().isEqualModuloVariables(proof.getClaim().negation())) {
+                } else if (target.getLocution() instanceof WhyLocution && ((WhyLocution)target.getLocution()).getAttackedPremise().isEqualModuloVariables(proof.getClaim().negation()) && target.getLocution().getClass() == locutionType) {
                     alreadyUsed = true;
                     break;
                 }
@@ -247,9 +247,13 @@ public class StrategyHelper {
         return null;
     }
 
-    public RuleArgument generateCounterAttack(KnowledgeBase kb, RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies) throws ParseException, ReasonerException {
+    public RuleArgument generateArgument(KnowledgeBase kb, Constant termToProve, double needed, PersuasionMove<? extends Locution> moveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, Constant requiredPremise) throws ParseException, ReasonerException {
+        return this.generateArgument(kb, termToProve, needed, moveToAttack, existingReplies, requiredPremise, Locution.class);
+    }
+
+    public RuleArgument generateCounterAttack(KnowledgeBase kb, RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies, Class<? extends Locution> locutionType) throws ParseException, ReasonerException {
         // Try to attack the move's conclusion (rebutting)
-        RuleArgument rebuttal = this.generateArgument(kb, argumentToAttack.getClaim().negation(), argumentToAttack.getModifier(), argueMoveToAttack, existingReplies, null);
+        RuleArgument rebuttal = this.generateArgument(kb, argumentToAttack.getClaim().negation(), argumentToAttack.getModifier(), argueMoveToAttack, existingReplies, null, locutionType);
         if (rebuttal != null) {
             return rebuttal;
         }
@@ -262,6 +266,10 @@ public class StrategyHelper {
 
         // No counter-argument can be formed
         return null;
+    }
+
+    public RuleArgument generateCounterAttack(KnowledgeBase kb, RuleArgument argumentToAttack, PersuasionMove<ArgueLocution> argueMoveToAttack, List<PersuasionMove<? extends Locution>> existingReplies) throws ParseException, ReasonerException {
+        return this.generateCounterAttack(kb, argumentToAttack, argueMoveToAttack, existingReplies, Locution.class);
     }
 
     /**

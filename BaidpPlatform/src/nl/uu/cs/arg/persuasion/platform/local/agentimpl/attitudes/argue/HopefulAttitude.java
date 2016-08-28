@@ -36,7 +36,15 @@ public class HopefulAttitude extends ArgueAttitude
 
             // Check if we can construct a supporting claim
             if (attacker instanceof WhyLocution) {
-                newArgue = helper.generateArgument(agent.getBeliefs(), ((WhyLocution) attacker).getAttackedPremise(), 0.0, attackMove, dialogue.getReplies(attackMove), null);
+                newArgue = helper.generateArgument(
+                        agent.getBeliefs(),
+                        ((WhyLocution) attacker).getAttackedPremise(),
+                        0.0,
+                        attackMove,
+                        dialogue.getReplies(attackMove),
+                        null,
+                        ArgueLocution.class
+                );
             }
             // Check if we can construct the negation
             else if (attacker instanceof ArgueLocution) {
@@ -44,7 +52,8 @@ public class HopefulAttitude extends ArgueAttitude
                         agent.getBeliefs(),
                         ((ArgueLocution)attacker).getArgument(),
                         (PersuasionMove<ArgueLocution>) attackMove,
-                        replies
+                        replies,
+                        ArgueLocution.class
                 );
             }
 
