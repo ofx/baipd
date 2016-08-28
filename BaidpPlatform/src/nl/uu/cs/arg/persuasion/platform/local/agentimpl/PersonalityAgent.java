@@ -124,7 +124,7 @@ public class PersonalityAgent extends PersuadingAgent {
                 Attitude attitude = actionRevisionOrdering.get(level);
                 List<PersuasionMove<? extends Locution>> moves = null;
                 try {
-                    moves = attitude.generateMoves(this, this.dialogue);
+                    moves = attitude.generateValidatedMoves(this, this.dialogue);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

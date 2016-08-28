@@ -10,6 +10,7 @@ import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 import org.aspic.inference.ReasonerException;
 import org.aspic.inference.parser.ParseException;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,5 +22,16 @@ public abstract class Attitude
     protected StrategyHelper helper = StrategyHelper.DefaultHelper;
 
     public abstract List<PersuasionMove<? extends Locution>> generateMoves(PersuadingAgent agent, PersuasionDialogue dialogue) throws PersuasionDialogueException, ParseException, ReasonerException;
+
+    public List<PersuasionMove<? extends Locution>> generateValidatedMoves(PersuadingAgent agent, PersuasionDialogue dialogue) throws PersuasionDialogueException, ParseException, ReasonerException {
+        List<PersuasionMove<? extends Locution>> moves = this.generateMoves(agent, dialogue);
+        Iterator<PersuasionMove<? extends Locution>> it = moves.iterator();
+        while (it.hasNext()) {
+            if (dialogue.isRepeatedMove(it.next())) {
+                it.remove();
+            }
+        }
+        return moves;
+    }
 
 }
