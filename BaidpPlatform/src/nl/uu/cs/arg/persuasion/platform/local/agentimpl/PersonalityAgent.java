@@ -122,7 +122,12 @@ public class PersonalityAgent extends PersuadingAgent {
             final int l = actionRevisionOrdering.size();
             if (level < l) {
                 Attitude attitude = actionRevisionOrdering.get(level);
-                List<PersuasionMove<? extends Locution>> moves = attitude.generateMoves(this, this.dialogue);
+                List<PersuasionMove<? extends Locution>> moves = null;
+                try {
+                    moves = attitude.generateMoves(this, this.dialogue);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 if (moves.size() > 0) {
                     return moves;

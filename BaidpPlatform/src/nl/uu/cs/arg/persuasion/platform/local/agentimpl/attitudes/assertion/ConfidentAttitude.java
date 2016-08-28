@@ -1,5 +1,6 @@
 package nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion;
 
+import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
 import nl.uu.cs.arg.persuasion.model.dialogue.locutions.ClaimLocution;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.PersuadingAgent;
@@ -20,24 +21,45 @@ public class ConfidentAttitude extends AssertionAttitude
 {
 
     @Override
-    public List<PersuasionMove<? extends Locution>> generateMoves(PersuadingAgent agent, PersuasionDialogue dialogue)
+    public List<PersuasionMove<? extends Locution>> generateMoves(PersuadingAgent agent, PersuasionDialogue dialogue) throws PersuasionDialogueException, ParseException, ReasonerException
     {
         List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
 
-        try {
-            // Fetch the active attackers of the dialogue topic
-            List<PersuasionMove<? extends Locution>> attackers = dialogue.getActiveAttackers();
-            for (PersuasionMove<? extends Locution> attackMove : attackers) {
-                Locution attacker = attackMove.getLocution();
+        // Fetch the active attackers of the dialogue topic
+        List<PersuasionMove<? extends Locution>> attackers = dialogue.getActiveAttackers();
+        for (PersuasionMove<? extends Locution> attackMove : attackers) {
+            Locution attacker = attackMove.getLocution();
 
-                if (attacker instanceof ClaimLocution) {
+            if (attacker instanceof ClaimLocution) {
+                RuleArgument newArgue = helper.generateArgument(
+                    agent.getBeliefs(),
+                    ((ClaimLocution) attacker).getProposition().negation(),
+                    0.0,
+                    attackMove,
+                    dialogue.getReplies(attackMove),
+                    null
+                );
+
+                if (newArgue != null) {
+                    moves.add(
+                            PersuasionMove.buildMove(
+                                    agent.getParticipant(),
+                                    attackMove,
+                                    new ClaimLocution(newArgue.getClaim())
+                            )
+                    );
+                }
+            }
+            else if (attacker instanceof ArgueLocution) {
+                // For all sub arguments, check if we can claim the negation
+                for (RuleArgument sub : ((ArgueLocution) attacker).getArgument().getSubArgumentList().getArguments()) {
                     RuleArgument newArgue = helper.generateArgument(
-                        agent.getBeliefs(),
-                        ((ClaimLocution) attacker).getProposition().negation(),
-                        0.0,
-                        attackMove,
-                        dialogue.getReplies(attackMove),
-                        null
+                            agent.getBeliefs(),
+                            sub.getClaim().negation(),
+                            0.0,
+                            attackMove,
+                            dialogue.getReplies(attackMove),
+                            null
                     );
 
                     if (newArgue != null) {
@@ -45,39 +67,12 @@ public class ConfidentAttitude extends AssertionAttitude
                                 PersuasionMove.buildMove(
                                         agent.getParticipant(),
                                         attackMove,
-                                        new ClaimLocution(newArgue.getClaim())
+                                        new ClaimLocution(sub.getClaim().negation())
                                 )
                         );
                     }
                 }
-                else if (attacker instanceof ArgueLocution) {
-                    // For all sub arguments, check if we can claim the negation
-                    for (RuleArgument sub : ((ArgueLocution) attacker).getArgument().getSubArgumentList().getArguments()) {
-                        RuleArgument newArgue = helper.generateArgument(
-                                agent.getBeliefs(),
-                                sub.getClaim().negation(),
-                                0.0,
-                                attackMove,
-                                dialogue.getReplies(attackMove),
-                                null
-                        );
-
-                        if (newArgue != null) {
-                            moves.add(
-                                    PersuasionMove.buildMove(
-                                            agent.getParticipant(),
-                                            attackMove,
-                                            new ClaimLocution(sub.getClaim().negation())
-                                    )
-                            );
-                        }
-                    }
-                }
             }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e);
         }
 
         return moves;

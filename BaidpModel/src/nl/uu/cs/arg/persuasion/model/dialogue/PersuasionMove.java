@@ -2,7 +2,11 @@ package nl.uu.cs.arg.persuasion.model.dialogue;
 
 import nl.uu.cs.arg.persuasion.model.PersuasionParticipant;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
+import nl.uu.cs.arg.shared.dialogue.locutions.SurrenderingLocution;
 import nl.uu.cs.arg.shared.util.IndexedObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Move is a single move in a dialogue played by an agent. It is defined
@@ -40,6 +44,42 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
      * well, such as the actual {@link Argument}.
      */
     private T locution;
+
+    /**
+     * The set of moves that surrended to this move.
+     */
+    private List<PersuasionMove<? extends SurrenderingLocution>> surrenders = new ArrayList<PersuasionMove<? extends SurrenderingLocution>>();
+
+    /**
+     * Indicates that a move has surrendered to this move.
+     *
+     * @param surrender Move that surrenders to this move.
+     */
+    public void addSurrender(PersuasionMove<? extends SurrenderingLocution> surrender) { this.surrenders.add(surrender); }
+
+    /**
+     * Checks whether a participant has surrendered to this move.
+     *
+     * @param participant
+     * @return
+     */
+    public boolean hasSurrendered(PersuasionParticipant participant)
+    {
+        for (PersuasionMove<? extends SurrenderingLocution> surrender : surrenders) {
+            if (surrender.getPlayer() == participant) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns the set of moves that surrended to this move.
+     *
+     * @return The set of moves that surrended to this move.
+     */
+    public List<PersuasionMove<? extends SurrenderingLocution>> getSurrenders() { return this.surrenders; }
 
     /**
      * Returns the internal, dialogue-unique identifier for a single move
