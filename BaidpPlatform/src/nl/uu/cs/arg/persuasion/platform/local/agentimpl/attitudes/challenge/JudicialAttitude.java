@@ -31,7 +31,16 @@ public class JudicialAttitude extends ChallengeAttitude
 
                 // Check if we can construct an proof for the proposition
                 if (attacker instanceof ClaimLocution) {
-                    if (helper.findProof(new ConstantList(((ClaimLocution)attacker).getProposition()), 0.0, agent.getBeliefs(), null).size() == 0) {
+                    RuleArgument newArgue = helper.generateArgument(
+                        agent.getBeliefs(),
+                        ((ClaimLocution)attacker).getProposition(),
+                        0.0,
+                        attackMove,
+                        dialogue.getReplies(attackMove),
+                        null
+                    );
+
+                    if (newArgue == null) {
                         moves.add(
                                 PersuasionMove.buildMove(
                                         agent.getParticipant(),
@@ -41,8 +50,28 @@ public class JudicialAttitude extends ChallengeAttitude
                         );
                     }
                 } else if (attacker instanceof ArgueLocution) {
-                    if (true) {
+                    // Check if we can construct arguments for the sub arguments of the argue move, if not, we're allowed
+                    // to challenge those arguments
+                    for (RuleArgument sub : ((ArgueLocution) attacker).getArgument().getSubArgumentList().getArguments()) {
+                        RuleArgument newArgue = helper.generateArgument(
+                                agent.getBeliefs(),
+                                sub.getClaim(),
+                                0.0,
+                                attackMove,
+                                dialogue.getReplies(attackMove),
+                                null
+                        );
 
+                        // We cannot construct an argument, let's challenge
+                        if (newArgue == null) {
+                            moves.add(
+                                    PersuasionMove.buildMove(
+                                            agent.getParticipant(),
+                                            attackMove,
+                                            new WhyLocution(sub.getClaim())
+                                    )
+                            );
+                        }
                     }
                 }
             }

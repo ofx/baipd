@@ -155,7 +155,7 @@ public class Proposal extends IndexedTree<Move<? extends Locution>> {
 					// Does it fully surrender to the targeting move?
 					// Only concede moves may not surrender to the whole move but only a part
 					if ((reply.getData().getLocution() instanceof ConcedeLocution &&
-							((ConcedeLocution)reply.getData().getLocution()).getConcededTerm().equals(((ArgueLocution)move.getLocution()).getArgument().getClaim())) || 
+							((ConcedeLocution)reply.getData().getLocution()).getConcededConstant().equals(((ArgueLocution)move.getLocution()).getArgument().getClaim())) ||
 							!(reply.getData().getLocution() instanceof ConcedeLocution)) {
 
 							// Surrendered by an agent that attacked this move; then remove this from the original attackers list

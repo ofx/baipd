@@ -239,7 +239,7 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
             for (IndexedNode<PersuasionMove<? extends Locution>> reply : node.getChildren()) {
                 if (reply.getData().getLocution() instanceof SurrenderingLocution) {
                     if ((reply.getData().getLocution() instanceof ConcedeLocution &&
-                        ((ConcedeLocution)reply.getData().getLocution()).getConcededTerm().equals(((ArgueLocution)move.getLocution()).getArgument().getClaim())) ||
+                        ((ConcedeLocution)reply.getData().getLocution()).getConcededConstant().equals(((ArgueLocution)move.getLocution()).getArgument().getClaim())) ||
                             !(reply.getData().getLocution() instanceof ConcedeLocution)) {
 
                         // Surrendered by an agent that attacked this move; then remove this from the original attackers list

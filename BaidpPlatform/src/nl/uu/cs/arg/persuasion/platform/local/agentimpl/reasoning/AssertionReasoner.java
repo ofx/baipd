@@ -46,14 +46,12 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
         OutputVariable confident  = new OutputVariable();
         OutputVariable spurious   = new OutputVariable();
         OutputVariable hesitant   = new OutputVariable();
-        OutputVariable deceptive  = new OutputVariable();
 
         this.outputVariables.put("thoughtful", thoughtful);
         this.outputVariables.put("careful",    careful);
         this.outputVariables.put("confident",  confident);
         this.outputVariables.put("spurious",   spurious);
         this.outputVariables.put("hesitant",   hesitant);
-        this.outputVariables.put("deceptive",  deceptive);
     }
 
     @Override
@@ -103,14 +101,7 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
                         "and achievementstriving is high " +
                         "then spurious is favored",
                 "if deliberation is not low " +
-                        "then spurious is disfavored",
-                "if straightforwardness is low " +
-                        "and deliberation is not low " +
-                        "and achievementstriving is high " +
-                        "and angryhostility is high " +
-                        "then deceptive is favored",
-                "if deliberation is low " +
-                        "then deceptive is disfavored"
+                        "then spurious is disfavored"
         };
 
         for (String rule : rules) {

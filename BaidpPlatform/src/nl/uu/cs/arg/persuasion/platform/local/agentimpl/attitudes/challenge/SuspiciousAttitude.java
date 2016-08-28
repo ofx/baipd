@@ -12,6 +12,7 @@ import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogue;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
 import nl.uu.cs.arg.shared.dialogue.locutions.WhyLocution;
 import org.aspic.inference.ConstantList;
+import org.aspic.inference.RuleArgument;
 
 public class SuspiciousAttitude extends ChallengeAttitude
 {
@@ -21,6 +22,7 @@ public class SuspiciousAttitude extends ChallengeAttitude
     {
         List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
 
+        // If we cannot find a proof for the proposition, we're allowed to make a challenge move
         try {
             // Fetch the active attackers of the dialogue topic
             List<PersuasionMove<? extends Locution>> attackers = dialogue.getActiveAttackers();
@@ -29,36 +31,69 @@ public class SuspiciousAttitude extends ChallengeAttitude
 
                 // Check if we can construct an proof for the proposition
                 if (attacker instanceof ClaimLocution) {
-                    // Check if we can construct a proof for the proposition
-                    if (helper.findProof(new ConstantList(((ClaimLocution)attacker).getProposition()), 0.0, agent.getBeliefs(), null).size() == 0) {
-                        // Check if we can construct a proof for the negation, in case we can construct a proof, we should check whether
-                        // this proof is stronger than the other, in which case we are allowed to move
-                        if (helper.findProof(new ConstantList(((ClaimLocution)attacker).getProposition().negation()), 0.0, agent.getBeliefs(), null).size() != 0) {
-                            // TODO: Check
-                            if (true) {
+                    RuleArgument newArgue = helper.generateArgument(
+                            agent.getBeliefs(),
+                            ((ClaimLocution)attacker).getProposition(),
+                            0.0,
+                            attackMove,
+                            dialogue.getReplies(attackMove),
+                            null
+                    );
+
+                    if (newArgue == null) {
+                        RuleArgument _newArgue = helper.generateArgument(
+                                agent.getBeliefs(),
+                                ((ClaimLocution)attacker).getProposition().negation(),
+                                0.0,
+                                attackMove,
+                                dialogue.getReplies(attackMove),
+                                null
+                        );
+
+                        if (_newArgue == null) {
+                            moves.add(
+                                    PersuasionMove.buildMove(
+                                            agent.getParticipant(),
+                                            attackMove,
+                                            new WhyLocution(((ClaimLocution) attacker).getProposition())
+                                    )
+                            );
+                        }
+                    }
+                } else if (attacker instanceof ArgueLocution) {
+                    // Check if we can construct arguments for the sub arguments of the argue move, if not, we're allowed
+                    // to challenge those arguments
+                    for (RuleArgument sub : ((ArgueLocution) attacker).getArgument().getSubArgumentList().getArguments()) {
+                        RuleArgument newArgue = helper.generateArgument(
+                                agent.getBeliefs(),
+                                sub.getClaim(),
+                                0.0,
+                                attackMove,
+                                dialogue.getReplies(attackMove),
+                                null
+                        );
+
+                        // We cannot construct an argument, let's challenge
+                        if (newArgue == null) {
+                            RuleArgument _newArgue = helper.generateArgument(
+                                    agent.getBeliefs(),
+                                    sub.getClaim().negation(),
+                                    0.0,
+                                    attackMove,
+                                    dialogue.getReplies(attackMove),
+                                    null
+                            );
+
+                            if (_newArgue == null) {
                                 moves.add(
                                         PersuasionMove.buildMove(
                                                 agent.getParticipant(),
                                                 attackMove,
-                                                new WhyLocution(((ClaimLocution)attacker).getProposition())
+                                                new WhyLocution(sub.getClaim())
                                         )
                                 );
                             }
                         }
-                    }
-                    // In case we cannot construct a proof, we're fine with moving a why move
-                    else {
-                        moves.add(
-                                PersuasionMove.buildMove(
-                                        agent.getParticipant(),
-                                        attackMove,
-                                        new WhyLocution(((ClaimLocution)attacker).getProposition())
-                                )
-                        );
-                    }
-                } else if (attacker instanceof ArgueLocution) {
-                    if (true) {
-
                     }
                 }
             }

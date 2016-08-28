@@ -3,6 +3,7 @@ package nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion;
 import nl.uu.cs.arg.persuasion.model.dialogue.locutions.ClaimLocution;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.PersuadingAgent;
 import nl.uu.cs.arg.shared.dialogue.Move;
+import nl.uu.cs.arg.shared.dialogue.locutions.ArgueLocution;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 
 import java.util.LinkedList;
@@ -26,28 +27,53 @@ public class ThoughtfulAttitude extends AssertionAttitude
             for (PersuasionMove<? extends Locution> attackMove : attackers) {
                 Locution attacker = attackMove.getLocution();
 
-                RuleArgument newArgue = null;
+                if (attacker instanceof ClaimLocution) {
+                    RuleArgument newArgue = helper.generateArgument(
+                            agent.getBeliefs(),
+                            ((ClaimLocution) attacker).getProposition().negation(),
+                            0.0,
+                            attackMove,
+                            dialogue.getReplies(attackMove),
+                            null
+                    );
 
-                // Check if we can construct a supporting claim
-                if (attacker instanceof WhyLocution) {
-                    newArgue = helper.generateArgument(agent.getBeliefs(), ((WhyLocution) attacker).getAttackedPremise(), 0.0, attackMove, dialogue.getReplies(attackMove), null);
+                    if (newArgue != null) {
+                        // Is justified?
+                        if (helper.hasJustifiedArgument(newArgue, agent.getBeliefs())) {
+                            moves.add(
+                                    PersuasionMove.buildMove(
+                                            agent.getParticipant(),
+                                            attackMove,
+                                            new ClaimLocution(newArgue.getClaim())
+                                    )
+                            );
+                        }
+                    }
                 }
-                // Check if we can construct the negation
-                else if (attacker instanceof ClaimLocution) {
-                    newArgue = helper.generateArgument(agent.getBeliefs(), ((ClaimLocution) attacker).getProposition().negation(), 0.0, attackMove, dialogue.getReplies(attackMove), null);
-                }
-
-                // Success?
-                if (newArgue != null) {
-                    // Check if we can construct a justified argument
-                    if (helper.hasJustifiedArgument(newArgue, agent.getBeliefs())) {
-                        moves.add(
-                                PersuasionMove.buildMove(
-                                        agent.getParticipant(),
-                                        attackMove,
-                                        new ClaimLocution(newArgue.getClaim())
-                                )
+                else if (attacker instanceof ArgueLocution) {
+                    // For all sub arguments, check if we can claim the negation
+                    for (RuleArgument sub : ((ArgueLocution) attacker).getArgument().getSubArgumentList().getArguments()) {
+                        RuleArgument newArgue = helper.generateArgument(
+                                agent.getBeliefs(),
+                                sub.getClaim().negation(),
+                                0.0,
+                                attackMove,
+                                dialogue.getReplies(attackMove),
+                                null
                         );
+
+                        if (newArgue != null) {
+                            // Is justified?
+                            if (helper.hasJustifiedArgument(newArgue, agent.getBeliefs())) {
+                                moves.add(
+                                        PersuasionMove.buildMove(
+                                                agent.getParticipant(),
+                                                attackMove,
+                                                new ClaimLocution(newArgue.getClaim())
+                                        )
+                                );
+                            }
+                        }
                     }
                 }
             }
