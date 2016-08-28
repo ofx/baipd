@@ -52,9 +52,6 @@ public class ArgueReasoner extends Reasoner<ArgueAttitude>
         // Provide support for any own proposition, regardless if he can construct an argument
         OutputVariable misleading = new OutputVariable();
 
-        // Provide support for any own proposition for which he can construct an argument, in addition, the agent can provide support for any own proposition for which the agent can construct an argument for the contrary
-        OutputVariable fallacious = new OutputVariable();
-
         // Cannot provide support for any own proposition
         OutputVariable devious    = new OutputVariable();
 
@@ -62,7 +59,6 @@ public class ArgueReasoner extends Reasoner<ArgueAttitude>
         this.outputVariables.put("dubious",    dubious);
         this.outputVariables.put("thorough",   thorough);
         this.outputVariables.put("misleading", misleading);
-        this.outputVariables.put("fallacious", fallacious);
         this.outputVariables.put("devious",    devious);
     }
 
@@ -106,15 +102,6 @@ public class ArgueReasoner extends Reasoner<ArgueAttitude>
             "if deliberation is not low " +
                     "and straightforwardness is not low " +
                     "then misleading is disfavored",
-            "if achievementstriving is high " +
-                    "and selfdiscipline is med " +
-                    "and deliberation is not low " +
-                    "and activity is high " +
-                    "and straightforwardness is low " +
-                    "and angryhostility is high " +
-                    "then fallacious is favored",
-            "if deliberation is low " +
-                    "then fallacious is disfavored",
             "if achievementstriving is low " +
                     "and selfdiscipline is low " +
                     "and deliberation is low " +

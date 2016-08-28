@@ -17,6 +17,8 @@ public class DeterminedAttitude extends RetractionAttitude
     {
         List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
 
+        // Never retract
+
         return moves;
     }
 

@@ -1,6 +1,6 @@
 package nl.uu.cs.arg.shared.dialogue.locutions;
 
-import org.aspic.inference.Term;
+import org.aspic.inference.Constant;
 
 /**
  * The concede(p) locution is used to concede to some term, in effect
@@ -18,24 +18,24 @@ public final class ConcedeLocution extends SurrenderingLocution {
 	/**
 	 * Some term that was either the conclusion or a premise used in an argue(A =>p) move
 	 */
-	private Term concededTerm;
+	private Constant concededConstant;
 	
-	public ConcedeLocution(Term concededTerm) {
+	public ConcedeLocution(Constant concededTerm) {
 		super(LOCUTION_NAME);
-		this.concededTerm = concededTerm;
+		this.concededConstant = concededConstant;
 	}
 	
 	/**
 	 * Returns the conceded term as used (as conclusion or premise) in the argue move this locution replies to
 	 * @return The term that was conceded
 	 */
-	public Term getConcededTerm() {
-		return this.concededTerm;
+	public Constant getConcededConstant() {
+		return this.concededConstant;
 	}
 
 	@Override
 	public String toLogicString() {
-		return getName() + "(" + getConcededTerm().inspect() + ")";
+		return getName() + "(" + getConcededConstant().inspect() + ")";
 	}
 
 }

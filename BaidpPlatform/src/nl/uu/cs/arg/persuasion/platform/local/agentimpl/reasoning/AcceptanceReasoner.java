@@ -49,7 +49,7 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
         OutputVariable skeptical = new OutputVariable();
 
         // Accepts regardless if the agent can construct an argument
-        OutputVariable obedient  = new OutputVariable();
+        OutputVariable faithful  = new OutputVariable();
 
         // Never accepts
         OutputVariable rigid     = new OutputVariable();
@@ -57,7 +57,7 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
         this.outputVariables.put("credulous", credulous);
         this.outputVariables.put("cautious",  cautious);
         this.outputVariables.put("skeptical", skeptical);
-        this.outputVariables.put("obedient",  obedient);
+        this.outputVariables.put("faithful",  faithful);
         this.outputVariables.put("rigid",     rigid);
     }
 
@@ -100,11 +100,11 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
                 "and trust is high " +
                 "and modesty is high " +
                 "and anxiety is high " +
-                "then obedient is favored",
+                "then faithful is favored",
             "if achievementstriving is not low " +
                 "and trust is not high " +
                 "and modesty is not high " +
-                "then obedient is disfavored",
+                "then faithful is disfavored",
             "if achievementstriving is high " +
                 "and activity is low " +
                 "and trust is low " +

@@ -17,6 +17,8 @@ public class HesitantAttitude extends AssertionAttitude
     {
         List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
 
+        // Never assert
+
         return moves;
     }
 

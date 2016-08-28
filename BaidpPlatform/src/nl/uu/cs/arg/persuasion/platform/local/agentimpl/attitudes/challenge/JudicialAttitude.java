@@ -41,7 +41,9 @@ public class JudicialAttitude extends ChallengeAttitude
                         );
                     }
                 } else if (attacker instanceof ArgueLocution) {
+                    if (true) {
 
+                    }
                 }
             }
         }

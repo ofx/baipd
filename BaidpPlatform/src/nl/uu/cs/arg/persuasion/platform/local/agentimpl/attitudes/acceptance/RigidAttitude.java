@@ -17,6 +17,8 @@ public class RigidAttitude extends AcceptanceAttitude
     {
         List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
 
+        // Never accept
+
         return moves;
     }
 

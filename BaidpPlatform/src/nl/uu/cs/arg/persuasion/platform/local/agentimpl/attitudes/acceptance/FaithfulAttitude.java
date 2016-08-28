@@ -1,5 +1,6 @@
 package nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance;
 
+import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogue;
 import nl.uu.cs.arg.persuasion.model.dialogue.locutions.ClaimLocution;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.PersuadingAgent;
 import nl.uu.cs.arg.shared.dialogue.Move;
@@ -9,11 +10,10 @@ import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
 
 import java.util.LinkedList;
 import java.util.List;
-import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogue;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
 import org.aspic.inference.RuleArgument;
 
-public class SkepticalAttitude extends AcceptanceAttitude
+public class FaithfulAttitude extends AcceptanceAttitude
 {
 
     @Override
@@ -40,19 +40,14 @@ public class SkepticalAttitude extends AcceptanceAttitude
                                 null
                         );
 
-                        // If we can generate an argument, add a concede move
-                        if (newArgue != null) {
-                            // Only if the argument is justified
-                            if (helper.hasJustifiedArgument(newArgue, agent.getBeliefs())) {
-                                moves.add(
-                                        PersuasionMove.buildMove(
-                                                agent.getParticipant(),
-                                                attackMove,
-                                                new ConcedeLocution(sub.getClaim())
-                                        )
-                                );
-                            }
-                        }
+                        // Always accept
+                        moves.add(
+                                PersuasionMove.buildMove(
+                                        agent.getParticipant(),
+                                        attackMove,
+                                        new ConcedeLocution(sub.getClaim())
+                                )
+                        );
                     }
                 }
                 // If we can accept the claim, we concede
@@ -66,19 +61,14 @@ public class SkepticalAttitude extends AcceptanceAttitude
                             null
                     );
 
-                    // If we can generate an argument, add a concede move
-                    if (newArgue != null) {
-                        // Only if the argument is justified
-                        if (helper.hasJustifiedArgument(newArgue, agent.getBeliefs())) {
-                            moves.add(
-                                    PersuasionMove.buildMove(
-                                            agent.getParticipant(),
-                                            attackMove,
-                                            new ConcedeLocution(((ClaimLocution) attacker).getProposition())
-                                    )
-                            );
-                        }
-                    }
+                    // Always accept
+                    moves.add(
+                            PersuasionMove.buildMove(
+                                    agent.getParticipant(),
+                                    attackMove,
+                                    new ConcedeLocution(((ClaimLocution)attacker).getProposition())
+                            )
+                    );
                 }
             }
         }

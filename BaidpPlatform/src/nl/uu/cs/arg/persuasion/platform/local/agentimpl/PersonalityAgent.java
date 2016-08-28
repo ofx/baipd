@@ -107,10 +107,17 @@ public class PersonalityAgent extends PersuadingAgent {
 
     protected List<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering, int level)
     {
+        HashMap<Reasoner, ArrayList<Attitude>> actionRevisionOrderings = new HashMap<>();
+
         int failCount = 0;
         for (Reasoner reasoner : actionOrdering) {
-            reasoner.setPersonalityVector(this.personalityVector);
-            ArrayList<Attitude> actionRevisionOrdering = (ArrayList<Attitude>) reasoner.run();
+            ArrayList<Attitude> actionRevisionOrdering;
+            if (!actionRevisionOrderings.containsKey(reasoner)) {
+                reasoner.setPersonalityVector(this.personalityVector);
+                actionRevisionOrdering = (ArrayList<Attitude>) reasoner.run();
+            } else {
+                actionRevisionOrdering = actionRevisionOrderings.get(reasoner);
+            }
 
             final int l = actionRevisionOrdering.size();
             if (level < l) {

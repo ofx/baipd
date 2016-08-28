@@ -17,6 +17,8 @@ public class IndifferentAttitude extends ChallengeAttitude
     {
         List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
 
+        // Never challenge
+
         return moves;
     }
 

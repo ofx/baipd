@@ -1,6 +1,6 @@
 package nl.uu.cs.arg.shared.dialogue.locutions;
 
-import org.aspic.inference.Term;
+import org.aspic.inference.Constant;
 
 /**
  * The retract(p) locution is used to retract a previous term p
@@ -18,19 +18,19 @@ public final class RetractLocution extends SurrenderingLocution {
 	/**
 	 * Some term that was either the conclusion or a premise used in an argue(A => p) move
 	 */
-	private Term retractedTerm;
+	private Constant retractedProposition;
 	
-	public RetractLocution(Term retractedTerm) {
+	public RetractLocution(Constant retractedProposition) {
 		super(LOCUTION_NAME);
-		this.retractedTerm = retractedTerm;
+		this.retractedProposition = retractedProposition;
 	}
 	
 	/**
 	 * Returns the conceded term as used (as conclusion or premise) in the argue move this locution replies to
 	 * @return The term that was conceded
 	 */
-	public Term getRetractedTerm() {
-		return this.retractedTerm;
+	public Constant getRetractedTerm() {
+		return this.retractedProposition;
 	}
 
 	@Override

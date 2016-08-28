@@ -38,12 +38,16 @@ public class HopefulAttitude extends ArgueAttitude
                 }
                 // Check if we can construct the negation
                 else if (attacker instanceof ArgueLocution) {
-                    newArgue = helper.generateCounterAttack(agent.getBeliefs(), ((ArgueLocution)attacker).getArgument(), (PersuasionMove<ArgueLocution>) attackMove, replies);
+                    newArgue = helper.generateCounterAttack(
+                            agent.getBeliefs(),
+                            ((ArgueLocution)attacker).getArgument(),
+                            (PersuasionMove<ArgueLocution>) attackMove,
+                            replies
+                    );
                 }
 
                 // Success?
                 if (newArgue != null) {
-                    //ret.add(PersuasionMove.buildMove(this.participant, null, new ClaimLocution(this.dialogue.getTopic())));
                     moves.add(
                             PersuasionMove.buildMove(
                                     agent.getParticipant(),

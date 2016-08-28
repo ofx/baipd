@@ -19,6 +19,8 @@ public class DeviousAttitude extends ArgueAttitude
     {
         List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
 
+        // Never argue
+
         return moves;
     }
 
