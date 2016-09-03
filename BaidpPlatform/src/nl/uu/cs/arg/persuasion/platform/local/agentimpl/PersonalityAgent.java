@@ -13,9 +13,12 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.Thou
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.challenge.ChallengeAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction.RetractionAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.*;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.Reasoner;
 import nl.uu.cs.arg.shared.dialogue.Move;
+import nl.uu.cs.arg.shared.dialogue.locutions.DeliberationLocution;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
-import org.aspic.inference.ReasonerException;
+import nl.uu.cs.arg.shared.dialogue.locutions.ProposeLocution;
+import org.aspic.inference.*;
 import org.aspic.inference.parser.ParseException;
 
 import java.util.*;
@@ -87,7 +90,26 @@ public class PersonalityAgent extends PersuadingAgent {
 
     @Override
     protected void storeNewBeliefs(List<PersuasionMove<? extends Locution>> moves) throws ParseException, ReasonerException {
-        System.out.println("storeNewBeliefs");
+        // Store newly publicized beliefs when we have no argument against them (or an argument for them)
+        for (PersuasionMove<? extends Locution> move : moves) {
+            // Store new move beliefs
+            Set<Constant> exposed = new HashSet<Constant>();
+            ((DeliberationLocution)move.getLocution()).gatherPublicBeliefs(exposed);
+            for (Constant b : exposed) {
+
+                if (b instanceof Rule) {
+                    // We add rules if it didn't exist yet and it doesn't cause any loops
+                    //if (!beliefs.ruleExists((Rule)b) && !helper.causesLoop(beliefs, (Rule)b)) {
+                    //  beliefs.addRule((Rule)b);
+                    //}
+                } else {
+                    // We add constants and terms directly, if they are not options or the mutual goal
+                    if (!dialogue.getTopic().equals(b) && !dialogue.getTopic().isUnifiable(b) && !beliefs.ruleExists(new Rule(b))) {
+                        beliefs.addRule(new Rule(b));
+                    }
+                }
+            }
+        }
     }
 
     protected ArrayList<Reasoner> actionSelection()
