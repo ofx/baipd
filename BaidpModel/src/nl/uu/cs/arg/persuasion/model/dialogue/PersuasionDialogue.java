@@ -259,6 +259,7 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
             }
         }
 
+
         if (!isIn) {
             // Check, for every reply to this move if the move is a concede move, in which case the concede could
             // only partially concede, if this is not the case, or the move is not a concede-containing move, an
@@ -266,9 +267,11 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
             // 0, this is an indication that every attacker in the set of attackers has surrendered to the specified
             // move.
             for (IndexedNode<PersuasionMove<? extends Locution>> reply : node.getChildren()) {
-                if (reply.getData().getLocution() instanceof SurrenderingLocution) {
-                    if ((reply.getData().getLocution() instanceof ConcedeLocution &&
-                        ((ConcedeLocution)reply.getData().getLocution()).getConcededConstant().equals(((ArgueLocution)move.getLocution()).getArgument().getClaim())) ||
+                Locution locution = reply.getData().getLocution();
+
+                if (locution instanceof SurrenderingLocution) {
+                    /*if ((reply.getData().getLocution() instanceof ConcedeLocution &&
+                            ((ConcedeLocution) reply.getData().getLocution()).getConcededConstant().equals(((ArgueLocution) move.getLocution()).getArgument().getClaim())) ||
                             !(reply.getData().getLocution() instanceof ConcedeLocution)) {
 
                         // Surrendered by an agent that attacked this move; then remove this from the original attackers list
@@ -279,8 +282,8 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
                             break;
                         }
 
-                    }
-
+                    }*/
+                    // TODO: Fix me
                 }
             }
         }

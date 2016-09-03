@@ -192,6 +192,10 @@ public class StrategyHelper {
         return true;
     }
 
+    public boolean isDialogueTopic(RuleArgument argument, Constant dialogueTopic) {
+        return argument.getClaim().equals(dialogueTopic);
+    }
+
     /**
      * Tries to generate an argument for some term; this can be used to find support
      * for why-propose and why moves. Alternatively this may be called with a

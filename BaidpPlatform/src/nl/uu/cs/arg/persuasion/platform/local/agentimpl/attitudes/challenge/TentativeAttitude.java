@@ -43,6 +43,11 @@ public class TentativeAttitude extends ChallengeAttitude
                 // Check if we can construct arguments for the sub arguments of the argue move, if not, we're allowed
                 // to challenge those arguments
                 for (RuleArgument sub : ((ArgueLocution) attacker).getArgument().getSubArgumentList().getArguments()) {
+                    // Hacky
+                    if (sub.getClaim().getFunctor().startsWith("r")) {
+                        continue;
+                    }
+
                     moves.add(
                             PersuasionMove.buildMove(
                                     agent.getParticipant(),

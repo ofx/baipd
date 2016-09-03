@@ -32,15 +32,21 @@ public class RegretfulAttitude extends RetractionAttitude
             }
 
             Locution attacker = attackMove.getLocution();
-            Locution ownLocution = attackMove.getTarget().getLocution();
 
             RuleArgument newArgue = null;
 
             // Check if we can construct an argument for the negation of the attacked premise, there is no notion
             // of argument strength, so this is a simple check
             if (attacker instanceof WhyLocution || attacker instanceof ClaimLocution) {
+                // Skip dialogue topic
+                if (attackMove.getTarget() == null) {
+                    continue;
+                }
+
                 // Check if this is our move
                 if (attackMove.getTarget().getPlayer() == agent.getParticipant()) {
+                    Locution ownLocution = attackMove.getTarget().getLocution();
+
                     // Check if this was a claim (should be true)
                     if (ownLocution instanceof ClaimLocution) {
                         newArgue = helper.generateArgument(

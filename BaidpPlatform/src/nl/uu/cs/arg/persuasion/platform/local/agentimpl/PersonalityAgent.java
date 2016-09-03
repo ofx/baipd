@@ -100,13 +100,11 @@ public class PersonalityAgent extends PersuadingAgent {
         return ordering;
     }
 
-    protected List<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering)
-    {
+    protected List<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering) throws ParseException, PersuasionDialogueException, ReasonerException {
         return this.actionRevision(actionOrdering, 0);
     }
 
-    protected List<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering, int level)
-    {
+    protected List<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering, int level) throws ParseException, PersuasionDialogueException, ReasonerException {
         HashMap<Reasoner, ArrayList<Attitude>> actionRevisionOrderings = new HashMap<>();
 
         int failCount = 0;
@@ -123,11 +121,7 @@ public class PersonalityAgent extends PersuadingAgent {
             if (level < l) {
                 Attitude attitude = actionRevisionOrdering.get(level);
                 List<PersuasionMove<? extends Locution>> moves = null;
-                try {
-                    moves = attitude.generateValidatedMoves(this, this.dialogue);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                moves = attitude.generateValidatedMoves(this, this.dialogue);
 
                 if (moves.size() > 0) {
                     return moves;
@@ -161,11 +155,6 @@ public class PersonalityAgent extends PersuadingAgent {
             ArrayList<Reasoner> ordering = this.actionSelection();
             ret = this.actionRevision(ordering);
         }
-
-        // Get the active attackers
-        /*for (PersuasionMove<? extends Locution> attack : this.dialogue.getActiveAttackers()) {
-
-        }*/
 
         return ret;
     }

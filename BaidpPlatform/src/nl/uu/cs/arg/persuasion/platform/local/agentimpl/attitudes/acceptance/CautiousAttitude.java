@@ -28,6 +28,10 @@ public class CautiousAttitude extends AcceptanceAttitude
         // Fetch the active attackers of the dialogue topic
         List<PersuasionMove<? extends Locution>> attackers = dialogue.getActiveAttackers();
         for (PersuasionMove<? extends Locution> attackMove : attackers) {
+            if (attackMove.hasSurrendered(agent.getParticipant())) {
+                continue;
+            }
+
             Locution attacker = attackMove.getLocution();
 
             // Check if we can accept
@@ -59,13 +63,14 @@ public class CautiousAttitude extends AcceptanceAttitude
                         );
 
                         if (_newArgue == null) {
-                            moves.add(
-                                    PersuasionMove.buildMove(
-                                            agent.getParticipant(),
-                                            attackMove,
-                                            new ConcedeLocution(sub.getClaim())
-                                    )
+                            PersuasionMove<ConcedeLocution> concedeMove = PersuasionMove.buildMove(
+                                    agent.getParticipant(),
+                                    attackMove,
+                                    new ConcedeLocution(sub.getClaim())
                             );
+
+                            moves.add(concedeMove);
+                            attackMove.addSurrender(concedeMove);
                         }
                     }
                 }
@@ -93,13 +98,14 @@ public class CautiousAttitude extends AcceptanceAttitude
                     );
 
                     if (_newArgue == null) {
-                        moves.add(
-                                PersuasionMove.buildMove(
-                                        agent.getParticipant(),
-                                        attackMove,
-                                        new ConcedeLocution(((ClaimLocution) attacker).getProposition())
-                                )
+                        PersuasionMove<ConcedeLocution> concedeMove = PersuasionMove.buildMove(
+                                agent.getParticipant(),
+                                attackMove,
+                                new ConcedeLocution(((ClaimLocution) attacker).getProposition())
                         );
+
+                        moves.add(concedeMove);
+                        attackMove.addSurrender(concedeMove);
                     }
                 }
             }

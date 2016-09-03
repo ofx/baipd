@@ -22,6 +22,7 @@ public enum PersuasionTerminationRule {
 		@Override
 		public PersuasionTerminationMessage shouldTerminate(PersuasionDialogue dialogue, List<PersuasionAgent> agents, int skipCount) {
 			if (skipCount >= agents.size()) {
+				System.out.println(dialogue);
 				return new PersuasionTerminationMessage("the dialogue is out of move since a participant has stated that it is out of moves");
 			}
 			return null;

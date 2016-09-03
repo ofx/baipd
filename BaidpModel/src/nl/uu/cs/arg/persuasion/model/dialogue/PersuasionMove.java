@@ -141,6 +141,8 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
         return new PersuasionMove<T>(uniqueMoveCounter++, player, targetMove, locution);
     }
 
+    public static void decrementMoveCounter() { --uniqueMoveCounter; }
+
     /**
      * Resets the internal move counter; to be used when starting a new dialogue (platform)
      */

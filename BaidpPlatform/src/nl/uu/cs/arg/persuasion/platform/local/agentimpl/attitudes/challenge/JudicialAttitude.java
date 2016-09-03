@@ -54,6 +54,11 @@ public class JudicialAttitude extends ChallengeAttitude
                 // Check if we can construct arguments for the sub arguments of the argue move, if not, we're allowed
                 // to challenge those arguments
                 for (RuleArgument sub : ((ArgueLocution) attacker).getArgument().getSubArgumentList().getArguments()) {
+                    // Hacky
+                    if (sub.getClaim().getFunctor().startsWith("r")) {
+                        continue;
+                    }
+
                     RuleArgument newArgue = helper.generateArgument(
                             agent.getBeliefs(),
                             sub.getClaim(),

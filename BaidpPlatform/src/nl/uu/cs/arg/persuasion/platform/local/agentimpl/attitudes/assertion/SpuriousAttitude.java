@@ -45,13 +45,13 @@ public class SpuriousAttitude extends AssertionAttitude
                     // Note, this can get a bit stupid, since the agent will claim the negation of all sub arguments
 
                     // Always make a claim
-                    moves.add(
+                    /*moves.add(
                             PersuasionMove.buildMove(
                                     agent.getParticipant(),
                                     attackMove,
-                                    new ClaimLocution(((ClaimLocution)attacker).getProposition().negation())
+                                    new ClaimLocution(((ArgueLocution)attacker).getProposition().negation())
                             )
-                    );
+                    );*/
                 }
             }
         }

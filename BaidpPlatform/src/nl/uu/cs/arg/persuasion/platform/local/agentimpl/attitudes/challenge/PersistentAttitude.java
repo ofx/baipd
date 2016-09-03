@@ -64,6 +64,11 @@ public class PersistentAttitude extends ChallengeAttitude
                 // Check if we can construct arguments for the sub arguments of the argue move, if not, we're allowed
                 // to challenge those arguments
                 for (RuleArgument sub : ((ArgueLocution) attacker).getArgument().getSubArgumentList().getArguments()) {
+                    // Hacky
+                    if (sub.getClaim().getFunctor().startsWith("r")) {
+                        continue;
+                    }
+
                     RuleArgument newArgue = helper.generateArgument(
                             agent.getBeliefs(),
                             sub.getClaim(),
@@ -74,7 +79,7 @@ public class PersistentAttitude extends ChallengeAttitude
                     );
 
                     // We cannot construct an argument, let's challenge
-                    if (newArgue != null && !helper.hasJustifiedArgument(newArgue, agent.getBeliefs())) {
+                    if (newArgue == null) {
                         moves.add(
                                 PersuasionMove.buildMove(
                                         agent.getParticipant(),

@@ -29,6 +29,7 @@ public abstract class Attitude
         while (it.hasNext()) {
             if (dialogue.isRepeatedMove(it.next())) {
                 it.remove();
+                PersuasionMove.decrementMoveCounter();
             }
         }
         return moves;

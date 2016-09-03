@@ -22,7 +22,7 @@ public final class ConcedeLocution extends SurrenderingLocution {
 	
 	public ConcedeLocution(Constant concededTerm) {
 		super(LOCUTION_NAME);
-		this.concededConstant = concededConstant;
+		this.concededConstant = concededTerm;
 	}
 	
 	/**

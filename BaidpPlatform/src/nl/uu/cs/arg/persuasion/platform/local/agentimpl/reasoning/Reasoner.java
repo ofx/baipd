@@ -206,9 +206,6 @@ public abstract class Reasoner<T>
         try {
             for (Map.Entry<String, Double> entry : sortedMap.entrySet()) {
                 for (Class<? extends T> c : classes) {
-                    System.out.println(c.getSimpleName().toLowerCase());
-                    System.out.println(entry.getKey());
-
                     if (c.getSimpleName().toLowerCase().contains(entry.getKey())) {
                         ordering.add((T) c.newInstance());
                     }
