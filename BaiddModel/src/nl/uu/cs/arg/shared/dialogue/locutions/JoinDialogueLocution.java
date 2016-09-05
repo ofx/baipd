@@ -42,4 +42,9 @@ public final class JoinDialogueLocution extends Locution {
 		return getName() + "(" + getTopic().inspect() + ")";
 	}
 
+	@Override
+	public String toSimpleString() {
+		return null;
+	}
+
 }

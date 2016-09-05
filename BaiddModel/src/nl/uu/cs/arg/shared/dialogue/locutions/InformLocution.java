@@ -48,4 +48,9 @@ public class InformLocution extends DeliberationLocution {
 		exposedBeliefs.add(belief);
 	}
 
+	@Override
+	public String toSimpleString() {
+		return null;
+	}
+
 }

@@ -37,5 +37,10 @@ public final class RetractLocution extends SurrenderingLocution {
 	public String toLogicString() {
 		return getName() + "(" + getRetractedTerm().inspect() + ")";
 	}
-	
+
+	@Override
+	public String toSimpleString() {
+		return "retract " + this.retractedProposition;
+	}
+
 }

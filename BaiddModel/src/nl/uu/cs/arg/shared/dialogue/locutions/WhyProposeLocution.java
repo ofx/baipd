@@ -47,4 +47,9 @@ public class WhyProposeLocution extends AttackingLocution {
 	public void gatherPublicBeliefs(Set<Constant> exposedBeliefs) {
 	}
 
+	@Override
+	public String toSimpleString() {
+		return null;
+	}
+
 }

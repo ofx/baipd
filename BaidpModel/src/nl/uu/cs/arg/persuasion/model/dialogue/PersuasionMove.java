@@ -162,4 +162,8 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
         return this.toLogicString();
     }
 
+    public String toSimpleString() {
+        return "(" + index + ") " + (player == null? "<system>": player.getName()) + ": " + locution.toSimpleString();
+    }
+
 }

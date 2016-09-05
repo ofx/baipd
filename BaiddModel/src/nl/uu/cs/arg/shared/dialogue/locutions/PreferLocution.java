@@ -63,4 +63,9 @@ public class PreferLocution extends DeliberationLocution {
 		exposedBeliefs.add(undesirable);
 	}
 
+	@Override
+	public String toSimpleString() {
+		return null;
+	}
+
 }

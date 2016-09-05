@@ -41,5 +41,10 @@ public final class DenyDialogueLocution extends Locution {
 		return getName() + "(" + getTopic().inspect() + ")";
 	}
 
+	@Override
+	public String toSimpleString() {
+		return null;
+	}
+
 }
 

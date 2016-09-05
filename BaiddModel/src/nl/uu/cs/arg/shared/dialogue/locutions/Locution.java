@@ -33,5 +33,7 @@ public abstract class Locution {
 	 * @return A formatted and human-readable string
 	 */
 	public abstract String toLogicString();
+
+	public abstract String toSimpleString();
 	
 }

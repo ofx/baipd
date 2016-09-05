@@ -92,20 +92,21 @@ public class PersonalityAgent extends PersuadingAgent {
     protected void storeNewBeliefs(List<PersuasionMove<? extends Locution>> moves) throws ParseException, ReasonerException {
         // Store newly publicized beliefs when we have no argument against them (or an argument for them)
         for (PersuasionMove<? extends Locution> move : moves) {
-            // Store new move beliefs
-            Set<Constant> exposed = new HashSet<Constant>();
-            ((DeliberationLocution)move.getLocution()).gatherPublicBeliefs(exposed);
-            for (Constant b : exposed) {
-
-                if (b instanceof Rule) {
-                    // We add rules if it didn't exist yet and it doesn't cause any loops
-                    //if (!beliefs.ruleExists((Rule)b) && !helper.causesLoop(beliefs, (Rule)b)) {
-                    //  beliefs.addRule((Rule)b);
-                    //}
-                } else {
-                    // We add constants and terms directly, if they are not options or the mutual goal
-                    if (!dialogue.getTopic().equals(b) && !dialogue.getTopic().isUnifiable(b) && !beliefs.ruleExists(new Rule(b))) {
-                        beliefs.addRule(new Rule(b));
+            if (move.hasSurrendered(this.getParticipant())) {
+                // Store new move beliefs
+                Set<Constant> exposed = new HashSet<Constant>();
+                ((DeliberationLocution)move.getLocution()).gatherPublicBeliefs(exposed);
+                for (Constant b : exposed) {
+                    if (b instanceof Rule) {
+                        // We add rules if it didn't exist yet and it doesn't cause any loops
+                        //if (!beliefs.ruleExists((Rule)b) && !helper.causesLoop(beliefs, (Rule)b)) {
+                        //  beliefs.addRule((Rule)b);
+                        //}
+                    } else {
+                        // We add constants and terms directly, if they are not options or the mutual goal
+                        if (!dialogue.getTopic().equals(b) && !dialogue.getTopic().isUnifiable(b) && !beliefs.ruleExists(new Rule(b))) {
+                            beliefs.addRule(new Rule(b));
+                        }
                     }
                 }
             }
@@ -122,15 +123,53 @@ public class PersonalityAgent extends PersuadingAgent {
         return ordering;
     }
 
-    protected List<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering) throws ParseException, PersuasionDialogueException, ReasonerException {
-        return this.actionRevision(actionOrdering, 0);
-    }
+    protected ArrayList<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering) throws ParseException, PersuasionDialogueException, ReasonerException {
+        ArrayList<Attitude> attitudes = new ArrayList<>();
+        ArrayList<Class> used = new ArrayList<>();
+        ArrayList<PersuasionMove<? extends Locution>> generatedMoves = new ArrayList<>();
 
-    protected List<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering, int level) throws ParseException, PersuasionDialogueException, ReasonerException {
-        HashMap<Reasoner, ArrayList<Attitude>> actionRevisionOrderings = new HashMap<>();
+        // Fetch the action revision orderings
+        for (int i = 0 ; i < actionOrdering.size() ; ++i) {
+            for (Reasoner reasoner : actionOrdering) {
+                reasoner.setPersonalityVector(this.personalityVector);
+                attitudes.add(((ArrayList<Attitude>) reasoner.run()).get(i));
+            }
+        }
+
+        // Do reasoning
+        for (Attitude attitude : attitudes) {
+            Class c = attitude.getClass().getSuperclass();
+            if (!used.contains(attitude.getClass().getSuperclass())) {
+                List<PersuasionMove<? extends Locution>> moves = attitude.generateValidatedMoves(this, this.dialogue);
+                if (moves.size() > 0) {
+                    generatedMoves.addAll(moves);
+                    used.add(attitude.getClass().getSuperclass());
+                }
+            }
+        }
+
+        // We disallow double targetted moves
+        ArrayList<PersuasionMove<? extends Locution>> usedTargets = new ArrayList<>();
+        Iterator<PersuasionMove<? extends  Locution>> it = generatedMoves.iterator();
+        while (it.hasNext()) {
+            PersuasionMove<? extends Locution> move = it.next();
+            if (!usedTargets.contains(move.getTarget())) {
+                usedTargets.add(move.getTarget());
+            } else {
+                it.remove();
+            }
+        }
+
+        return generatedMoves;
+
+        /*HashMap<Reasoner, ArrayList<Attitude>> actionRevisionOrderings = new HashMap<>();
 
         int failCount = 0;
         for (Reasoner reasoner : actionOrdering) {
+            if (usedReasoners.contains(reasoner)) {
+                continue;
+            }
+
             ArrayList<Attitude> actionRevisionOrdering;
             if (!actionRevisionOrderings.containsKey(reasoner)) {
                 reasoner.setPersonalityVector(this.personalityVector);
@@ -142,23 +181,22 @@ public class PersonalityAgent extends PersuadingAgent {
             final int l = actionRevisionOrdering.size();
             if (level < l) {
                 Attitude attitude = actionRevisionOrdering.get(level);
-                List<PersuasionMove<? extends Locution>> moves = null;
-                moves = attitude.generateValidatedMoves(this, this.dialogue);
-
-                if (moves.size() > 0) {
-                    return moves;
-                }
+                //List<PersuasionMove<? extends Locution>> moves = null;
+                //moves = attitude.generateValidatedMoves(this, this.dialogue);
+                int s = moves.size();
+                moves.addAll(attitude.generateValidatedMoves(this, this.dialogue));
+                usedReasoners.add(reasoner);
             } else {
                 ++failCount;
             }
         }
 
         if (failCount == actionOrdering.size()) {
-            return null; // Nothing is allowed...
+            return; // Nothing is allowed...
         }
 
         // No action selected, recurse
-        return this.actionRevision(actionOrdering, level + 1);
+        this.actionRevision(actionOrdering, usedReasoners, moves, level + 1);*/
     }
 
     @Override

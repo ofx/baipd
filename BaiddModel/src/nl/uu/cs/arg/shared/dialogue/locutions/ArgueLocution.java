@@ -88,4 +88,9 @@ public class ArgueLocution extends AttackingLocution {
 		
 	}
 
+	@Override
+	public String toSimpleString() {
+		return "argue " + getArgument().toSimpleString();
+	}
+
 }

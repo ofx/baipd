@@ -46,4 +46,9 @@ public final class WhyLocution extends AttackingLocution {
 	public void gatherPublicBeliefs(Set<Constant> exposedBeliefs) {
 	}
 
+	@Override
+	public String toSimpleString() {
+		return "why " + this.getAttackedPremise();
+	}
+
 }

@@ -388,7 +388,19 @@ public class RuleArgument implements Serializable {
 	public static void resetArgCounter() {
 		counter = 0;
 	}
-	
+
+	public String toSimpleString() {
+		String result = this.getClaim() + " ";
+		if (this.subArgumentList.getArguments().size()>0) {
+			result += "since ";
+			Iterator<RuleArgument> subargIterator = this.subArgumentList.getArguments().iterator();
+			while (subargIterator.hasNext()) {
+				result += subargIterator.next().toSimpleString();
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * A default way of inspecting the argument. e.g.
 	 * <pre>

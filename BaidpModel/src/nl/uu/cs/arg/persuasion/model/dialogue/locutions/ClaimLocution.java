@@ -26,4 +26,10 @@ public class ClaimLocution extends AttackingLocution {
 
     @Override
     public String toLogicString() { return this.getName() + "(" + this.getProposition().inspect() + ")"; }
+
+    @Override
+    public String toSimpleString() {
+        return "claim " + this.getProposition();
+    }
+
 }

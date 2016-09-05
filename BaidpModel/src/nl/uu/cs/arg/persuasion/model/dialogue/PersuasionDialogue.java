@@ -328,4 +328,20 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
         return this.getRootElement() != null;
     }
 
+    public String toDot(IndexedNode<PersuasionMove<? extends Locution>> node) {
+        String s = "";
+        for (IndexedNode<PersuasionMove<? extends Locution>> child : node.getChildren()) {
+            s += "\"" + child.getData().getTarget().toSimpleString() + "\" -> \"" + child.getData().toSimpleString() + "\";\n";
+            s += this.toDot(child);
+        }
+        return s;
+    }
+
+    public String toDot() {
+        String s = "digraph g {\n";
+        s += this.toDot(this.getRootElement());
+        s += "}";
+        return s;
+    }
+
 }

@@ -38,4 +38,9 @@ public final class ConcedeLocution extends SurrenderingLocution {
 		return getName() + "(" + getConcededConstant().inspect() + ")";
 	}
 
+	@Override
+	public String toSimpleString() {
+		return "concede " + this.concededConstant;
+	}
+
 }

@@ -38,4 +38,9 @@ public class DropRejectLocution extends SurrenderingLocution {
 		return getName() + "(" + getRejectedProposal().inspect() + ")";
 	}
 
+	@Override
+	public String toSimpleString() {
+		return null;
+	}
+
 }

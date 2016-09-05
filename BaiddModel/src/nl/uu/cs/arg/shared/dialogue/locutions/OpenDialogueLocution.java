@@ -57,4 +57,9 @@ public final class OpenDialogueLocution extends Locution {
 		return getName() + "(" + getTopic().inspect() + ", " + getTopicGoal().inspect() + ")";
 	}
 
+	@Override
+	public String toSimpleString() {
+		return null;
+	}
+
 }

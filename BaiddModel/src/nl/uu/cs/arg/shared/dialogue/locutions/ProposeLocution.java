@@ -50,4 +50,9 @@ public class ProposeLocution extends ProposalRelatedLocution {
 		exposedBeliefs.add(concreteProposal);
 	}
 
+	@Override
+	public String toSimpleString() {
+		return null;
+	}
+
 }
