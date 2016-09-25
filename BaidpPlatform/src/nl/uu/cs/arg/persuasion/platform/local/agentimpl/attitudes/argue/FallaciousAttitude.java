@@ -1,14 +1,9 @@
-package nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion;
+package nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.argue;
 
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogueException;
-import nl.uu.cs.arg.persuasion.model.dialogue.locutions.ClaimLocution;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.PersuadingAgent;
-import nl.uu.cs.arg.shared.dialogue.Move;
 import nl.uu.cs.arg.shared.dialogue.locutions.ArgueLocution;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
-
-import java.util.LinkedList;
-import java.util.List;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionDialogue;
 import nl.uu.cs.arg.persuasion.model.dialogue.PersuasionMove;
 import nl.uu.cs.arg.shared.dialogue.locutions.WhyLocution;
@@ -16,7 +11,13 @@ import org.aspic.inference.ReasonerException;
 import org.aspic.inference.RuleArgument;
 import org.aspic.inference.parser.ParseException;
 
-public class SpuriousAttitude extends AssertionAttitude
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * Created by argon on 21-5-16.
+ */
+public class FallaciousAttitude extends ArgueAttitude
 {
 
     @Override
@@ -29,40 +30,58 @@ public class SpuriousAttitude extends AssertionAttitude
         for (PersuasionMove<? extends Locution> attackMove : attackers) {
             Locution attacker = attackMove.getLocution();
 
-            if (attacker instanceof ClaimLocution) {
-                RuleArgument _newArgue = helper.generateArgument(
+            List<PersuasionMove<? extends Locution>> replies = dialogue.getReplies(attackMove);
+
+            // Check if we can construct a supporting claim
+            if (attacker instanceof WhyLocution) {
+                RuleArgument newArgue = helper.generateArgument(
                         agent.getBeliefs(),
-                        ((ClaimLocution) attacker).getProposition(),
+                        ((WhyLocution) attacker).getAttackedPremise(),
                         0.0,
                         attackMove,
                         dialogue.getReplies(attackMove),
-                        null
+                        null,
+                        ArgueLocution.class
                 );
 
-                // As long as we can't construct an argument for the proposition, we're fine with making a move
-                if (_newArgue == null) {
+                // We can construct an argument
+                if (newArgue != null) {
                     moves.add(
                             PersuasionMove.buildMove(
                                     agent.getParticipant(),
                                     attackMove,
-                                    new ClaimLocution(((ClaimLocution)attacker).getProposition().negation())
+                                    new ArgueLocution(newArgue)
                             )
                     );
                 }
+                // We generate some bullshit argument
+                else {
+                    // TODO: helper.generateBullshitArgument()
+                }
             }
+            // Check if we can construct the negation
             else if (attacker instanceof ArgueLocution) {
-                // For all sub arguments, check if we can claim the negation
-                for (RuleArgument sub : ((ArgueLocution) attacker).getArgument().getSubArgumentList().getArguments()) {
-                    // Note, this can get a bit stupid, since the agent will claim the negation of all sub arguments
+                RuleArgument newArgue = helper.generateCounterAttack(
+                        agent.getBeliefs(),
+                        ((ArgueLocution)attacker).getArgument(),
+                        (PersuasionMove<ArgueLocution>) attackMove,
+                        replies,
+                        ArgueLocution.class
+                );
 
-                    // Always make a claim
-                    /*moves.add(
+                // We can construct an argument
+                if (newArgue != null) {
+                    moves.add(
                             PersuasionMove.buildMove(
                                     agent.getParticipant(),
                                     attackMove,
-                                    new ClaimLocution(((ArgueLocution)attacker).getProposition().negation())
+                                    new ArgueLocution(newArgue)
                             )
-                    );*/
+                    );
+                }
+                // We generate some bullshit argument
+                else {
+                    // TODO: helper.generateBullshitArgument()
                 }
             }
         }

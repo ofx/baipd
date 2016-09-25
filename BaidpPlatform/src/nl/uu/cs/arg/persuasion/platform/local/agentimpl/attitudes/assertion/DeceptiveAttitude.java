@@ -16,7 +16,7 @@ import org.aspic.inference.ReasonerException;
 import org.aspic.inference.RuleArgument;
 import org.aspic.inference.parser.ParseException;
 
-public class SpuriousAttitude extends AssertionAttitude
+public class DeceptiveAttitude extends AssertionAttitude
 {
 
     @Override
@@ -30,6 +30,14 @@ public class SpuriousAttitude extends AssertionAttitude
             Locution attacker = attackMove.getLocution();
 
             if (attacker instanceof ClaimLocution) {
+                RuleArgument newArgue = helper.generateArgument(
+                        agent.getBeliefs(),
+                        ((ClaimLocution) attacker).getProposition().negation(),
+                        0.0,
+                        attackMove,
+                        dialogue.getReplies(attackMove),
+                        null
+                );
                 RuleArgument _newArgue = helper.generateArgument(
                         agent.getBeliefs(),
                         ((ClaimLocution) attacker).getProposition(),
@@ -39,8 +47,8 @@ public class SpuriousAttitude extends AssertionAttitude
                         null
                 );
 
-                // As long as we can't construct an argument for the proposition, we're fine with making a move
-                if (_newArgue == null) {
+                // We're fine as long as we can construct an argument for or against
+                if (newArgue != null || _newArgue != null) {
                     moves.add(
                             PersuasionMove.buildMove(
                                     agent.getParticipant(),

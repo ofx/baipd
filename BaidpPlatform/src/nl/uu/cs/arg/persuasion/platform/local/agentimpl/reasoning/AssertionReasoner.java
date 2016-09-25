@@ -46,62 +46,90 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
         OutputVariable confident  = new OutputVariable();
         OutputVariable spurious   = new OutputVariable();
         OutputVariable hesitant   = new OutputVariable();
+        OutputVariable deceptive   = new OutputVariable();
 
         this.outputVariables.put("thoughtful", thoughtful);
         this.outputVariables.put("careful",    careful);
         this.outputVariables.put("confident",  confident);
         this.outputVariables.put("spurious",   spurious);
         this.outputVariables.put("hesitant",   hesitant);
+        this.outputVariables.put("deceptive",  deceptive);
     }
 
     @Override
     protected void defineRules()
     {
         String rules[] = {
+                // R1
                 "if achievementstriving is high " +
-                        "and straightforwardness is high " +
-                        "and modesty is low " +
-                        "and anxiety is low " +
-                        "and activity is high " +
-                        "and deliberation is high " +
-                        "then thoughtful is favored",
+                "and selfdiscipline is high " +
+                "and straightforwardness is high " +
+                "and modesty is low " +
+                "and anxiety is low " +
+                "and activity is high " +
+                "and deliberation is high " +
+                "then thoughtful is favored",
+                // R2
                 "if achievementstriving is high " +
-                        "and straightforwardness is high " +
-                        "and modesty is low " +
-                        "and anxiety is low " +
-                        "and activity is high " +
-                        "and deliberation is med " +
-                        "then careful is favored",
+                "and selfdiscipline is high " +
+                "and straightforwardness is high " +
+                "and modesty is low " +
+                "and anxiety is low " +
+                "and activity is high " +
+                "and deliberation is med " +
+                "then careful is favored",
+                // R3
                 "if achievementstriving is high " +
-                        "and straightforwardness is high " +
-                        "and modesty is low " +
-                        "and anxiety is low " +
-                        "and activity is high " +
-                        "and deliberation is low " +
-                        "then confident is favored",
+                "and selfdiscipline is high " +
+                "and straightforwardness is high " +
+                "and modesty is low " +
+                "and anxiety is low " +
+                "and activity is high " +
+                "and deliberation is low " +
+                "then confident is favored",
+                // R4
                 "if deliberation is not high " +
-                        "then thoughtful is disfavored",
+                "then thoughtful is disfavored",
+                // R5
                 "if deliberation is not med " +
-                        "then careful is disfavored",
+                "then careful is disfavored",
+                // R6
                 "if deliberation is not low " +
-                        "then confident is disfavored",
+                "then confident is disfavored",
+                // R7
                 "if deliberation is low " +
-                        "and straightforwardness is low " +
-                        "and achievementstriving is low " +
-                        "and activity is low " +
-                        "and modesty is high " +
-                        "and anxiety is high " +
-                        "then hesitant is favored",
-                "if selfdiscipline is not low " +
-                        "and activity is not low " +
-                        "and achievementstriving is not low " +
-                        "then hesitant is disfavored",
+                "and straightforwardness is low " +
+                "and selfdiscipline is low " +
+                "and achievementstriving is low " +
+                "and activity is low " +
+                "and modesty is high " +
+                "and anxiety is high " +
+                "then hesitant is favored",
+                // R8
+                "if activity is not low " +
+                "and selfdiscipline is not low " +
+                "and achievementstriving is not low " +
+                "then hesitant is disfavored",
+                // R9
                 "if straightforwardness is low " +
-                        "and deliberation is low " +
-                        "and achievementstriving is high " +
-                        "then spurious is favored",
+                "and deliberation is low " +
+                "and selfdiscipline is not low " +
+                "and achievementstriving is high " +
+                "then spurious is favored",
+                // R10
                 "if deliberation is not low " +
-                        "then spurious is disfavored"
+                "then spurious is disfavored",
+                // R11
+                "if straightforwardness is low " +
+                "and deliberation is not low " +
+                "and selfdiscipline is not low " +
+                "and achievementstriving is high " +
+                "and angryhostility is high " +
+                "then deceptive is favored",
+                // R12
+                "if deliberation is low " +
+                "then deceptive is disfavored"
+
         };
 
         for (String rule : rules) {

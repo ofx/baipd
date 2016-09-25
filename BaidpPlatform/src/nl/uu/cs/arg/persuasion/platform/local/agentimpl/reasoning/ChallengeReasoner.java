@@ -60,59 +60,69 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
     protected void defineRules()
     {
         String rules[] = {
-            "if achievementstriving is high " +
-                    "and deliberation is low " +
-                    "and activity is high " +
-                    "and trust is high " +
-                    "and modesty is low " +
-                    "and anxiety is low " +
-                    "then judicial is favored",
-            "if achievementstriving is high " +
-                    "and deliberation is med " +
-                    "and activity is high " +
-                    "and trust is med " +
-                    "and modesty is low " +
-                    "and anxiety is low " +
-                    "then suspicious is favored",
-            "if achievementstriving is high " +
-                    "and deliberation is high " +
-                    "and activity is high " +
-                    "and trust is low " +
-                    "and modesty is low " +
-                    "and anxiety is low " +
-                    "then persistent is favored",
-            "if deliberation is not low " +
-                    "and trust is not high " +
-                    "then judicial is disfavored",
-            "if deliberation is not med " +
-                    "and trust is not med " +
-                    "then suspicious is disfavored",
-            "if deliberation is not high " +
-                    "and trust is not low " +
-                    "then persistent is disfavored",
-            "if achievementstriving is high " +
-                    "and deliberation is low " +
-                    "and activity is high " +
-                    "and straightforwardness is low " +
-                    "and modesty is low " +
-                    "and anxiety is low " +
-                    "and angryhostility is high " +
-                    "then tentative is favored",
-            "if achievementstriving is not high " +
-                    "and deliberation is not low " +
-                    "and straightforwardness is not low " +
-                    "then tentative is disfavored",
-            "if achievementstriving is low " +
-                    "and deliberation is low " +
-                    "and activity is low " +
-                    "and straightforwardness is low " +
-                    "and anxiety is high " +
-                    "and angryhostility is high " +
-                    "then indifferent is favored",
-            "if achievementstriving is not low " +
-                    "and deliberation is not low " +
-                    "and straightforwardness is not low " +
-                    "then indifferent is disfavored"
+                // R1
+                "if achievementstriving is high " +
+                "and deliberation is low " +
+                "and activity is high " +
+                "and trust is high " +
+                "and modesty is low " +
+                "and anxiety is low " +
+                "then judicial is favored",
+                // R2
+                "if achievementstriving is high " +
+                "and deliberation is med " +
+                "and activity is high " +
+                "and trust is med " +
+                "and modesty is low " +
+                "and anxiety is low " +
+                "then suspicious is favored",
+                // R3
+                "if achievementstriving is high " +
+                "and deliberation is high " +
+                "and activity is high " +
+                "and trust is low " +
+                "and modesty is low " +
+                "and anxiety is low " +
+                "then persistent is favored",
+                // R4
+                "if deliberation is not low " +
+                "and trust is not high " +
+                "then judicial is disfavored",
+                // R5
+                "if deliberation is not med " +
+                "and trust is not med " +
+                "then suspicious is disfavored",
+                // R6
+                "if deliberation is not high " +
+                "and trust is not low " +
+                "then persistent is disfavored",
+                // R7
+                "if achievementstriving is high " +
+                "and deliberation is low " +
+                "and activity is high " +
+                "and straightforwardness is low " +
+                "and modesty is low " +
+                "and anxiety is low " +
+                "and angryhostility is high " +
+                "then tentative is favored",
+                // R8
+                "if achievementstriving is not high " +
+                "and deliberation is not low " +
+                "and straightforwardness is not low " +
+                "then tentative is disfavored",
+                // R9
+                "if achievementstriving is low " +
+                "and deliberation is low " +
+                "and activity is low " +
+                "and straightforwardness is low " +
+                "and anxiety is high " +
+                "and angryhostility is high " +
+                "then indifferent is favored",
+                // R10
+                "if achievementstriving is not low " +
+                "and deliberation is not low " +
+                "and straightforwardness is not low " +
+                "then indifferent is disfavored",
         };
 
         for (String rule : rules) {

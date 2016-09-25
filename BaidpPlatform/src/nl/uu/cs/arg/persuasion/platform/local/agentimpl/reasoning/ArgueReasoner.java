@@ -55,64 +55,89 @@ public class ArgueReasoner extends Reasoner<ArgueAttitude>
         // Cannot provide support for any own proposition
         OutputVariable devious    = new OutputVariable();
 
+        // Can provide support for any own proposition for which he can construct an argument, in addition, the agent can provide support for any own proposition for which the agent can construct an argument for the contrary
+        OutputVariable fallacious = new OutputVariable();
+
         this.outputVariables.put("hopeful",    hopeful);
         this.outputVariables.put("dubious",    dubious);
         this.outputVariables.put("thorough",   thorough);
         this.outputVariables.put("misleading", misleading);
         this.outputVariables.put("devious",    devious);
+        this.outputVariables.put("fallacious", fallacious);
     }
 
     @Override
     protected void defineRules()
     {
         String rules[] = {
-            "if achievementstriving is high " +
-                    "and selfdiscipline is high " +
-                    "and deliberation is low " +
-                    "and activity is high " +
-                    "and straightforwardness is high " +
-                    "and anxiety is low " +
-                    "then hopeful is favored",
-            "if achievementstriving is high " +
-                    "and selfdiscipline is high " +
-                    "and deliberation is med " +
-                    "and activity is high " +
-                    "and straightforwardness is high " +
-                    "and anxiety is low " +
-                    "then dubious is favored",
-            "if achievementstriving is high " +
-                    "and selfdiscipline is high " +
-                    "and deliberation is high " +
-                    "and activity is high " +
-                    "and straightforwardness is high " +
-                    "and anxiety is low " +
-                    "then thorough is favored",
-            "if deliberation is not low " +
-                    "then hopeful is disfavored",
-            "if deliberation is not med " +
-                    "then dubious is disfavored",
-            "if deliberation is not high " +
-                    "then thorough is disfavored",
-            "if achievementstriving is high " +
-                    "and selfdiscipline is med " +
-                    "and deliberation is low " +
-                    "and activity is high " +
-                    "and straightforwardness is low " +
-                    "then misleading is favored",
-            "if deliberation is not low " +
-                    "and straightforwardness is not low " +
-                    "then misleading is disfavored",
-            "if achievementstriving is low " +
-                    "and selfdiscipline is low " +
-                    "and deliberation is low " +
-                    "and activity is low " +
-                    "and anxiety is high " +
-                    "and modesty is high " +
-                    "then devious is favored",
-            "if selfdiscipline is not low " +
-                    "and deliberation is not low " +
-                    "and activity is not low " +
-                    "then devious is disfavored"
+                // R1
+                "if achievementstriving is high " +
+                "and selfdiscipline is high " +
+                "and deliberation is low " +
+                "and activity is high " +
+                "and straightforwardness is high " +
+                "and anxiety is low " +
+                "then hopeful is favored",
+                // R2
+                "if achievementstriving is high " +
+                "and selfdiscipline is high " +
+                "and deliberation is med " +
+                "and activity is high " +
+                "and straightforwardness is high " +
+                "and anxiety is low " +
+                "then dubious is favored",
+                // R3
+                "if achievementstriving is high " +
+                "and selfdiscipline is high " +
+                "and deliberation is high " +
+                "and activity is high " +
+                "and straightforwardness is high " +
+                "and anxiety is low " +
+                "then thorough is favored",
+                // R4
+                "if deliberation is not low " +
+                "then hopeful is disfavored",
+                // R5
+                "if deliberation is not med " +
+                "then dubious is disfavored",
+                // R6
+                "if deliberation is not high " +
+                "then thorough is disfavored",
+                // R7
+                "if achievementstriving is high " +
+                "and selfdiscipline is med " +
+                "and deliberation is low " +
+                "and activity is high " +
+                "and straightforwardness is low " +
+                "then misleading is favored",
+                // R8
+                "if deliberation is not low " +
+                "and straightforwardness is not low " +
+                "then misleading is disfavored",
+                // R9
+                "if achievementstriving is high " +
+                "and selfdiscipline is med " +
+                "and deliberation is not low " +
+                "and activity is high " +
+                "and straightforwardness is low " +
+                "and angryhostility is high " +
+                "then fallacious is favored",
+                // R10
+                "if deliberation is low " +
+                "then fallacious is disfavored",
+                // R11
+                "if achievementstriving is low " +
+                "and selfdiscipline is low " +
+                "and deliberation is low " +
+                "and activity is low " +
+                "and anxiety is high " +
+                "and modesty is high " +
+                "then devious is favored",
+                // R12
+                "if selfdiscipline is not low " +
+                "and deliberation is not low " +
+                "and activity is not low " +
+                "then devious is disfavored"
         };
 
         for (String rule : rules) {

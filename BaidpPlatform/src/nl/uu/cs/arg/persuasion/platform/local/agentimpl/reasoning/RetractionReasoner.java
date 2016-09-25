@@ -61,53 +61,62 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
     protected void defineRules()
     {
         String rules[] = {
-            "if achievementstriving is low " +
-                    "and deliberation is low " +
-                    "and activity is high " +
-                    "and modesty is not low " +
-                    "then regretful is favored",
-            "if achievementstriving is med " +
-                    "and deliberation is med " +
-                    "and activity is high " +
-                    "and modesty is not low " +
-                    "then sensible is favored",
-            "if achievementstriving is high " +
-                    "and deliberation is high " +
-                    "and activity is high " +
-                    "and modesty is not low " +
-                    "then retentive is favored",
-            "if achievementstriving is not low " +
-                    "and deliberation is not low " +
-                    "then regretful is disfavored",
-            "if achievementstriving is not med " +
-                    "and deliberation is not med " +
-                    "then sensible is disfavored",
-            "if achievementstriving is not high " +
-                    "and deliberation is not high " +
-                    "then retentive is disfavored",
-            "if achievementstriving is low " +
-                    "and deliberation is low " +
-                    "and activity is high " +
-                    "and modesty is high " +
-                    "and anxiety is high " +
-                    "and straightforwardness is low " +
-                    "and depression is high " +
-                    "then incongruous is favored",
-            "if achievementstriving is not low " +
-                    "and deliberation is not low " +
-                    "and modesty is not high " +
-                    "then incongruous is disfavored",
-            "if achievementstriving is high " +
-                    "and deliberation is low " +
-                    "and activity is low " +
-                    "and straightforwardness is low " +
-                    "and modesty is low " +
-                    "and angryhostility is high " +
-                    "then determined is favored",
-            "if achievementstriving is not high " +
-                    "and deliberation is not low " +
-                    "and modesty is not low " +
-                    "then determined is disfavored"
+                // R1
+                "if achievementstriving is low " +
+                "and deliberation is low " +
+                "and activity is high " +
+                "and modesty is not low " +
+                "then regretful is favored",
+                // R2
+                "if achievementstriving is med " +
+                "and deliberation is med " +
+                "and activity is high " +
+                "and modesty is not low " +
+                "then sensible is favored",
+                // R3
+                "if achievementstriving is high " +
+                "and deliberation is high " +
+                "and activity is high " +
+                "and modesty is not low " +
+                "then retentive is favored",
+                // R4
+                "if achievementstriving is not low " +
+                "and deliberation is not low " +
+                "then regretful is disfavored",
+                // R5
+                "if achievementstriving is not med " +
+                "and deliberation is not med " +
+                "then sensible is disfavored",
+                // R6
+                "if achievementstriving is not high " +
+                "and deliberation is not high " +
+                "then retentive is disfavored",
+                // R7
+                "if achievementstriving is low " +
+                "and deliberation is low " +
+                "and activity is high " +
+                "and modesty is high " +
+                "and anxiety is high " +
+                "and depression is high " +
+                "then incongruous is favored",
+                // R8
+                "if achievementstriving is not low " +
+                "and deliberation is not low " +
+                "and modesty is not high " +
+                "then incongruous is disfavored",
+                // R9
+                "if achievementstriving is high " +
+                "and deliberation is low " +
+                "and activity is low " +
+                "and straightforwardness is low " +
+                "and modesty is low " +
+                "and angryhostility is high " +
+                "then determined is favored",
+                // R10
+                "if achievementstriving is not high " +
+                "and deliberation is not low " +
+                "and modesty is not low " +
+                "then determined is disfavored"
         };
 
         for (String rule : rules) {

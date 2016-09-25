@@ -65,58 +65,68 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
     protected void defineRules()
     {
         String rules[] = {
+            // R1
             "if achievementstriving is low " +
-                "and deliberation is low " +
-                "and trust is high " +
-                "and modesty is not low " +
-                "and activity is high " +
-                "then credulous is favored",
+            "and deliberation is low " +
+            "and trust is high " +
+            "and modesty is not low " +
+            "and activity is high " +
+            "then credulous is favored",
+            // R2
             "if achievementstriving is med " +
-                "and deliberation is med " +
-                "and trust is med " +
-                "and modesty is not low " +
-                "and activity is high " +
-                "then cautious is favored",
+            "and deliberation is med " +
+            "and trust is med " +
+            "and modesty is not low " +
+            "and activity is high " +
+            "then cautious is favored",
+            // R3
             "if achievementstriving is high " +
-                "and deliberation is high " +
-                "and trust is low " +
-                "and modesty is not low " +
-                "and activity is high " +
-                "then skeptical is favored",
-            "if achievementstriving is not low " +
-                "and deliberation is not low " +
-                "and trust is not high " +
-                "then credulous is disfavored",
-            "if achievementstriving is not med " +
-                "and deliberation is not med " +
-                "and trust is not med " +
-                "then cautious is disfavored",
-            "if achievementstriving is not high " +
-                "and deliberation is not high " +
-                "and trust is not low " +
-                "then skeptical is disfavored",
+            "and deliberation is high " +
+            "and trust is low " +
+            "and modesty is not low " +
+            "and activity is high " +
+            "then skeptical is favored",
+            // R4
+            "if achievementstriving is not low  " +
+            "and deliberation is not low " +
+            "and trust is not high " +
+            "then credulous is disfavored",
+            // R5
+            "if achievementstriving is not med  " +
+            "and deliberation is not med " +
+            "and trust is not med " +
+            "then cautious is disfavored",
+            // R6
+            "if achievementstriving is not high  " +
+            "and deliberation is not high " +
+            "and trust is not low " +
+            "then skeptical is disfavored",
+            // R7
             "if achievementstriving is low " +
-                "and activity is high " +
-                "and trust is high " +
-                "and modesty is high " +
-                "and anxiety is high " +
-                "then faithful is favored",
+            "and activity is high " +
+            "and trust is high " +
+            "and modesty is high " +
+            "and anxiety is high " +
+            "then faithful is favored",
+            // R8
             "if achievementstriving is not low " +
-                "and trust is not high " +
-                "and modesty is not high " +
-                "then faithful is disfavored",
+            "and trust is not high " +
+            "and modesty is not high " +
+            "then faithful is disfavored",
+            // R9
             "if achievementstriving is high " +
-                "and activity is low " +
-                "and trust is low " +
-                "and straightforwardness is low " +
-                "and modesty is low " +
-                "and angryhostility is high " +
-                "then rigid is favored",
+            "and activity is low " +
+            "and trust is low " +
+            "and straightforwardness is low " +
+            "and modesty is low " +
+            "and angryhostility is high " +
+            "then rigid is favored",
+            // R10
             "if achievementstriving is not high " +
-                "and trust is not low " +
-                "and straightforwardness is not low " +
-                "and modesty is not low " +
-                "then rigid is disfavored"
+            "and trust is not low " +
+            "and straightforwardness is not low " +
+            "and modesty is not low " +
+            "then rigid is disfavored"
         };
 
         for (String rule : rules) {
