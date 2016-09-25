@@ -18,6 +18,11 @@ import java.util.List;
 
 public class CarefulAttitude extends AssertionAttitude
 {
+    public CarefulAttitude()
+    {
+        super("Careful Attitude");
+    }
+
     @Override
     public List<PersuasionMove<? extends Locution>> generateMoves(PersuadingAgent agent, PersuasionDialogue dialogue) throws PersuasionDialogueException, ParseException, ReasonerException
     {

@@ -19,6 +19,10 @@ import java.util.List;
  */
 public class MisleadingAttitude extends ArgueAttitude
 {
+    public MisleadingAttitude()
+    {
+        super("Misleading Attitude");
+    }
 
     @Override
     public List<PersuasionMove<? extends Locution>> generateMoves(PersuadingAgent agent, PersuasionDialogue dialogue) throws PersuasionDialogueException, ParseException, ReasonerException

@@ -18,6 +18,10 @@ import org.aspic.inference.parser.ParseException;
 
 public class DeceptiveAttitude extends AssertionAttitude
 {
+    public DeceptiveAttitude()
+    {
+        super("Deceptive Attitude");
+    }
 
     @Override
     public List<PersuasionMove<? extends Locution>> generateMoves(PersuadingAgent agent, PersuasionDialogue dialogue) throws PersuasionDialogueException, ParseException, ReasonerException

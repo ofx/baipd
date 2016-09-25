@@ -21,6 +21,13 @@ public abstract class Attitude
 
     protected StrategyHelper helper = StrategyHelper.DefaultHelper;
 
+    private String name;
+
+    public Attitude(String name)
+    {
+        this.name = name;
+    }
+
     public abstract List<PersuasionMove<? extends Locution>> generateMoves(PersuadingAgent agent, PersuasionDialogue dialogue) throws PersuasionDialogueException, ParseException, ReasonerException;
 
     public List<PersuasionMove<? extends Locution>> generateValidatedMoves(PersuadingAgent agent, PersuasionDialogue dialogue) throws PersuasionDialogueException, ParseException, ReasonerException {
@@ -29,10 +36,15 @@ public abstract class Attitude
         while (it.hasNext()) {
             if (dialogue.isRepeatedMove(it.next())) {
                 it.remove();
-                PersuasionMove.decrementMoveCounter();
             }
         }
         return moves;
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.name;
     }
 
 }

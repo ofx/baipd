@@ -100,7 +100,6 @@ public class PersuasionLauncher {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private static void printCommandLineUsage(OptionParser parser) throws IOException {

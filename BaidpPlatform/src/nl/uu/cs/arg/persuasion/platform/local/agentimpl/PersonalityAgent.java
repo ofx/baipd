@@ -76,7 +76,10 @@ public class PersonalityAgent extends PersuadingAgent {
         int u = 0;
         for (Map.Entry<String, Object> property : xmlDataFile.getRawProperties().entrySet()) {
             if (property.getValue() instanceof  Double) {
-                u += personalityVector.replace(property.getKey(), (Double) property.getValue()) != null ? 1 : 0;
+                //u += personalityVector.replace(property.getKey(), (Double) property.getValue()) != null ? 1 : 0;
+                // Randomize personality
+                personalityVector.replace(property.getKey(), new Random().nextDouble());
+                ++u;
             }
         }
 
@@ -86,6 +89,11 @@ public class PersonalityAgent extends PersuadingAgent {
         }
 
         this.outOfMoves = false;
+    }
+
+    public HashMap<String, Double> getPersonalityVector()
+    {
+        return this.personalityVector;
     }
 
     @Override
@@ -123,18 +131,46 @@ public class PersonalityAgent extends PersuadingAgent {
         return ordering;
     }
 
-    protected ArrayList<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering) throws ParseException, PersuasionDialogueException, ReasonerException {
+    public ArrayList<Attitude> getAttitudeOrdering(ArrayList<Reasoner> actionOrdering)
+    {
         ArrayList<Attitude> attitudes = new ArrayList<>();
-        ArrayList<Class> used = new ArrayList<>();
-        ArrayList<PersuasionMove<? extends Locution>> generatedMoves = new ArrayList<>();
 
         // Fetch the action revision orderings
         for (int i = 0 ; i < actionOrdering.size() ; ++i) {
             for (Reasoner reasoner : actionOrdering) {
                 reasoner.setPersonalityVector(this.personalityVector);
-                attitudes.add(((ArrayList<Attitude>) reasoner.run()).get(i));
+                Attitude a = ((ArrayList<Attitude>) reasoner.run()).get(i);
+                attitudes.add(a);
             }
         }
+
+        return attitudes;
+    }
+
+    public ArrayList<Attitude> getAttitudeOrdering()
+    {
+        ArrayList<Reasoner> actionOrdering = this.actionSelection();
+        return this.getAttitudeOrdering(actionOrdering);
+    }
+
+    public String attitudeOrderingToString()
+    {
+        String s = "Action Revision ordering for '" + this.getName() + "'\n";
+        ArrayList<Attitude> attitudes = this.getAttitudeOrdering();
+
+        int n = 0;
+        for (Attitude attitude : attitudes) {
+            s += "(" + n++ + "): " + attitude + "\n";
+        }
+
+        return s;
+    }
+
+    protected ArrayList<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering) throws ParseException, PersuasionDialogueException, ReasonerException {
+
+        ArrayList<Class> used = new ArrayList<>();
+        ArrayList<PersuasionMove<? extends Locution>> generatedMoves = new ArrayList<>();
+        ArrayList<Attitude> attitudes = this.getAttitudeOrdering(actionOrdering);
 
         // Do reasoning
         for (Attitude attitude : attitudes) {
@@ -161,42 +197,6 @@ public class PersonalityAgent extends PersuadingAgent {
         }
 
         return generatedMoves;
-
-        /*HashMap<Reasoner, ArrayList<Attitude>> actionRevisionOrderings = new HashMap<>();
-
-        int failCount = 0;
-        for (Reasoner reasoner : actionOrdering) {
-            if (usedReasoners.contains(reasoner)) {
-                continue;
-            }
-
-            ArrayList<Attitude> actionRevisionOrdering;
-            if (!actionRevisionOrderings.containsKey(reasoner)) {
-                reasoner.setPersonalityVector(this.personalityVector);
-                actionRevisionOrdering = (ArrayList<Attitude>) reasoner.run();
-            } else {
-                actionRevisionOrdering = actionRevisionOrderings.get(reasoner);
-            }
-
-            final int l = actionRevisionOrdering.size();
-            if (level < l) {
-                Attitude attitude = actionRevisionOrdering.get(level);
-                //List<PersuasionMove<? extends Locution>> moves = null;
-                //moves = attitude.generateValidatedMoves(this, this.dialogue);
-                int s = moves.size();
-                moves.addAll(attitude.generateValidatedMoves(this, this.dialogue));
-                usedReasoners.add(reasoner);
-            } else {
-                ++failCount;
-            }
-        }
-
-        if (failCount == actionOrdering.size()) {
-            return; // Nothing is allowed...
-        }
-
-        // No action selected, recurse
-        this.actionRevision(actionOrdering, usedReasoners, moves, level + 1);*/
     }
 
     @Override

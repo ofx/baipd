@@ -7,6 +7,7 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.Acc
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.AssertionAttitude;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction.RetractionAttitude;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class RetractionReasoner extends Reasoner<RetractionAttitude>

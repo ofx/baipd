@@ -25,9 +25,14 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
     private static int uniqueMoveCounter = 0;
 
     /**
+     * The index of the move in the sequence of moves that are added to the dialogue.
+     */
+    private long sequenceIndex;
+
+    /**
      * The internal, dialogue-unique identifier for a single move.
      */
-    private long index;
+    private long uniqueMoveIndex;
 
     /**
      * The agent that played this move.
@@ -86,8 +91,10 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
      * @return The move id
      */
     public long getIndex() {
-        return this.index;
+        return this.uniqueMoveIndex;
     }
+
+    public void setSequenceIndex(long index) { this.sequenceIndex = index; }
 
     /**
      * Returns the player of this move
@@ -121,7 +128,7 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
      * @param locution The move contents, which is a locution of some sort
      */
     private PersuasionMove(int id, PersuasionParticipant player, PersuasionMove<? extends Locution> target, T locution) {
-        this.index = id;
+        this.uniqueMoveIndex = id;
         this.player = player;
         this.target = target;
         this.locution = locution;
@@ -141,8 +148,6 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
         return new PersuasionMove<T>(uniqueMoveCounter++, player, targetMove, locution);
     }
 
-    public static void decrementMoveCounter() { --uniqueMoveCounter; }
-
     /**
      * Resets the internal move counter; to be used when starting a new dialogue (platform)
      */
@@ -155,7 +160,7 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
      * @return A formatted and human-readable string of this move
      */
     public String toLogicString() {
-        return "(" + index + ") " + (player == null? "<system>": player.getName()) + ": " + locution.toLogicString() + (target != null? " --> " + target.getIndex(): "");
+        return "(" + sequenceIndex + ") " + (player == null? "<system>": player.getName()) + ": " + locution.toLogicString() + (target != null? " --> " + target.getIndex(): "");
     }
 
     public String toString() {
@@ -163,7 +168,7 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
     }
 
     public String toSimpleString() {
-        return "(" + index + ") " + (player == null? "<system>": player.getName()) + ": " + locution.toSimpleString();
+        return "(" + sequenceIndex + ") " + (player == null? "<system>": player.getName()) + ": " + locution.toSimpleString();
     }
 
 }

@@ -1,5 +1,12 @@
 package nl.uu.cs.arg.persuasion.platform;
 
+import java.io.File;
+import java.io.PrintWriter;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.sql.Timestamp;
 import java.util.*;
 
 import nl.uu.cs.arg.persuasion.model.PersuasionAgent;
@@ -11,6 +18,8 @@ import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionRule;
 import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionTerminationMessage;
 import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionTerminationRule;
 
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.PersonalityAgent;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.tools.PersonalityVectorChart;
 import nl.uu.cs.arg.platform.ParticipatingAgent;
 import nl.uu.cs.arg.shared.dialogue.Move;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
@@ -172,10 +181,52 @@ public class PersuasionPlatform implements Runnable {
             case Terminating:
                 // Terminating: determine the dialogue outcome
                 this.determineOutcome();
+                this.dumpResults();
                 break;
             case Terminated:
                 // Terminated; the dialogue will be stopped now
                 break;
+        }
+    }
+
+    public void dumpResults()
+    {
+        Path path = FileSystems.getDefault().getPath(System.getProperty("user.dir"), "results", new Timestamp(new Date().getTime()).toString());
+        System.out.println("Creating directory: " + path);
+
+        try {
+            Files.createDirectories(path);
+
+            // Plot graph of personality vectors
+            int i = 0;
+            String[] names = new String[this.agents.size()];
+            ArrayList<Map<String, Double>> pvs = new ArrayList<>();
+            for (PersuasionParticipatingAgent a : this.agents) {
+                PersuasionAgent agent = a.getAgent();
+                if (agent instanceof PersonalityAgent) {
+                    pvs.add(((PersonalityAgent)agent).getPersonalityVector());
+                    names[i++] = agent.getName();
+                }
+            }
+            new PersonalityVectorChart(path.resolve("pvs.jpeg").toString(), pvs, names);
+
+            // Dump graph to file as dot file
+            PrintWriter out = new PrintWriter(path.resolve("dialogue.dot").toString());
+            String dot = this.dialogue.toDot();
+            out.println(dot);
+            out.close();
+
+            // Dump ordering
+            out = new PrintWriter(path.resolve("orderings.txt").toString());
+            for (PersuasionParticipatingAgent a : this.agents) {
+                PersuasionAgent agent = a.getAgent();
+                if (agent instanceof PersonalityAgent) {
+                    out.println(((PersonalityAgent)agent).attitudeOrderingToString());
+                }
+            }
+            out.close();
+        } catch (Exception e) {
+            System.out.println("Could not dump results!");
         }
     }
 

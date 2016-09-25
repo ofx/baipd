@@ -19,6 +19,10 @@ import java.util.List;
 
 public class ConfidentAttitude extends AssertionAttitude
 {
+    public ConfidentAttitude()
+    {
+        super("Confident Attitude");
+    }
 
     @Override
     public List<PersuasionMove<? extends Locution>> generateMoves(PersuadingAgent agent, PersuasionDialogue dialogue) throws PersuasionDialogueException, ParseException, ReasonerException

@@ -7,7 +7,7 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.Acc
 public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
 {
 
-    public AcceptanceReasoner() { this(0.2); }
+    public AcceptanceReasoner() { this(0.5); }
 
     public AcceptanceReasoner(double rho)
     {

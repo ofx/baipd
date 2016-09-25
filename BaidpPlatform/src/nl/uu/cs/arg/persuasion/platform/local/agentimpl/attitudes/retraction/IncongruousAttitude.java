@@ -18,6 +18,10 @@ import org.aspic.inference.parser.ParseException;
 
 public class IncongruousAttitude extends RetractionAttitude
 {
+    public IncongruousAttitude()
+    {
+        super("Incongruous Attitude");
+    }
 
     @Override
     public List<PersuasionMove<? extends Locution>> generateMoves(PersuadingAgent agent, PersuasionDialogue dialogue) throws PersuasionDialogueException, ParseException, ReasonerException
@@ -27,6 +31,11 @@ public class IncongruousAttitude extends RetractionAttitude
         // Fetch the active attackers of the dialogue topic
         List<PersuasionMove<? extends Locution>> attackers = dialogue.getActiveAttackers();
         for (PersuasionMove<? extends Locution> attackMove : attackers) {
+            // Skip dialogue topic
+            if (attackMove.getTarget() == null) {
+                continue;
+            }
+
             if (attackMove.hasSurrendered(agent.getParticipant())) {
                 continue;
             }

@@ -31,6 +31,11 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
     private PersuasionDialogueState state;
 
     /**
+     * Keeps track of the sequence indices of moves added to the dialogue.
+     */
+    private long moveSequenceCounter;
+
+    /**
      * Instantiates a new PersuasionDialogue instance, sets the dialogue state to PersuasionDialogueState.Unopened.
      */
     public PersuasionDialogue(Constant topic)
@@ -100,6 +105,8 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
             // Not in this proposal tree
             return null;
         }
+
+        newPersuasionMove.setSequenceIndex(this.moveSequenceCounter++);
 
         // Found the target; add a node for this newPersuasionMove to its children
         target.addChild(new IndexedNode<PersuasionMove<? extends Locution>>(this, newPersuasionMove));

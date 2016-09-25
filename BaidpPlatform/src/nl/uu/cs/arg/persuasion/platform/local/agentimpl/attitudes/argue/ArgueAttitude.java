@@ -4,4 +4,8 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.Attitude;
 
 public abstract class ArgueAttitude extends Attitude
 {
+    public ArgueAttitude(String name)
+    {
+        super("(Argue) " + name);
+    }
 }
