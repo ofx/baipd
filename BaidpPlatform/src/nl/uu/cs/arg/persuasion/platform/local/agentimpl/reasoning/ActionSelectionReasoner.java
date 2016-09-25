@@ -63,10 +63,10 @@ public class ActionSelectionReasoner extends Reasoner<Reasoner>
                 "if values is high " +
                         "then retraction is favored",
                 "if competence is high " +
-                        "then retraction is disfavored",
+                        "then retraction is disfavored ",
                 "if competence is high " +
-                        "then acceptance is disfavored",
-                "if argue is high " +
+                        "then acceptance is disfavored ",
+                "if competence is high " +
                         "then argue is favored",
                 "if selfconsciousness is high " +
                         "then assertion is disfavored",
