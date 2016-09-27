@@ -7,11 +7,9 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion.Asse
 public class AssertionReasoner extends Reasoner<AssertionAttitude>
 {
 
-    public AssertionReasoner() { this(0.2); }
-
-    public AssertionReasoner(double rho)
+    public AssertionReasoner()
     {
-        super("AssertionReasoningEngine", rho, AssertionAttitude.class);
+        super("AssertionReasoningEngine", Defaults.RHO, AssertionAttitude.class);
     }
 
     @Override
@@ -142,5 +140,8 @@ public class AssertionReasoner extends Reasoner<AssertionAttitude>
     {
         return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.assertion";
     }
+
+    @Override
+    public String toString() { return "Assert"; }
 
 }

@@ -11,11 +11,9 @@ import java.util.Map;
 public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
 {
 
-    public ChallengeReasoner() { this(0.2); }
-
-    public ChallengeReasoner(double rho)
+    public ChallengeReasoner()
     {
-        super("ChallengeReasoningEngine", rho, ChallengeAttitude.class);
+        super("ChallengeReasoningEngine", Defaults.RHO, ChallengeAttitude.class);
     }
 
     @Override
@@ -135,5 +133,8 @@ public class ChallengeReasoner extends Reasoner<ChallengeAttitude>
     {
         return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.challenge";
     }
+
+    @Override
+    public String toString() { return "Why"; }
 
 }

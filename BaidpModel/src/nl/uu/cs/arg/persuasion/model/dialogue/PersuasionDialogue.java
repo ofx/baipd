@@ -106,7 +106,7 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
             return null;
         }
 
-        newPersuasionMove.setSequenceIndex(this.moveSequenceCounter++);
+        newPersuasionMove.setSequenceIndex(this.moveSequenceCounter);
 
         // Found the target; add a node for this newPersuasionMove to its children
         target.addChild(new IndexedNode<PersuasionMove<? extends Locution>>(this, newPersuasionMove));
@@ -144,11 +144,14 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
 
                 // Add the PersuasionMove as the root element.
                 this.setRootElement(new IndexedNode<PersuasionMove<? extends Locution>>(this, move));
+
+                ++this.moveSequenceCounter;
             } else {
                 // Add the new PersuasionMoves to the dialogue.
                 for (PersuasionMove PersuasionMove : newPersuasionMoves) {
                     this.addPersuasionMoveNode(PersuasionMove);
                 }
+                ++this.moveSequenceCounter;
             }
         } else {
             throw new PersuasionDialogueException("tried to update a dialogue in an invalid state");

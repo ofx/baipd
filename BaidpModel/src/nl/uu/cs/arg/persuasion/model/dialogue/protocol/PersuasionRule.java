@@ -25,6 +25,15 @@ public enum PersuasionRule {
             }
             return null;
         }
+    },
+    IsRelevant {
+        @Override
+        public PersuasionProtocolException evaluateMove(PersuasionDialogue dialogue, PersuasionMove<? extends Locution> newMove) {
+            if (dialogue.isRepeatedMove(newMove)) {
+                return new PersuasionProtocolException(newMove, "The new move is a repeated move");
+            }
+            return null;
+        }
     };
 
     public abstract PersuasionProtocolException evaluateMove(PersuasionDialogue dialogue, PersuasionMove<? extends Locution> newMove);

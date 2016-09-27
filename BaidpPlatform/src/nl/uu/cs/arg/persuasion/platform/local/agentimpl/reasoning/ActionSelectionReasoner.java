@@ -12,9 +12,9 @@ import java.util.Map;
 public class ActionSelectionReasoner extends Reasoner<Reasoner>
 {
 
-    public ActionSelectionReasoner(double rho)
+    public ActionSelectionReasoner()
     {
-        super("ActionSelectionEngine", rho, Reasoner.class);
+        super("ActionSelectionEngine", Defaults.RHO, Reasoner.class);
     }
 
     @Override

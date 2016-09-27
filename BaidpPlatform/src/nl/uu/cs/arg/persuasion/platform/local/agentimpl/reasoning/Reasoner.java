@@ -182,7 +182,7 @@ public abstract class Reasoner<T>
         }
     }
 
-    public ArrayList<T> run()
+    public HashMap<T, Double> run()
     {
         this.process();
 
@@ -202,12 +202,12 @@ public abstract class Reasoner<T>
         });
         sortedMap.putAll(map);
 
-        ArrayList<T> ordering = new ArrayList<>();
+        HashMap<T, Double> ordering = new HashMap<>();
         try {
             for (Map.Entry<String, Double> entry : sortedMap.entrySet()) {
                 for (Class<? extends T> c : classes) {
                     if (c.getSimpleName().toLowerCase().contains(entry.getKey())) {
-                        ordering.add((T) c.newInstance());
+                        ordering.put((T) c.newInstance(), entry.getValue());
                     }
                 }
             }

@@ -8,11 +8,9 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.argue.ArgueAtt
 public class ArgueReasoner extends Reasoner<ArgueAttitude>
 {
 
-    public ArgueReasoner() { this(0.2); }
-
-    public ArgueReasoner(double rho)
+    public ArgueReasoner()
     {
-        super("ArgueReasoningEngine", rho, ArgueAttitude.class);
+        super("ArgueReasoningEngine", Defaults.RHO, ArgueAttitude.class);
     }
 
     @Override
@@ -150,5 +148,8 @@ public class ArgueReasoner extends Reasoner<ArgueAttitude>
     {
         return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.argue";
     }
+
+    @Override
+    public String toString() { return "Argue"; }
 
 }

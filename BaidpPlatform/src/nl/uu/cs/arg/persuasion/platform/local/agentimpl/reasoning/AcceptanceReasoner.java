@@ -7,11 +7,9 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance.Acc
 public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
 {
 
-    public AcceptanceReasoner() { this(0.5); }
-
-    public AcceptanceReasoner(double rho)
+    public AcceptanceReasoner()
     {
-        super("AcceptanceReasoningEngine", rho, AcceptanceAttitude.class);
+        super("AcceptanceReasoningEngine", Defaults.RHO, AcceptanceAttitude.class);
     }
 
     @Override
@@ -139,5 +137,8 @@ public class AcceptanceReasoner extends Reasoner<AcceptanceAttitude>
     {
         return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.acceptance";
     }
+
+    @Override
+    public String toString() { return "Accept"; }
 
 }

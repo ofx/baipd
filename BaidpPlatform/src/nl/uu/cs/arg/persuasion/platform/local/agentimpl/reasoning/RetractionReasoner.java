@@ -13,11 +13,9 @@ import java.util.Map;
 public class RetractionReasoner extends Reasoner<RetractionAttitude>
 {
 
-    public RetractionReasoner() { this(0.2); }
-
-    public RetractionReasoner(double rho)
+    public RetractionReasoner()
     {
-        super("RetractionReasoningEngine", rho, RetractionAttitude.class);
+        super("RetractionReasoningEngine", Defaults.RHO, RetractionAttitude.class);
     }
 
     @Override
@@ -130,5 +128,8 @@ public class RetractionReasoner extends Reasoner<RetractionAttitude>
     {
         return "nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction";
     }
+
+    @Override
+    public String toString() { return "Retract"; }
 
 }

@@ -21,6 +21,8 @@ public abstract class Attitude
 
     protected StrategyHelper helper = StrategyHelper.DefaultHelper;
 
+    protected String story = "";
+
     private String name;
 
     public Attitude(String name)
@@ -40,6 +42,8 @@ public abstract class Attitude
         }
         return moves;
     }
+
+    public String getStory() { return this.story; }
 
     @Override
     public String toString()

@@ -19,7 +19,9 @@ import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionTerminationMess
 import nl.uu.cs.arg.persuasion.model.dialogue.protocol.PersuasionTerminationRule;
 
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.PersonalityAgent;
-import nl.uu.cs.arg.persuasion.platform.local.agentimpl.tools.PersonalityVectorChart;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.Attitude;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.Reasoner;
+import nl.uu.cs.arg.persuasion.platform.local.agentimpl.tools.SpiderPlotChart;
 import nl.uu.cs.arg.platform.ParticipatingAgent;
 import nl.uu.cs.arg.shared.dialogue.Move;
 import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
@@ -208,7 +210,39 @@ public class PersuasionPlatform implements Runnable {
                     names[i++] = agent.getName();
                 }
             }
-            new PersonalityVectorChart(path.resolve("pvs.jpeg").toString(), pvs, names);
+            new SpiderPlotChart(path.resolve("pvs.jpeg").toString(), pvs, names);
+
+            // Plot for action selection
+            ArrayList<Map<String, Double>> as = new ArrayList<>();
+            for (PersuasionParticipatingAgent a : this.agents) {
+                PersuasionAgent agent = a.getAgent();
+                if (agent instanceof PersonalityAgent) {
+                    HashMap<String, Double> m = new HashMap<>();
+                    HashMap<Reasoner, Double> o = ((PersonalityAgent)agent).getActionOrderingMap();
+                    for (Map.Entry<Reasoner, Double> entry : o.entrySet()) {
+                        m.put(entry.getKey().toString(), entry.getValue());
+                    }
+
+                    as.add(m);
+                }
+            }
+            new SpiderPlotChart(path.resolve("as.jpeg").toString(), as, names);
+
+            // Plot for action revision
+            ArrayList<Map<String, Double>> ar = new ArrayList<>();
+            for (PersuasionParticipatingAgent a : this.agents) {
+                PersuasionAgent agent = a.getAgent();
+                if (agent instanceof PersonalityAgent) {
+                    HashMap<String, Double> m = new HashMap<>();
+                    HashMap<Attitude, Double> o = ((PersonalityAgent)agent).getAttitudeOrderingMap();
+                    for (Map.Entry<Attitude, Double> entry : o.entrySet()) {
+                        m.put(entry.getKey().toString(), entry.getValue());
+                    }
+
+                    ar.add(m);
+                }
+            }
+            new SpiderPlotChart(path.resolve("ar.jpeg").toString(), ar, names);
 
             // Dump graph to file as dot file
             PrintWriter out = new PrintWriter(path.resolve("dialogue.dot").toString());
@@ -222,6 +256,17 @@ public class PersuasionPlatform implements Runnable {
                 PersuasionAgent agent = a.getAgent();
                 if (agent instanceof PersonalityAgent) {
                     out.println(((PersonalityAgent)agent).attitudeOrderingToString());
+                }
+            }
+            out.close();
+
+            // Dump stories
+            for (PersuasionParticipatingAgent a : this.agents) {
+                out = new PrintWriter(path.resolve("story_" + a.getAgent().getName().toLowerCase() + ".txt").toString());
+
+                PersuasionAgent agent = a.getAgent();
+                if (agent instanceof PersonalityAgent) {
+                    out.println(((PersonalityAgent)agent).getStory());
                 }
             }
             out.close();

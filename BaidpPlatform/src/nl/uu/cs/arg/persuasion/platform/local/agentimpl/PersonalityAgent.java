@@ -27,6 +27,10 @@ public class PersonalityAgent extends PersuadingAgent {
 
     private boolean outOfMoves;
 
+    private String story = "";
+
+    private double rho = 0.2;
+
     private HashMap<String, Double> personalityVector = new HashMap<String, Double>() {{
         put("actions", 0.0);
         put("ideas", 0.0);
@@ -78,7 +82,7 @@ public class PersonalityAgent extends PersuadingAgent {
             if (property.getValue() instanceof  Double) {
                 //u += personalityVector.replace(property.getKey(), (Double) property.getValue()) != null ? 1 : 0;
                 // Randomize personality
-                personalityVector.replace(property.getKey(), new Random().nextDouble());
+                personalityVector.replace(property.getKey(), 0.3 + (1.0 - 0.3) * new Random().nextDouble());
                 ++u;
             }
         }
@@ -121,42 +125,52 @@ public class PersonalityAgent extends PersuadingAgent {
         }
     }
 
-    protected ArrayList<Reasoner> actionSelection()
+    protected HashMap<Reasoner, Double> actionSelection()
     {
         // Determine the preference ordering over types of speech acts
-        ActionSelectionReasoner reasoner = new ActionSelectionReasoner(0.2);
+        ActionSelectionReasoner reasoner = new ActionSelectionReasoner();
         reasoner.setPersonalityVector(this.personalityVector);
-        ArrayList<Reasoner> ordering = (ArrayList<Reasoner>) reasoner.run();
-
+        HashMap<Reasoner, Double> ordering = reasoner.run();
         return ordering;
     }
 
-    public ArrayList<Attitude> getAttitudeOrdering(ArrayList<Reasoner> actionOrdering)
+    public HashMap<Attitude, Double> getAttitudeOrdering(ArrayList<Reasoner> actionOrdering)
     {
-        ArrayList<Attitude> attitudes = new ArrayList<>();
+        HashMap<Attitude, Double> attitudes = new HashMap<Attitude, Double>();
 
         // Fetch the action revision orderings
         for (int i = 0 ; i < actionOrdering.size() ; ++i) {
             for (Reasoner reasoner : actionOrdering) {
                 reasoner.setPersonalityVector(this.personalityVector);
-                Attitude a = ((ArrayList<Attitude>) reasoner.run()).get(i);
-                attitudes.add(a);
+                HashMap<Attitude, Double> ats = reasoner.run();
+                Attitude at = (Attitude) (ats.keySet().toArray())[i];
+                attitudes.put(at, ats.get(at));
             }
         }
 
         return attitudes;
     }
 
-    public ArrayList<Attitude> getAttitudeOrdering()
+    public HashMap<Reasoner, Double> getActionOrderingMap()
     {
-        ArrayList<Reasoner> actionOrdering = this.actionSelection();
-        return this.getAttitudeOrdering(actionOrdering);
+        return this.actionSelection();
+    }
+
+    public HashMap<Attitude, Double> getAttitudeOrderingMap()
+    {
+        return this.getAttitudeOrdering(this.setToArrayList(this.actionSelection().keySet()));
+    }
+
+    public ArrayList<Attitude> getAttitudeOrderingList()
+    {
+        ArrayList<Reasoner> actionOrdering = this.setToArrayList(this.actionSelection().keySet());
+        return this.setToArrayList(this.getAttitudeOrdering(actionOrdering).keySet());
     }
 
     public String attitudeOrderingToString()
     {
         String s = "Action Revision ordering for '" + this.getName() + "'\n";
-        ArrayList<Attitude> attitudes = this.getAttitudeOrdering();
+        ArrayList<Attitude> attitudes = this.getAttitudeOrderingList();
 
         int n = 0;
         for (Attitude attitude : attitudes) {
@@ -166,11 +180,18 @@ public class PersonalityAgent extends PersuadingAgent {
         return s;
     }
 
-    protected ArrayList<PersuasionMove<? extends Locution>> actionRevision(ArrayList<Reasoner> actionOrdering) throws ParseException, PersuasionDialogueException, ReasonerException {
+    private<T> ArrayList<T> setToArrayList(Set<T> s)
+    {
+        ArrayList<T> a = new ArrayList<>();
+        a.addAll(s);
+        return a;
+    }
+
+    protected ArrayList<PersuasionMove<? extends Locution>> actionRevision() throws ParseException, PersuasionDialogueException, ReasonerException {
 
         ArrayList<Class> used = new ArrayList<>();
         ArrayList<PersuasionMove<? extends Locution>> generatedMoves = new ArrayList<>();
-        ArrayList<Attitude> attitudes = this.getAttitudeOrdering(actionOrdering);
+        ArrayList<Attitude> attitudes = this.getAttitudeOrderingList();
 
         // Do reasoning
         for (Attitude attitude : attitudes) {
@@ -181,6 +202,7 @@ public class PersonalityAgent extends PersuadingAgent {
                     generatedMoves.addAll(moves);
                     used.add(attitude.getClass().getSuperclass());
                 }
+                this.story += attitude.getStory() + (attitude.getStory().length() > 0 ? "\n\n" : "");
             }
         }
 
@@ -212,11 +234,12 @@ public class PersonalityAgent extends PersuadingAgent {
                 return null;
             }
         } else {
-            ArrayList<Reasoner> ordering = this.actionSelection();
-            ret = this.actionRevision(ordering);
+            ret = this.actionRevision();
         }
 
         return ret;
     }
+
+    public String getStory() { return this.story; }
 
 }
