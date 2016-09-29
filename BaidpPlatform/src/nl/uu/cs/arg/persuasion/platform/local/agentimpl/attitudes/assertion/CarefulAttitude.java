@@ -31,6 +31,10 @@ public class CarefulAttitude extends AssertionAttitude
         // Fetch the active attackers of the dialogue topic
         List<PersuasionMove<? extends Locution>> attackers = dialogue.getActiveAttackers();
         for (PersuasionMove<? extends Locution> attackMove : attackers) {
+            if (attackMove.hasSurrendered(agent.getParticipant())) {
+                continue;
+            }
+
             Locution attacker = attackMove.getLocution();
 
             if (attacker instanceof ClaimLocution) {

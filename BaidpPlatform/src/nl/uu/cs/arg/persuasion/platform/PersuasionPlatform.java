@@ -1,7 +1,6 @@
 package nl.uu.cs.arg.persuasion.platform;
 
-import java.io.File;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -259,6 +258,16 @@ public class PersuasionPlatform implements Runnable {
                 }
             }
             out.close();
+
+            // Construct graph
+            Process process = new ProcessBuilder("dot", "-Tpng", "dialogue.dot", "-o dialogue.png").directory(path.toFile()).start();
+            InputStream is = process.getErrorStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
 
             // Dump stories
             for (PersuasionParticipatingAgent a : this.agents) {
