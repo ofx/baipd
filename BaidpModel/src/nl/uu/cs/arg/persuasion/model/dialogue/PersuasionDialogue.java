@@ -1,5 +1,6 @@
 package nl.uu.cs.arg.persuasion.model.dialogue;
 
+import nl.uu.cs.arg.persuasion.model.PersuasionParticipant;
 import nl.uu.cs.arg.persuasion.model.dialogue.locutions.ClaimLocution;
 import nl.uu.cs.arg.shared.Participant;
 import nl.uu.cs.arg.shared.dialogue.DialogueException;
@@ -331,6 +332,28 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
             for (IndexedNode<PersuasionMove<? extends Locution>> reply : node.getChildren()) {
                 this.fillActiveAttackersList(attackers, reply, false);
             }
+        }
+    }
+
+    public List<PersuasionMove<? extends Locution>> getPlayerMoves(PersuasionParticipant player) {
+        List<PersuasionMove<? extends Locution>> moves = new ArrayList<PersuasionMove<? extends Locution>>();
+        try {
+            // Find all active attackers in this dialogue (including the first move, if it is 'in')
+            this.fillPlayerMoves(moves, getRootElement(), player);
+        } catch (PersuasionDialogueException e) {
+            e.printStackTrace();
+        }
+        return moves;
+    }
+
+    private void fillPlayerMoves(List<PersuasionMove<? extends Locution>> moves, IndexedNode<PersuasionMove<? extends Locution>> node, PersuasionParticipant player) throws PersuasionDialogueException {
+        if (node.getData().getPlayer().equals(player)) {
+            moves.add(node.getData());
+        }
+
+        // For active attackers, also look into its children for active attackers
+        for (IndexedNode<PersuasionMove<? extends Locution>> reply : node.getChildren()) {
+            this.fillPlayerMoves(moves, reply, player);
         }
     }
 

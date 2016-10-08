@@ -29,52 +29,39 @@ public class RegretfulAttitude extends RetractionAttitude
         List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
 
         // Fetch the active attackers of the dialogue topic
-        List<PersuasionMove<? extends Locution>> attackers = dialogue.getActiveAttackers();
-        for (PersuasionMove<? extends Locution> attackMove : attackers) {
-            if (attackMove.hasSurrendered(agent.getParticipant())) {
+        List<PersuasionMove<? extends Locution>> ownMoves = dialogue.getPlayerMoves(agent.getParticipant());
+        for (PersuasionMove<? extends Locution> ownMove : ownMoves) {
+            if (ownMove.hasSurrendered(agent.getParticipant())) {
                 continue;
             }
 
-            Locution attacker = attackMove.getLocution();
+            Locution locution = ownMove.getLocution();
 
             RuleArgument newArgue = null;
 
             // Check if we can construct an argument for the negation of the attacked premise, there is no notion
             // of argument strength, so this is a simple check
-            if (attacker instanceof WhyLocution || attacker instanceof ClaimLocution) {
-                // Skip dialogue topic
-                if (attackMove.getTarget() == null) {
-                    continue;
-                }
-
-                // Check if this is our move
-                if (attackMove.getTarget().getPlayer() == agent.getParticipant()) {
-                    Locution ownLocution = attackMove.getTarget().getLocution();
-
-                    // Check if this was a claim (should be true)
-                    if (ownLocution instanceof ClaimLocution) {
-                        newArgue = helper.generateArgument(
-                                agent.getBeliefs(),
-                                ((ClaimLocution) attackMove.getTarget().getLocution()).getProposition().negation(),
-                                0.0,
-                                attackMove.getTarget(),
-                                dialogue.getReplies(attackMove),
-                                null
-                        );
-                    }
-                }
+            if (locution instanceof ClaimLocution) {
+                newArgue = helper.generateArgument(
+                        agent.getBeliefs(),
+                        ((ClaimLocution) ownMove.getLocution()).getProposition().negation(),
+                        0.0,
+                        ownMove,
+                        dialogue.getReplies(ownMove),
+                        null
+                );
             }
 
             // Success?
             if (newArgue != null) {
                 PersuasionMove<RetractLocution> retractMove = PersuasionMove.buildMove(
                         agent.getParticipant(),
-                        attackMove,
-                        new RetractLocution(((ClaimLocution) attackMove.getTarget().getLocution()).getProposition())
+                        ownMove,
+                        new RetractLocution(((ClaimLocution) ownMove.getLocution()).getProposition())
                 );
 
                 moves.add(retractMove);
-                attackMove.addSurrender(retractMove);
+                ownMove.addSurrender(retractMove);
             }
         }
 

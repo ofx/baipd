@@ -29,8 +29,6 @@ public class CautiousAttitude extends AcceptanceAttitude
     {
         List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
 
-        this.story += "I tested the cautious attitude and ";
-
         // Fetch the active attackers of the dialogue topic
         List<PersuasionMove<? extends Locution>> attackers = dialogue.getActiveAttackers();
         for (PersuasionMove<? extends Locution> attackMove : attackers) {
@@ -42,8 +40,6 @@ public class CautiousAttitude extends AcceptanceAttitude
 
             // Check if we can accept
             if (attacker instanceof ArgueLocution) {
-                this.story += "found an argue move. ";
-
                 // Check if we can accept the conclusions of the sub arguments of the argue locution
                 for (RuleArgument sub : ((ArgueLocution) attacker).getArgument().getSubArgumentList().getArguments()) {
                     RuleArgument newArgue = helper.generateArgument(
@@ -57,8 +53,6 @@ public class CautiousAttitude extends AcceptanceAttitude
 
                     // If we can generate an argument, add a concede move
                     if (newArgue != null) {
-                        this.story += "I could generate an argument for " + sub.getClaim() + " ";
-
                         // Check if we can construct an argument for the contrary, if so (by the lack of argument
                         // strength), we're allowed to move a concede move. Note that if there was a notion of
                         // argument strength, this would have been replaced by: If the argument for the contrary
@@ -73,8 +67,6 @@ public class CautiousAttitude extends AcceptanceAttitude
                         );
 
                         if (_newArgue == null) {
-                            this.story += "and no argument for the contrary, so I could generate an accept move. ";
-
                             PersuasionMove<ConcedeLocution> concedeMove = PersuasionMove.buildMove(
                                     agent.getParticipant(),
                                     attackMove,
@@ -83,18 +75,12 @@ public class CautiousAttitude extends AcceptanceAttitude
 
                             moves.add(concedeMove);
                             attackMove.addSurrender(concedeMove);
-                        } else {
-                            this.story += "and an argument for the contrary, so I could not generate an accept move. ";
                         }
-                    } else {
-                        this.story += "I could not generate an argument for " + sub.getClaim() + ", so I could not generate an accept move. ";
                     }
                 }
             }
             // If we can accept the claim, we concede
             else if (attacker instanceof ClaimLocution) {
-                this.story += "found a claim move. ";
-
                 RuleArgument newArgue = helper.generateArgument(
                         agent.getBeliefs(),
                         ((ClaimLocution)attacker).getProposition(),
@@ -106,8 +92,6 @@ public class CautiousAttitude extends AcceptanceAttitude
 
                 // If we can generate an argument, add a concede move
                 if (newArgue != null) {
-                    this.story += "I could generate an argument for " + ((ClaimLocution)attacker).getProposition() + " ";
-
                     RuleArgument _newArgue = helper.generateArgument(
                             agent.getBeliefs(),
                             ((ClaimLocution)attacker).getProposition().negation(),
@@ -118,8 +102,6 @@ public class CautiousAttitude extends AcceptanceAttitude
                     );
 
                     if (_newArgue == null) {
-                        this.story += "and no argument for the contrary, so I could generate an accept move. ";
-
                         PersuasionMove<ConcedeLocution> concedeMove = PersuasionMove.buildMove(
                                 agent.getParticipant(),
                                 attackMove,
@@ -128,11 +110,7 @@ public class CautiousAttitude extends AcceptanceAttitude
 
                         moves.add(concedeMove);
                         attackMove.addSurrender(concedeMove);
-                    } else {
-                        this.story += "and an argument for the contrary, so I could not generate an accept move. ";
                     }
-                } else {
-                    this.story += "I could not generate an argument for " + ((ClaimLocution)attacker).getProposition() + ", so I could not generate an accept move. ";
                 }
             }
         }

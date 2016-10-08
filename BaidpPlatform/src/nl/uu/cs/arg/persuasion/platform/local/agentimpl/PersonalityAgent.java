@@ -27,8 +27,6 @@ public class PersonalityAgent extends PersuadingAgent {
 
     private boolean outOfMoves;
 
-    private String story = "";
-
     private double rho = 0.2;
 
     private HashMap<String, Double> personalityVector = new HashMap<String, Double>() {{
@@ -202,7 +200,6 @@ public class PersonalityAgent extends PersuadingAgent {
                     generatedMoves.addAll(moves);
                     used.add(attitude.getClass().getSuperclass());
                 }
-                this.story += attitude.getStory() + (attitude.getStory().length() > 0 ? "\n\n" : "");
             }
         }
 
@@ -239,7 +236,5 @@ public class PersonalityAgent extends PersuadingAgent {
 
         return ret;
     }
-
-    public String getStory() { return this.story; }
 
 }

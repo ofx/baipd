@@ -29,43 +29,31 @@ public class IncongruousAttitude extends RetractionAttitude
         List<PersuasionMove<? extends Locution>> moves = new LinkedList<>();
 
         // Fetch the active attackers of the dialogue topic
-        List<PersuasionMove<? extends Locution>> attackers = dialogue.getActiveAttackers();
-        for (PersuasionMove<? extends Locution> attackMove : attackers) {
-            // Skip dialogue topic
-            if (attackMove.getTarget() == null) {
+        List<PersuasionMove<? extends Locution>> ownMoves = dialogue.getPlayerMoves(agent.getParticipant());
+        for (PersuasionMove<? extends Locution> ownMove : ownMoves) {
+            if (ownMove.hasSurrendered(agent.getParticipant())) {
                 continue;
             }
 
-            if (attackMove.hasSurrendered(agent.getParticipant())) {
-                continue;
-            }
-
-            Locution attacker = attackMove.getLocution();
-            Locution ownLocution = attackMove.getTarget().getLocution();
+            Locution locution = ownMove.getLocution();
 
             boolean retract = false;
 
             // Always retract
-            if (attacker instanceof WhyLocution || attacker instanceof ClaimLocution) {
-                // Check if this is our move
-                if (attackMove.getTarget().getPlayer() == agent.getParticipant()) {
-                    // Check if this was a claim (should be true)
-                    if (ownLocution instanceof ClaimLocution) {
-                        retract = true;
-                    }
-                }
+            if (locution instanceof ClaimLocution) {
+                retract = true;
             }
 
             // Success?
             if (retract) {
                 PersuasionMove<RetractLocution> retractMove = PersuasionMove.buildMove(
                         agent.getParticipant(),
-                        attackMove,
-                        new RetractLocution(((ClaimLocution) attackMove.getTarget().getLocution()).getProposition())
+                        ownMove,
+                        new RetractLocution(((ClaimLocution) ownMove.getLocution()).getProposition())
                 );
 
                 moves.add(retractMove);
-                attackMove.addSurrender(retractMove);
+                ownMove.addSurrender(retractMove);
             }
         }
 

@@ -6,6 +6,6 @@ public abstract class RetractionAttitude extends Attitude
 {
     public RetractionAttitude(String name)
     {
-        super("(Retraction) " + name);
+        super(name);
     }
 }

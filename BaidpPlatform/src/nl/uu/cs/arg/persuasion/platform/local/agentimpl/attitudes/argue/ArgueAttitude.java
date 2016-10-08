@@ -6,6 +6,6 @@ public abstract class ArgueAttitude extends Attitude
 {
     public ArgueAttitude(String name)
     {
-        super("(Argue) " + name);
+        super(name);
     }
 }

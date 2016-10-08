@@ -6,6 +6,6 @@ public abstract class AcceptanceAttitude extends Attitude
 {
     public AcceptanceAttitude(String name)
     {
-        super("(Acceptance) " + name);
+        super(name);
     }
 }

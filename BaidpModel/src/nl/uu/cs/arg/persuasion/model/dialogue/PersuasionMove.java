@@ -62,6 +62,21 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
      */
     public void addSurrender(PersuasionMove<? extends SurrenderingLocution> surrender) { this.surrenders.add(surrender); }
 
+    private boolean hasSurrenderedTarget(PersuasionParticipant participant)
+    {
+        if (this.getTarget() == null)
+        {
+            return false;
+        }
+
+        if (this.getTarget().hasSurrendered(participant))
+        {
+            return true;
+        }
+
+        return this.getTarget().hasSurrenderedTarget(participant);
+    }
+
     /**
      * Checks whether a participant has surrendered to this move.
      *
@@ -70,6 +85,11 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
      */
     public boolean hasSurrendered(PersuasionParticipant participant)
     {
+        if (this.hasSurrenderedTarget(participant))
+        {
+            return true;
+        }
+
         for (PersuasionMove<? extends SurrenderingLocution> surrender : surrenders) {
             if (surrender.getPlayer() == participant) {
                 return true;

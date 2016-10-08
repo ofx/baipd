@@ -6,6 +6,6 @@ public abstract class ChallengeAttitude extends Attitude
 {
     public ChallengeAttitude(String name)
     {
-        super("(Challenge) " + name);
+        super(name);
     }
 }

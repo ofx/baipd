@@ -268,17 +268,6 @@ public class PersuasionPlatform implements Runnable {
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
             }
-
-            // Dump stories
-            for (PersuasionParticipatingAgent a : this.agents) {
-                out = new PrintWriter(path.resolve("story_" + a.getAgent().getName().toLowerCase() + ".txt").toString());
-
-                PersuasionAgent agent = a.getAgent();
-                if (agent instanceof PersonalityAgent) {
-                    out.println(((PersonalityAgent)agent).getStory());
-                }
-            }
-            out.close();
         } catch (Exception e) {
             System.out.println("Could not dump results!");
         }
