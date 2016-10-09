@@ -20,7 +20,7 @@ public class CarefulAttitude extends AssertionAttitude
 {
     public CarefulAttitude()
     {
-        super("Careful Attitude");
+        super("Careful");
     }
 
     @Override

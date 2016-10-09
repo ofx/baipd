@@ -20,7 +20,7 @@ public class CredulousAttitude extends AcceptanceAttitude
 {
     public CredulousAttitude()
     {
-        super("Credulous Attitude");
+        super("Credulous");
     }
 
     @Override

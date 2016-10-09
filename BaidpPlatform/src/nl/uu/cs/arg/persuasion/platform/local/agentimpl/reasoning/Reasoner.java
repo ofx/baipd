@@ -182,7 +182,7 @@ public abstract class Reasoner<T>
         }
     }
 
-    public HashMap<T, Double> run()
+    public TreeMap<T, Double> run()
     {
         this.process();
 
@@ -190,7 +190,7 @@ public abstract class Reasoner<T>
         Set<Class<? extends T>> classes = reflections.getSubTypesOf(this.typeClass);
 
         // Sort
-        HashMap<String, Double> map = new HashMap<>();
+        /*HashMap<String, Double> map = new HashMap<>();
         for (Map.Entry<String, OutputVariable> outPair : this.outputVariables.entrySet()) {
             map.put(outPair.getKey(), outPair.getValue().getOutputValue());
         }
@@ -200,14 +200,14 @@ public abstract class Reasoner<T>
                 return map.get(o1) >= map.get(o2) ? -1 : 1;
             }
         });
-        sortedMap.putAll(map);
+        sortedMap.putAll(map);*/
 
         HashMap<T, Double> ordering = new HashMap<>();
         try {
-            for (Map.Entry<String, Double> entry : sortedMap.entrySet()) {
+            for (Map.Entry<String, OutputVariable> entry : this.outputVariables.entrySet()) {
                 for (Class<? extends T> c : classes) {
                     if (c.getSimpleName().toLowerCase().contains(entry.getKey())) {
-                        ordering.put((T) c.newInstance(), entry.getValue());
+                        ordering.put((T) c.newInstance(), entry.getValue().getOutputValue());
                     }
                 }
             }
@@ -215,7 +215,19 @@ public abstract class Reasoner<T>
             throw new RuntimeException("Something went terribly wrong in here (" + this.typeClass + "): " + e);
         }
 
-        return ordering;
+        HashMap<T, Double> map = new HashMap<>();
+        for (Map.Entry<T, Double> outPair : ordering.entrySet()) {
+            map.put(outPair.getKey(), outPair.getValue());
+        }
+        TreeMap<T, Double> sortedMap = new TreeMap<>(new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return map.get(o1) >= map.get(o2) ? -1 : 1;
+            }
+        });
+        sortedMap.putAll(map);
+
+        return sortedMap;
     }
 
 }

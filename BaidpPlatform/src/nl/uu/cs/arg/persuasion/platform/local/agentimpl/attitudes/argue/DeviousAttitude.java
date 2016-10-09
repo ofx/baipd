@@ -18,7 +18,7 @@ public class DeviousAttitude extends ArgueAttitude
 {
     public DeviousAttitude()
     {
-        super("Devious Attitude");
+        super("Devious");
     }
 
     @Override

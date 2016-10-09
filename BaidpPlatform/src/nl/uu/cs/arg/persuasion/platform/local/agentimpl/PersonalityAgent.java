@@ -15,19 +15,16 @@ import nl.uu.cs.arg.persuasion.platform.local.agentimpl.attitudes.retraction.Ret
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.*;
 import nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning.Reasoner;
 import nl.uu.cs.arg.shared.dialogue.Move;
-import nl.uu.cs.arg.shared.dialogue.locutions.DeliberationLocution;
-import nl.uu.cs.arg.shared.dialogue.locutions.Locution;
-import nl.uu.cs.arg.shared.dialogue.locutions.ProposeLocution;
+import nl.uu.cs.arg.shared.dialogue.locutions.*;
 import org.aspic.inference.*;
 import org.aspic.inference.parser.ParseException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PersonalityAgent extends PersuadingAgent {
 
     private boolean outOfMoves;
-
-    private double rho = 0.2;
 
     private HashMap<String, Double> personalityVector = new HashMap<String, Double>() {{
         put("actions", 0.0);
@@ -123,38 +120,80 @@ public class PersonalityAgent extends PersuadingAgent {
         }
     }
 
-    protected HashMap<Reasoner, Double> actionSelection()
+    protected TreeMap<Reasoner, Double> actionSelection()
     {
         // Determine the preference ordering over types of speech acts
         ActionSelectionReasoner reasoner = new ActionSelectionReasoner();
         reasoner.setPersonalityVector(this.personalityVector);
-        HashMap<Reasoner, Double> ordering = reasoner.run();
+        TreeMap<Reasoner, Double> ordering = reasoner.run();
         return ordering;
     }
 
-    public HashMap<Attitude, Double> getAttitudeOrdering(ArrayList<Reasoner> actionOrdering)
+    public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map)
     {
-        HashMap<Attitude, Double> attitudes = new HashMap<Attitude, Double>();
+        List<Map.Entry<K, V>> list = new LinkedList<Map.Entry<K, V>>( map.entrySet() );
+        Collections.sort( list, new Comparator<Map.Entry<K, V>>()
+        {
+            public int compare( Map.Entry<K, V> o1, Map.Entry<K, V> o2 )
+            {
+                return (o1.getValue()).compareTo( o2.getValue() );
+            }
+        });
+
+        Map<K, V> result = new LinkedHashMap<K, V>();
+        for (Map.Entry<K, V> entry : list)
+        {
+            result.put( entry.getKey(), entry.getValue() );
+        }
+        return result;
+    }
+
+    public LinkedHashMap<Attitude, Double> getAttitudeOrdering(ArrayList<Reasoner> actionOrdering)
+    {
+        LinkedHashMap<Attitude, Double> attitudes = new LinkedHashMap<Attitude, Double>();
+        ArrayList<TreeMap<Attitude, Double>> orderings = new ArrayList<>();
+
+        final int maxAttitudes = 6;
+        for (int i = 0 ; i < 6 ; ++i) {
+            for (Reasoner reasoner : actionOrdering) {
+                reasoner.setPersonalityVector(this.personalityVector);
+                TreeMap<Attitude, Double> ats = reasoner.run();
+                orderings.add(ats);
+
+                Object[] atts = (Object[]) ats.keySet().toArray();
+                if (i < atts.length) {
+                    Attitude a = (Attitude) atts[i];
+                    double d = 0.0;
+                    for (Map.Entry<Attitude, Double> entry : ats.entrySet()) {
+                        if (entry.getKey().getName().equals(a.getName())) {
+                            d = entry.getValue();
+                            break;
+                        }
+                    }
+                    attitudes.put(a, d);
+                }
+            }
+        }
 
         // Fetch the action revision orderings
-        for (int i = 0 ; i < actionOrdering.size() ; ++i) {
+        /*for (int i = 0 ; i < actionOrdering.size() ; ++i) {
             for (Reasoner reasoner : actionOrdering) {
                 reasoner.setPersonalityVector(this.personalityVector);
                 HashMap<Attitude, Double> ats = reasoner.run();
                 Attitude at = (Attitude) (ats.keySet().toArray())[i];
                 attitudes.put(at, ats.get(at));
             }
-        }
+        }*/
 
         return attitudes;
     }
 
-    public HashMap<Reasoner, Double> getActionOrderingMap()
+    public TreeMap<Reasoner, Double> getActionOrderingMap()
     {
         return this.actionSelection();
     }
 
-    public HashMap<Attitude, Double> getAttitudeOrderingMap()
+    public LinkedHashMap<Attitude, Double> getAttitudeOrderingMap()
     {
         return this.getAttitudeOrdering(this.setToArrayList(this.actionSelection().keySet()));
     }
@@ -203,9 +242,75 @@ public class PersonalityAgent extends PersuadingAgent {
             }
         }
 
+        generatedMoves = this.filterInconsistentMoves(generatedMoves);
+
+        return generatedMoves;
+    }
+
+    private ArrayList<PersuasionMove<? extends Locution>> filterInconsistentMoves(ArrayList<PersuasionMove<? extends Locution>> moves)
+    {
+        ArrayList<PersuasionMove<? extends Locution>> ret = new ArrayList<PersuasionMove<? extends Locution>>();
+
+        ArrayList<String> attacks = new ArrayList<>();
+        ArrayList<String> defends = new ArrayList<>();
+
+        // Filter moves that are inconsistent e.g. why ~endangersHumanity and retract endangersHumanity in the same turn
+        // That is, moves that attack and surrender at the same time
+        Iterator<PersuasionMove<? extends  Locution>> it = moves.iterator();
+        while (it.hasNext()) {
+            PersuasionMove<? extends Locution> move = it.next();
+
+            if (move.getLocution() instanceof ClaimLocution) {
+                ClaimLocution locution = (ClaimLocution) move.getLocution();
+                String f = locution.getProposition().inspect();
+                f = f.replace("~", "");
+
+                if (!defends.contains(f)) {
+                    attacks.add(f);
+                    ret.add(move);
+                }
+            } else if (move.getLocution() instanceof ArgueLocution) {
+                ArgueLocution locution = (ArgueLocution) move.getLocution();
+                String f = locution.getArgument().getClaim().inspect();
+                f = f.replace("~", "");
+
+                if (!defends.contains(f)) {
+                    attacks.add(f);
+                    ret.add(move);
+                }
+            } else if (move.getLocution() instanceof WhyLocution) {
+                WhyLocution locution = (WhyLocution) move.getLocution();
+                String f = locution.getAttackedPremise().inspect();
+                f = f.replace("~", "");
+
+                if (!defends.contains(f)) {
+                    attacks.add(f);
+                    ret.add(move);
+                }
+            } else if (move.getLocution() instanceof RetractLocution) {
+                RetractLocution locution = (RetractLocution) move.getLocution();
+                String f = locution.getRetractedTerm().inspect();
+                f = f.replace("~", "");
+
+                if (!attacks.contains(f)) {
+                    defends.add(f);
+                    ret.add(move);
+                }
+            } else if (move.getLocution() instanceof ConcedeLocution) {
+                ConcedeLocution locution = (ConcedeLocution) move.getLocution();
+                String f = locution.getConcededConstant().inspect();
+                f = f.replace("~", "");
+
+                if (!attacks.contains(f)) {
+                    defends.add(f);
+                    ret.add(move);
+                }
+            }
+        }
+
         // We disallow double targetted moves
-        ArrayList<PersuasionMove<? extends Locution>> usedTargets = new ArrayList<>();
-        Iterator<PersuasionMove<? extends  Locution>> it = generatedMoves.iterator();
+        /*ArrayList<PersuasionMove<? extends Locution>> usedTargets = new ArrayList<>();
+        it = ret.iterator();
         while (it.hasNext()) {
             PersuasionMove<? extends Locution> move = it.next();
             if (!usedTargets.contains(move.getTarget())) {
@@ -213,9 +318,9 @@ public class PersonalityAgent extends PersuadingAgent {
             } else {
                 it.remove();
             }
-        }
+        }*/
 
-        return generatedMoves;
+        return ret;
     }
 
     @Override

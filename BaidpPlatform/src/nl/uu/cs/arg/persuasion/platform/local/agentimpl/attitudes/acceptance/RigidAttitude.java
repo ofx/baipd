@@ -16,7 +16,7 @@ public class RigidAttitude extends AcceptanceAttitude
 {
     public RigidAttitude()
     {
-        super("Rigid Attitude");
+        super("Rigid");
     }
 
     @Override

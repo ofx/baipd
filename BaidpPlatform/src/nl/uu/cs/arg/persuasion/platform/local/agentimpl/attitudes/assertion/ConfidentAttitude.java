@@ -21,7 +21,7 @@ public class ConfidentAttitude extends AssertionAttitude
 {
     public ConfidentAttitude()
     {
-        super("Confident Attitude");
+        super("Confident");
     }
 
     @Override

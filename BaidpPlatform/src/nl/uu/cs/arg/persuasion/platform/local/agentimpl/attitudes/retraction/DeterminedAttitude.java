@@ -16,7 +16,7 @@ public class DeterminedAttitude extends RetractionAttitude
 {
     public DeterminedAttitude()
     {
-        super("Determined Attitude");
+        super("Determined");
     }
 
     @Override

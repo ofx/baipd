@@ -192,7 +192,7 @@ public class PersuasionPlatform implements Runnable {
 
     public void dumpResults()
     {
-        Path path = FileSystems.getDefault().getPath(System.getProperty("user.dir"), "results", new Timestamp(new Date().getTime()).toString());
+        Path path = FileSystems.getDefault().getPath(System.getProperty("user.dir"), "results", new Timestamp(new Date().getTime()).toString() + " (" + this.dialogue.length() + ")");
         System.out.println("Creating directory: " + path);
 
         try {
@@ -217,7 +217,7 @@ public class PersuasionPlatform implements Runnable {
                 PersuasionAgent agent = a.getAgent();
                 if (agent instanceof PersonalityAgent) {
                     HashMap<String, Double> m = new HashMap<>();
-                    HashMap<Reasoner, Double> o = ((PersonalityAgent)agent).getActionOrderingMap();
+                    TreeMap<Reasoner, Double> o = ((PersonalityAgent)agent).getActionOrderingMap();
                     for (Map.Entry<Reasoner, Double> entry : o.entrySet()) {
                         m.put(entry.getKey().toString(), entry.getValue());
                     }
@@ -233,7 +233,7 @@ public class PersuasionPlatform implements Runnable {
                 PersuasionAgent agent = a.getAgent();
                 if (agent instanceof PersonalityAgent) {
                     HashMap<String, Double> m = new HashMap<>();
-                    HashMap<Attitude, Double> o = ((PersonalityAgent)agent).getAttitudeOrderingMap();
+                    LinkedHashMap<Attitude, Double> o = ((PersonalityAgent)agent).getAttitudeOrderingMap();
                     for (Map.Entry<Attitude, Double> entry : o.entrySet()) {
                         m.put(entry.getKey().toString(), entry.getValue());
                     }

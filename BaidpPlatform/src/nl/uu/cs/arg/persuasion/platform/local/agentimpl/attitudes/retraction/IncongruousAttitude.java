@@ -20,7 +20,7 @@ public class IncongruousAttitude extends RetractionAttitude
 {
     public IncongruousAttitude()
     {
-        super("Incongruous Attitude");
+        super("Incongruous");
     }
 
     @Override

@@ -21,7 +21,7 @@ public class DubiousAttitude extends ArgueAttitude
 {
     public DubiousAttitude()
     {
-        super("Dubious Attitude");
+        super("Dubious");
     }
 
     @Override

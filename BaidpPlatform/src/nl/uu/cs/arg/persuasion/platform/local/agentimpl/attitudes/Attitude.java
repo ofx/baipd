@@ -34,12 +34,19 @@ public abstract class Attitude
         List<PersuasionMove<? extends Locution>> moves = this.generateMoves(agent, dialogue);
         Iterator<PersuasionMove<? extends Locution>> it = moves.iterator();
         while (it.hasNext()) {
-            if (dialogue.isRepeatedMove(it.next())) {
+            PersuasionMove<? extends Locution> move = it.next();
+
+            // Add a reference to the attitude that created the move
+            move.setAttitude(this);
+
+            if (dialogue.isRepeatedMove(move)) {
                 it.remove();
             }
         }
         return moves;
     }
+
+    public String getName() { return this.name; }
 
     @Override
     public String toString()

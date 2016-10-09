@@ -20,7 +20,7 @@ public class PersistentAttitude extends ChallengeAttitude
 {
     public PersistentAttitude()
     {
-        super("Persistent Attitude");
+        super("Persistent");
     }
 
     @Override

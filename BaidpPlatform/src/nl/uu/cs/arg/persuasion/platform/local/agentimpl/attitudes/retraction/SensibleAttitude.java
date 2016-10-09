@@ -20,7 +20,7 @@ public class SensibleAttitude extends RetractionAttitude
 {
     public SensibleAttitude()
     {
-        super("Sensible Attitude");
+        super("Sensible");
     }
 
     @Override

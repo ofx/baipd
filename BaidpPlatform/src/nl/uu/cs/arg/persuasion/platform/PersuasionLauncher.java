@@ -23,82 +23,84 @@ public class PersuasionLauncher {
     BaipdXmlData baipdXml;
 
     public static void main(String[] args) {
+        for (int i = 0 ; i < 10 ; ++i) {
 
-        // Create a parser for the command line arguments
-        OptionParser parser = new OptionParser();
-        ArgumentAcceptingOptionSpec<PersuasionPlatformOutputLevel> levelOption = parser.
-                acceptsAll(java.util.Arrays.asList("l", "level"), "Set message console print level {Exceptions, Messages, Moves}").
-                withRequiredArg().ofType(PersuasionPlatformOutputLevel.class);
-        OptionSpecBuilder helpOption = parser.acceptsAll(java.util.Arrays.asList("?", "h", "help"), "Print this usage message");
-        OptionSpecBuilder versionOption = parser.acceptsAll(java.util.Arrays.asList("v", "version"), "Version info");
+            // Create a parser for the command line arguments
+            OptionParser parser = new OptionParser();
+            ArgumentAcceptingOptionSpec<PersuasionPlatformOutputLevel> levelOption = parser.
+                    acceptsAll(java.util.Arrays.asList("l", "level"), "Set message console print level {Exceptions, Messages, Moves}").
+                    withRequiredArg().ofType(PersuasionPlatformOutputLevel.class);
+            OptionSpecBuilder helpOption = parser.acceptsAll(java.util.Arrays.asList("?", "h", "help"), "Print this usage message");
+            OptionSpecBuilder versionOption = parser.acceptsAll(java.util.Arrays.asList("v", "version"), "Version info");
 
-        try {
-
-            // Parse the arguments
-            OptionSet options = null;
             try {
-                options = parser.parse(args);
-            } catch (OptionException e) {
-                printCommandLineUsage(parser, e.getMessage());
-                return;
-            }
 
-            // Usage or version information
-            if (options == null || options.has(helpOption)) {
-                printCommandLineUsage(parser);
-                return;
-            } else if (options.has(versionOption)) {
-                System.out.println(PersuasionSettings.APPLICATION_NAME_VERSION);
-                return;
-            }
-
-            // Build platform settings object from the supplied command line options
-            List<PersuasionPlatformListener> listeners = new ArrayList<PersuasionPlatformListener>();
-
-            // Console message printing level
-            try {
-                if (options.hasArgument(levelOption)) {
-                    listeners.add(PersuasionPlatformOutputPrinter.defaultPlatformOutputPrinter);
-                    PersuasionPlatformOutputPrinter.defaultPlatformOutputPrinter.setLevel(levelOption.value(options));
+                // Parse the arguments
+                OptionSet options = null;
+                try {
+                    options = parser.parse(args);
+                } catch (OptionException e) {
+                    printCommandLineUsage(parser, e.getMessage());
+                    return;
                 }
-            } catch (OptionException e) {
-                printCommandLineUsage(parser, e.getMessage());
-                return;
-            }
 
-            // Check remaining arguments for a MAS filename
-            List<String> noargs = options.nonOptionArguments();
-            File masFile = null;
-            if (noargs != null && noargs.size() > 0) {
-                masFile = new File(noargs.get(0));
-            }
-            if (masFile == null || !masFile.exists()) {
-                // No MAS file specification supplied; print out help info
-                printCommandLineUsage(parser, "No .baidd MAS XML file specified or file could not be found.");
-                return;
-            }
+                // Usage or version information
+                if (options == null || options.has(helpOption)) {
+                    printCommandLineUsage(parser);
+                    return;
+                } else if (options.has(versionOption)) {
+                    System.out.println(PersuasionSettings.APPLICATION_NAME_VERSION);
+                    return;
+                }
 
-            // Read the MAS XML file (and agent XML files that are specified there)
-            BaipdXmlData baipdXml = null;
-            try {
-                baipdXml = BaipdXmlData.loadAgentDataFromXml(masFile);
-            } catch (Exception e) {
-                System.out.println("An error occured during the parsing of the MAS and agent XML files.");
+                // Build platform settings object from the supplied command line options
+                List<PersuasionPlatformListener> listeners = new ArrayList<PersuasionPlatformListener>();
+
+                // Console message printing level
+                try {
+                    if (options.hasArgument(levelOption)) {
+                        listeners.add(PersuasionPlatformOutputPrinter.defaultPlatformOutputPrinter);
+                        PersuasionPlatformOutputPrinter.defaultPlatformOutputPrinter.setLevel(levelOption.value(options));
+                    }
+                } catch (OptionException e) {
+                    printCommandLineUsage(parser, e.getMessage());
+                    return;
+                }
+
+                // Check remaining arguments for a MAS filename
+                List<String> noargs = options.nonOptionArguments();
+                File masFile = null;
+                if (noargs != null && noargs.size() > 0) {
+                    masFile = new File(noargs.get(0));
+                }
+                if (masFile == null || !masFile.exists()) {
+                    // No MAS file specification supplied; print out help info
+                    printCommandLineUsage(parser, "No .baidd MAS XML file specified or file could not be found.");
+                    return;
+                }
+
+                // Read the MAS XML file (and agent XML files that are specified there)
+                BaipdXmlData baipdXml = null;
+                try {
+                    baipdXml = BaipdXmlData.loadAgentDataFromXml(masFile);
+                } catch (Exception e) {
+                    System.out.println("An error occured during the parsing of the MAS and agent XML files.");
+                    e.printStackTrace();
+                    return;
+                }
+
+                // Copy the read settings to the platform settings object
+                PersuasionSettings settings = new PersuasionSettings(baipdXml.getPersuasionRules(),
+                        baipdXml.getTerminationRules(), baipdXml.getOutcomeSelectionRule());
+
+                // Start the agent platform
+                PersuasionLauncher launcher = new PersuasionLauncher(settings, baipdXml, listeners);
+                launcher.initPlatform();
+                launcher.startPlatform();
+
+            } catch (IOException e) {
                 e.printStackTrace();
-                return;
             }
-
-            // Copy the read settings to the platform settings object
-            PersuasionSettings settings = new PersuasionSettings(baipdXml.getPersuasionRules(),
-                    baipdXml.getTerminationRules(), baipdXml.getOutcomeSelectionRule());
-
-            // Start the agent platform
-            PersuasionLauncher launcher = new PersuasionLauncher(settings, baipdXml, listeners);
-            launcher.initPlatform();
-            launcher.startPlatform();
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

@@ -19,6 +19,8 @@ import java.util.List;
  */
 public class PersuasionMove<T extends Locution> implements IndexedObject {
 
+    private Object attitude;
+
     /**
      * A counter used to create unique move identifiers; buildMove() will use and increment this
      */
@@ -85,10 +87,10 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
      */
     public boolean hasSurrendered(PersuasionParticipant participant)
     {
-        if (this.hasSurrenderedTarget(participant))
+        /*if (this.hasSurrenderedTarget(participant))
         {
             return true;
-        }
+        }*/
 
         for (PersuasionMove<? extends SurrenderingLocution> surrender : surrenders) {
             if (surrender.getPlayer() == participant) {
@@ -139,6 +141,10 @@ public class PersuasionMove<T extends Locution> implements IndexedObject {
     public T getLocution() {
         return this.locution;
     }
+
+    public Object getAttitude() { return this.attitude; }
+
+    public void setAttitude(Object attitude) { this.attitude = attitude; }
 
     /**
      * Internal, default constructor

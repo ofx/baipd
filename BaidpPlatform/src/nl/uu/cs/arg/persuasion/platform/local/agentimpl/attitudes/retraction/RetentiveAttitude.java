@@ -20,7 +20,7 @@ public class RetentiveAttitude extends RetractionAttitude
 {
     public RetentiveAttitude()
     {
-        super("Retentive Attitude");
+        super("Retentive");
     }
 
     @Override

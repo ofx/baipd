@@ -16,7 +16,7 @@ public class IndifferentAttitude extends ChallengeAttitude
 {
     public IndifferentAttitude()
     {
-        super("Indifferent Attitude");
+        super("Indifferent");
     }
 
     @Override

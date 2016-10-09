@@ -21,7 +21,7 @@ public class TentativeAttitude extends ChallengeAttitude
 {
     public TentativeAttitude()
     {
-        super("Tentative Attitude");
+        super("Tentative");
     }
 
     @Override

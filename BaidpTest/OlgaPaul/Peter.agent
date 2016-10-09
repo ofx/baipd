@@ -4,17 +4,8 @@
 		<![CDATA[
         endangersHumanity <- harmHumans.
         harmHumans <- newTechnologies.
-        harmHumans <- evilScientists.
-        evilScientists <- lieAboutConsequences.
-        evilScientists <- noEthicalSkills.
-        harmHumans <- controlledByPoliticians.
-        harmHumans <- cannotOverseeConsequences.
 
         newTechnologies.
-        cannotOverseeConsequences.
-        controlledByPoliticians.
-        lieAboutConsequences.
-        noEthicalSkills.
 		]]>
 	</beliefbase>
     <properties>

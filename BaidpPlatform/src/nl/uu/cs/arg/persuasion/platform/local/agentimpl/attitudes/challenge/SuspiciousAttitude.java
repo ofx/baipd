@@ -21,7 +21,7 @@ public class SuspiciousAttitude extends ChallengeAttitude
 {
     public SuspiciousAttitude()
     {
-        super("Suspicious Attitude");
+        super("Suspicious");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class SuspiciousAttitude extends ChallengeAttitude
 
             Locution attacker = attackMove.getLocution();
 
-            // Check if we can construct an proof for the proposition
+            // Check if we can construct a proof for the proposition
             if (attacker instanceof ClaimLocution) {
                 RuleArgument newArgue = helper.generateArgument(
                         agent.getBeliefs(),

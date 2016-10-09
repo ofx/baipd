@@ -21,7 +21,7 @@ public class FallaciousAttitude extends ArgueAttitude
 {
     public FallaciousAttitude()
     {
-        super("Fallacious Attitude");
+        super("Fallacious");
     }
 
     @Override

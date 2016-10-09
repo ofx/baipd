@@ -21,7 +21,7 @@ public class JudicialAttitude extends ChallengeAttitude
 {
     public JudicialAttitude()
     {
-        super("Judicial Attitude");
+        super("Judicial");
     }
 
     @Override

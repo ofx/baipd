@@ -21,7 +21,7 @@ public class CautiousAttitude extends AcceptanceAttitude
 {
     public CautiousAttitude()
     {
-        super("Cautious Attitude");
+        super("Cautious");
     }
 
     @Override

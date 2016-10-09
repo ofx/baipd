@@ -16,7 +16,7 @@ public class HesitantAttitude extends AssertionAttitude
 {
     public HesitantAttitude()
     {
-        super("Hesitant Attitude");
+        super("Hesitant");
     }
 
     @Override

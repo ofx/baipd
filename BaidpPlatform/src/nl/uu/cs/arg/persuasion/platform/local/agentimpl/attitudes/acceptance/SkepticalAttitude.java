@@ -20,7 +20,7 @@ public class SkepticalAttitude extends AcceptanceAttitude
 {
     public SkepticalAttitude()
     {
-        super("Skeptical Attitude");
+        super("Skeptical");
     }
 
     @Override

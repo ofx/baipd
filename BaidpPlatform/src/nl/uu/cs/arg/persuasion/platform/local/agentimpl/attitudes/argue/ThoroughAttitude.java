@@ -21,7 +21,7 @@ public class ThoroughAttitude extends ArgueAttitude
 {
     public ThoroughAttitude()
     {
-        super("Thorough Attitude");
+        super("Thorough");
     }
 
     @Override

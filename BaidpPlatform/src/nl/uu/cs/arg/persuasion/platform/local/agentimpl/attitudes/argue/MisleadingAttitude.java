@@ -21,7 +21,7 @@ public class MisleadingAttitude extends ArgueAttitude
 {
     public MisleadingAttitude()
     {
-        super("Misleading Attitude");
+        super("Misleading");
     }
 
     @Override

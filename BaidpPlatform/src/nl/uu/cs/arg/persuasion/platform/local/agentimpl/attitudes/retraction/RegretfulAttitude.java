@@ -20,7 +20,7 @@ public class RegretfulAttitude extends RetractionAttitude
 {
     public RegretfulAttitude()
     {
-        super("Regretful Attitude");
+        super("Regretful");
     }
 
     @Override

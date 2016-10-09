@@ -5,6 +5,6 @@ package nl.uu.cs.arg.persuasion.platform.local.agentimpl.reasoning;
  */
 public class Defaults {
 
-    public static final double RHO = 0.2;
+    public static final double RHO = 0.9;
 
 }

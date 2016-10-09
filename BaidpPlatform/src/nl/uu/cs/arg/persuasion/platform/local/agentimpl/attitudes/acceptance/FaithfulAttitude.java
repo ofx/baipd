@@ -20,7 +20,7 @@ public class FaithfulAttitude extends AcceptanceAttitude
 {
     public FaithfulAttitude()
     {
-        super("Faithful Attitude");
+        super("Faithful");
     }
 
     @Override

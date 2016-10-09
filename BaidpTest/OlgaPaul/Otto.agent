@@ -4,10 +4,6 @@
 		<![CDATA[
 		~endangersHumanity <- helpingHumans.
         helpingHumans <- newTechnologies.
-        ~harmHumans <- ethicalScientists.
-        helpingHumans <- ethicalScientists.
-
-        ethicalScientists.
 		]]>
 	</beliefbase>
     <properties>
