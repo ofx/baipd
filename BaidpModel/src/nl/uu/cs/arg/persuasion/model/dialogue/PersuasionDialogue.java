@@ -364,7 +364,7 @@ public class PersuasionDialogue extends IndexedTree<PersuasionMove<? extends Loc
     public String toDot(IndexedNode<PersuasionMove<? extends Locution>> node) {
         String s = "";
         for (IndexedNode<PersuasionMove<? extends Locution>> child : node.getChildren()) {
-            s += "\"" + child.getData().getTarget().toSimpleString() + "\" -> \"" + child.getData().toSimpleString() + "\" [label=\"" + child.getData().getAttitude() + "\"];\n";
+            s += "\"" + child.getData().getTarget().toSimpleString() + "\" -> \"" + child.getData().toSimpleString() + "\" [label=\"" + child.getData().getAttitude() + "\",dir=back];\n";
             s += this.toDot(child);
         }
         return s;
